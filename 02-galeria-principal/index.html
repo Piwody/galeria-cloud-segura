@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería · Muralia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Bodoni+Moda:opsz,wght@6..96,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="pagina">
+
+        <aside class="barra-lateral solo-escritorio">
+            <div class="logo">
+                <img src="img/flor.svg" alt="" width="30" height="30">
+                <span class="logo-texto">Muralia</span>
+            </div>
+            <p class="logo-subtitulo">Galería Cloud Segura</p>
+
+            <p class="menu-titulo">Menú</p>
+            <nav class="menu">
+                <a href="index.html" class="menu-item activo">
+                    <img src="img/galeria.svg" alt="" width="20" height="20">
+                    Galería
+                </a>
+                <a href="../03-registro-imagen/index.html" class="menu-item">
+                    <img src="img/subir.svg" alt="" width="20" height="20">
+                    Subir imagen
+                </a>
+                <a href="#" class="menu-item">
+                    <img src="img/mis-imagenes.svg" alt="" width="20" height="20">
+                    Mis imágenes
+                </a>
+                <a href="#" class="menu-item">
+                    <img src="img/favoritos.svg" alt="" width="20" height="20">
+                    Favoritos
+                </a>
+            </nav>
+
+            <p class="menu-titulo menu-titulo-admin">Administración</p>
+            <nav class="menu">
+                <a href="../05-gestion-usuarios/index.html" class="menu-item">
+                    <img src="img/usuarios.svg" alt="" width="20" height="20">
+                    Usuarios
+                </a>
+                <a href="#" class="menu-item">
+                    <img src="img/seguridad.svg" alt="" width="20" height="20">
+                    Seguridad
+                </a>
+            </nav>
+
+            <div class="usuario-actual">
+                <span class="avatar avatar-verde">MC</span>
+                <div class="usuario-actual-datos">
+                    <p class="usuario-actual-nombre">Mateo Cantos</p>
+                    <p class="usuario-actual-rol">Administrador</p>
+                </div>
+                <a href="../01-inicio-sesion/index.html" class="salir">
+                    <img src="img/salir.svg" alt="Cerrar sesión" width="20" height="20">
+                </a>
+            </div>
+        </aside>
+
+        <main class="contenido">
+
+            <header class="encabezado solo-escritorio">
+                <div>
+                    <p class="sobretitulo">Explorar</p>
+                    <h1 class="titulo">Galería</h1>
+                </div>
+                <div class="encabezado-botones">
+                    <button type="button" class="boton-redondo">
+                        <img src="img/campana.svg" alt="Notificaciones" width="20" height="20">
+                    </button>
+                    <a href="../03-registro-imagen/index.html" class="boton boton-verde">
+                        <img src="img/subir-blanco.svg" alt="" width="18" height="18">
+                        Subir imagen
+                    </a>
+                </div>
+            </header>
+
+            <header class="encabezado-movil solo-movil">
+                <div class="logo">
+                    <img src="img/flor-oscura.svg" alt="" width="26" height="26">
+                    <span class="logo-texto">Muralia</span>
+                </div>
+                <div class="encabezado-botones">
+                    <button type="button" class="boton-transparente">
+                        <img src="img/campana.svg" alt="Notificaciones" width="20" height="20">
+                    </button>
+                    <span class="avatar avatar-verde avatar-pequeno">MC</span>
+                </div>
+            </header>
+
+            <section class="herramientas">
+                <label class="buscador">
+                    <img src="img/buscar.svg" alt="" width="18" height="18">
+                    <input type="text" placeholder="Buscar por título, autor o etiqueta…" class="solo-escritorio">
+                    <input type="text" placeholder="Buscar imágenes…" class="solo-movil">
+                </label>
+                <button type="button" class="boton boton-blanco solo-escritorio">
+                    <img src="img/filtros.svg" alt="" width="18" height="18">
+                    Filtros
+                </button>
+                <button type="button" class="boton boton-blanco solo-escritorio">
+                    <img src="img/abajo.svg" alt="" width="18" height="18">
+                    Más recientes
+                </button>
+                <button type="button" class="boton-icono solo-movil">
+                    <img src="img/filtros.svg" alt="Filtros" width="18" height="18">
+                </button>
+            </section>
+
+            <section class="categorias">
+                <nav class="chips">
+                    <a href="#" class="chip activa">Todas</a>
+                    <a href="#" class="chip">Naturaleza</a>
+                    <a href="#" class="chip">Arquitectura</a>
+                    <a href="#" class="chip">Arte</a>
+                    <a href="#" class="chip">Fotografía</a>
+                    <a href="#" class="chip">Retratos</a>
+                    <a href="#" class="chip">Viajes</a>
+                    <a href="#" class="chip">Diseño</a>
+                </nav>
+                <p class="contador solo-escritorio">128 imágenes</p>
+            </section>
+
+            <section class="galeria">
+
+                <div class="columna">
+                    <a href="../04-detalle-imagen/index.html" class="tarjeta">
+                        <div class="tarjeta-imagen alta">
+                            <img src="img/imagen-1.svg" alt="Atardecer en la costa">
+                        </div>
+                        <div class="tarjeta-info">
+                            <h2 class="tarjeta-titulo">Atardecer en la costa</h2>
+                            <div class="tarjeta-fila">
+                                <span class="insignia insignia-crema">
+                                    <img src="img/punto-oscuro.svg" alt="" width="6" height="6">
+                                    Naturaleza
+                                </span>
+                                <img src="img/candado.svg" alt="Privada" width="16" height="16">
+                            </div>
+                            <div class="tarjeta-fila">
+                                <span class="autor">
+                                    <span class="avatar avatar-vino">GT</span>
+                                    <span><span class="solo-escritorio">Gabriel</span><span class="solo-movil">G.</span> Terán</span>
+                                </span>
+                                <span class="me-gusta">
+                                    <img src="img/me-gusta.svg" alt="" width="14" height="14">
+                                    124
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="../04-detalle-imagen/index.html" class="tarjeta">
+                        <div class="tarjeta-imagen media">
+                            <img src="img/imagen-5.svg" alt="Rosas del valle">
+                        </div>
+                        <div class="tarjeta-info">
+                            <h2 class="tarjeta-titulo">Rosas del valle</h2>
+                            <div class="tarjeta-fila">
+                                <span class="insignia insignia-crema">
+                                    <img src="img/punto-oscuro.svg" alt="" width="6" height="6">
+                                    Arte
+                                </span>
+                                <img src="img/mundo.svg" alt="Pública" width="16" height="16">
+                            </div>
+                            <div class="tarjeta-fila">
+                                <span class="autor">
+                                    <span class="avatar avatar-verde">MC</span>
+                                    <span><span class="solo-escritorio">Mateo</span><span class="solo-movil">M.</span> Cantos</span>
+                                </span>
+                                <span class="me-gusta">
+                                    <img src="img/me-gusta.svg" alt="" width="14" height="14">
+                                    203
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="../04-detalle-imagen/index.html" class="tarjeta">
+                        <div class="tarjeta-imagen baja">
+                            <img src="img/imagen-9.svg" alt="Laguna de Quilotoa">
+                        </div>
+                        <div class="tarjeta-info">
+                            <h2 class="tarjeta-titulo">Laguna de Quilotoa</h2>
+                            <div class="tarjeta-fila">
+                                <span class="insignia insignia-crema">
+                                    <img src="img/punto-oscuro.svg" alt="" width="6" height="6">
+                                    Viajes
+                                </span>
+                                <img src="img/mundo.svg" alt="Pública" width="16" height="16">
+                            </div>
+                            <div class="tarjeta-fila">
+                                <span class="autor">
+                                    <span class="avatar avatar-verde-oscuro">PC</span>
+                                    <span><span class="solo-escritorio">Pedro</span><span class="solo-movil">P.</span> Carranza</span>
+                                </span>
+                                <span class="me-gusta">
+                                    <img src="img/me-gusta.svg" alt="" width="14" height="14">
+                                    98
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="columna">
+                    <a href="../04-detalle-imagen/index.html" class="tarjeta">
+                        <div class="tarjeta-imagen media">
+                            <img src="img/imagen-2.svg" alt="Calles de Cuenca">
+                        </div>
+                        <div class="tarjeta-info">
+                            <h2 class="tarjeta-titulo">Calles de Cuenca</h2>
+                            <div class="tarjeta-fila">
+                                <span class="insignia insignia-crema">
+                                    <img src="img/punto-oscuro.svg" alt="" width="6" height="6">
+                                    Viajes
+                                </span>
+                                <img src="img/mundo.svg" alt="Pública" width="16" height="16">
+                            </div>
+                            <div class="tarjeta-fila">
+                                <span class="autor">
+                                    <span class="avatar avatar-vino">GT</span>
+                                    <span><span class="solo-escritorio">Gabriel</span><span class="solo-movil">G.</span> Terán</span>
+                                </span>
+                                <span class="me-gusta">
+                                    <img src="img/me-gusta.svg" alt="" width="14" height="14">
+                                    56
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="../04-detalle-imagen/index.html" class="tarjeta">
+                        <div class="tarjeta-imagen alta">
+                            <img src="img/imagen-6.svg" alt="Páramo andino">
+                        </div>
+                        <div class="tarjeta-info">
+                            <h2 class="tarjeta-titulo">Páramo andino</h2>
+                            <div class="tarjeta-fila">
+                                <span class="insignia insignia-crema">
+                                    <img src="img/punto-oscuro.svg" alt="" width="6" height="6">
+                                    Naturaleza
+                                </span>
+                                <img src="img/mundo.svg" alt="Pública" width="16" height="16">
+                            </div>
+                            <div class="tarjeta-fila">
+                                <span class="autor">
+                                    <span class="avatar avatar-verde">MC</span>
+                                    <span><span class="solo-escritorio">Mateo</span><span class="solo-movil">M.</span> Cantos</span>
+                                </span>
+                                <span class="me-gusta">
+                                    <img src="img/me-gusta.svg" alt="" width="14" height="14">
+                                    175
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="../04-detalle-imagen/index.html" class="tarjeta">
+                        <div class="tarjeta-imagen baja">
+                            <img src="img/imagen-10.svg" alt="Retrato en sepia">
+                        </div>
+                        <div class="tarjeta-info">
+                            <h2 class="tarjeta-titulo">Retrato en sepia</h2>
+                            <div class="tarjeta-fila">
+                                <span class="insignia insignia-crema">
+                                    <img src="img/punto-oscuro.svg" alt="" width="6" height="6">
+                                    Retratos
+                                </span>
+                                <img src="img/candado.svg" alt="Privada" width="16" height="16">
+                            </div>
+                            <div class="tarjeta-fila">
+                                <span class="autor">
+                                    <span class="avatar avatar-vino">GT</span>
+                                    <span><span class="solo-escritorio">Gabriel</span><span class="solo-movil">G.</span> Terán</span>
+                                </span>
+                                <span class="me-gusta">
+                                    <img src="img/me-gusta.svg" alt="" width="14" height="14">
+                                    41
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="columna solo-escritorio">
+                    <a href="../04-detalle-imagen/index.html" class="tarjeta">
+                        <div class="tarjeta-imagen baja">
+                            <img src="img/imagen-3.svg" alt="Volcán Cotopaxi">
+                        </div>
+                        <div class="tarjeta-info">
+                            <h2 class="tarjeta-titulo">Volcán Cotopaxi</h2>
+                            <div class="tarjeta-fila">
+                                <span class="insignia insignia-crema">
+                                    <img src="img/punto-oscuro.svg" alt="" width="6" height="6">
+                                    Fotografía
+                                </span>
+                                <img src="img/mundo.svg" alt="Pública" width="16" height="16">
+                            </div>
+                            <div class="tarjeta-fila">
+                                <span class="autor">
+                                    <span class="avatar avatar-verde-oscuro">PC</span>
+                                    <span>Pedro Carranza</span>
+                                </span>
+                                <span class="me-gusta">
+                                    <img src="img/me-gusta.svg" alt="" width="14" height="14">
+                                    412
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="../04-detalle-imagen/index.html" class="tarjeta">
+                        <div class="tarjeta-imagen alta">
+                            <img src="img/imagen-7.svg" alt="Dunas al atardecer">
+                        </div>
+                        <div class="tarjeta-info">
+                            <h2 class="tarjeta-titulo">Dunas al atardecer</h2>
+                            <div class="tarjeta-fila">
+                                <span class="insignia insignia-crema">
+                                    <img src="img/punto-oscuro.svg" alt="" width="6" height="6">
+                                    Fotografía
+                                </span>
+                                <img src="img/mundo.svg" alt="Pública" width="16" height="16">
+                            </div>
+                            <div class="tarjeta-fila">
+                                <span class="autor">
+                                    <span class="avatar avatar-vino">GT</span>
+                                    <span>Gabriel Terán</span>
+                                </span>
+                                <span class="me-gusta">
+                                    <img src="img/me-gusta.svg" alt="" width="14" height="14">
+                                    260
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="../04-detalle-imagen/index.html" class="tarjeta">
+                        <div class="tarjeta-imagen media">
+                            <img src="img/imagen-11.svg" alt="Cartel minimalista">
+                        </div>
+                        <div class="tarjeta-info">
+                            <h2 class="tarjeta-titulo">Cartel minimalista</h2>
+                            <div class="tarjeta-fila">
+                                <span class="insignia insignia-crema">
+                                    <img src="img/punto-oscuro.svg" alt="" width="6" height="6">
+                                    Diseño
+                                </span>
+                                <img src="img/candado.svg" alt="Privada" width="16" height="16">
+                            </div>
+                            <div class="tarjeta-fila">
+                                <span class="autor">
+                                    <span class="avatar avatar-verde">MC</span>
+                                    <span>Mateo Cantos</span>
+                                </span>
+                                <span class="me-gusta">
+                                    <img src="img/me-gusta.svg" alt="" width="14" height="14">
+                                    33
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="columna columna-cuatro solo-escritorio">
+                    <a href="../04-detalle-imagen/index.html" class="tarjeta">
+                        <div class="tarjeta-imagen media">
+                            <img src="img/imagen-4.svg" alt="Catedral de Quito">
+                        </div>
+                        <div class="tarjeta-info">
+                            <h2 class="tarjeta-titulo">Catedral de Quito</h2>
+                            <div class="tarjeta-fila">
+                                <span class="insignia insignia-crema">
+                                    <img src="img/punto-oscuro.svg" alt="" width="6" height="6">
+                                    Arquitectura
+                                </span>
+                                <img src="img/mundo.svg" alt="Pública" width="16" height="16">
+                            </div>
+                            <div class="tarjeta-fila">
+                                <span class="autor">
+                                    <span class="avatar avatar-verde-oscuro">PC</span>
+                                    <span>Pedro Carranza</span>
+                                </span>
+                                <span class="me-gusta">
+                                    <img src="img/me-gusta.svg" alt="" width="14" height="14">
+                                    87
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="../04-detalle-imagen/index.html" class="tarjeta">
+                        <div class="tarjeta-imagen baja">
+                            <img src="img/imagen-8.svg" alt="Bosque nublado">
+                        </div>
+                        <div class="tarjeta-info">
+                            <h2 class="tarjeta-titulo">Bosque nublado</h2>
+                            <div class="tarjeta-fila">
+                                <span class="insignia insignia-crema">
+                                    <img src="img/punto-oscuro.svg" alt="" width="6" height="6">
+                                    Naturaleza
+                                </span>
+                                <img src="img/mundo.svg" alt="Pública" width="16" height="16">
+                            </div>
+                            <div class="tarjeta-fila">
+                                <span class="autor">
+                                    <span class="avatar avatar-verde">MC</span>
+                                    <span>Mateo Cantos</span>
+                                </span>
+                                <span class="me-gusta">
+                                    <img src="img/me-gusta.svg" alt="" width="14" height="14">
+                                    149
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="../04-detalle-imagen/index.html" class="tarjeta">
+                        <div class="tarjeta-imagen alta">
+                            <img src="img/imagen-12.svg" alt="Iglesia de San Francisco">
+                        </div>
+                        <div class="tarjeta-info">
+                            <h2 class="tarjeta-titulo">Iglesia de San Francisco</h2>
+                            <div class="tarjeta-fila">
+                                <span class="insignia insignia-crema">
+                                    <img src="img/punto-oscuro.svg" alt="" width="6" height="6">
+                                    Arquitectura
+                                </span>
+                                <img src="img/mundo.svg" alt="Pública" width="16" height="16">
+                            </div>
+                            <div class="tarjeta-fila">
+                                <span class="autor">
+                                    <span class="avatar avatar-vino">GT</span>
+                                    <span>Gabriel Terán</span>
+                                </span>
+                                <span class="me-gusta">
+                                    <img src="img/me-gusta.svg" alt="" width="14" height="14">
+                                    72
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            </section>
+        </main>
+
+        <nav class="barra-pestanas solo-movil">
+            <a href="index.html" class="tab activa">
+                <img src="img/tab-galeria.svg" alt="" width="22" height="22">
+                Galería
+            </a>
+            <a href="#" class="tab">
+                <img src="img/tab-buscar.svg" alt="" width="22" height="22">
+                Buscar
+            </a>
+            <a href="../03-registro-imagen/index.html" class="tab-subir">
+                <img src="img/tab-mas.svg" alt="Subir imagen" width="24" height="24">
+            </a>
+            <a href="#" class="tab">
+                <img src="img/tab-favoritos.svg" alt="" width="22" height="22">
+                Favoritos
+            </a>
+            <a href="../05-gestion-usuarios/index.html" class="tab">
+                <img src="img/tab-usuarios.svg" alt="" width="22" height="22">
+                Usuarios
+            </a>
+        </nav>
+    </div>
+</body>
+</html>
