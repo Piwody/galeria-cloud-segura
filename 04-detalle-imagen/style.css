@@ -1,0 +1,493 @@
+:root {
+    --crema: #FFEFB3;
+    --verde-oscuro: #013E37;
+    --verde: #0A5A50;
+    --blanco: #FFFFFF;
+    --vino: #963F38;
+    --fondo: #FBF8EF;
+    --borde: #E6E0CF;
+    --gris: #5E6F6B;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--fondo);
+    font-family: "Arimo", sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--verde-oscuro);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+    cursor: pointer;
+}
+
+img {
+    display: block;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--borde);
+}
+
+.avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-weight: 700;
+    color: var(--crema);
+}
+
+.avatar-verde {
+    background: var(--verde);
+}
+
+.avatar-vino {
+    background: var(--vino);
+}
+
+.insignias {
+    display: flex;
+    gap: 8px;
+}
+
+.insignia {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.insignia-crema {
+    background: var(--crema);
+}
+
+.insignia-verde {
+    background: rgba(10, 90, 80, 0.12);
+    color: var(--verde);
+}
+
+.boton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.boton-verde {
+    background: var(--verde);
+    color: var(--blanco);
+}
+
+.boton-blanco {
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+}
+
+.boton-crema {
+    background: var(--crema);
+}
+
+.boton-vino {
+    background: var(--vino);
+    color: var(--blanco);
+}
+
+.boton-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+}
+
+.boton:hover,
+.boton-icono:hover {
+    opacity: 0.85;
+}
+
+.imagen-principal {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(157deg, var(--verde), var(--crema));
+}
+
+.imagen-principal-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.informacion,
+.cabecera {
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo {
+    font-family: "Bodoni Moda", serif;
+    font-weight: 500;
+}
+
+.descripcion {
+    color: var(--gris);
+}
+
+.responsable {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.responsable-datos {
+    flex: 1;
+}
+
+.responsable-nombre {
+    font-weight: 700;
+}
+
+.responsable-detalle {
+    font-size: 12px;
+    color: var(--gris);
+}
+
+
+@media (min-width: 769px) {
+
+    .solo-movil {
+        display: none;
+    }
+
+    .pagina {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    .barra-lateral {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        flex-shrink: 0;
+        width: 256px;
+        padding: 28px 20px 20px;
+        background: var(--verde-oscuro);
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .logo-texto {
+        font-family: "Bodoni Moda", serif;
+        font-size: 26px;
+        color: var(--crema);
+    }
+
+    .logo-subtitulo,
+    .usuario-actual-rol {
+        font-size: 12px;
+        color: rgba(255, 239, 179, 0.7);
+    }
+
+    .menu-titulo,
+    .bloque-titulo {
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 1.3;
+        letter-spacing: 1.3px;
+        text-transform: uppercase;
+        color: var(--gris);
+    }
+
+    .menu-titulo {
+        margin-top: 32px;
+        color: rgba(255, 239, 179, 0.55);
+    }
+
+    .menu-titulo-admin {
+        margin-top: 24px;
+    }
+
+    .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        height: 44px;
+        padding: 0 14px;
+        border-radius: 10px;
+        color: rgba(255, 255, 255, 0.75);
+    }
+
+    .activo {
+        background: var(--verde);
+        font-weight: 700;
+        color: var(--crema);
+    }
+
+    .usuario-actual {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: auto;
+        padding-top: 14px;
+        border-top: 1px solid rgba(255, 239, 179, 0.15);
+    }
+
+    .usuario-actual-datos {
+        flex: 1;
+    }
+
+    .usuario-actual-nombre {
+        font-weight: 700;
+        color: var(--blanco);
+    }
+
+    .contenido {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        flex: 1;
+        padding: 32px 40px;
+    }
+
+    .barra-superior {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .vista-como {
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .cuerpo {
+        display: flex;
+        gap: 28px;
+        flex: 1;
+    }
+
+    .visor {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        flex: 1;
+    }
+
+    .imagen-principal {
+        flex: 1;
+        border-radius: 20px;
+    }
+
+    .mas-del-autor {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--gris);
+    }
+
+    .miniatura {
+        overflow: hidden;
+        border-radius: 10px;
+    }
+
+    .miniatura-1 {
+        background: linear-gradient(158deg, #963F38, #F2C28B);
+    }
+
+    .miniatura-2 {
+        background: linear-gradient(158deg, #E8B04B, #963F38);
+    }
+
+    .miniatura-3 {
+        background: linear-gradient(158deg, #013E37, #6FA89A);
+    }
+
+    .miniatura-4 {
+        background: linear-gradient(158deg, #2F6F64, #CFE3C9);
+    }
+
+    .informacion {
+        gap: 20px;
+        width: 420px;
+        padding: 28px;
+        background: var(--blanco);
+        border: 1px solid var(--borde);
+        border-radius: 20px;
+    }
+
+    .cabecera,
+    .bloque,
+    .datos {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .titulo {
+        font-size: 36px;
+        line-height: 1.2;
+    }
+
+    .estadisticas {
+        display: flex;
+        gap: 18px;
+    }
+
+    .estadistica {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: var(--gris);
+    }
+
+    .dato {
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+    }
+
+    .dato dt {
+        color: var(--gris);
+    }
+
+    .dato dd {
+        font-weight: 700;
+    }
+
+    .fila-botones {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .fila-botones .boton {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    .solo-escritorio {
+        display: none;
+    }
+
+    .imagen-principal {
+        height: 380px;
+    }
+
+    .acciones-flotantes {
+        position: absolute;
+        top: 52px;
+        left: 16px;
+        right: 16px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .acciones-flotantes-derecha {
+        display: flex;
+        gap: 8px;
+    }
+
+    .informacion {
+        gap: 14px;
+        padding: 24px 20px;
+        border-radius: 24px 24px 0 0;
+    }
+
+    .cabecera {
+        gap: 14px;
+    }
+
+    .titulo {
+        font-size: 26px;
+        line-height: 1.25;
+    }
+
+    .responsable {
+        padding: 12px;
+        background: var(--blanco);
+        border: 1px solid var(--borde);
+        border-radius: 14px;
+    }
+
+    .datos-movil {
+        display: flex;
+        gap: 8px;
+    }
+
+    .dato-movil {
+        flex: 1;
+        padding: 10px 12px;
+        background: var(--blanco);
+        border: 1px solid var(--borde);
+        border-radius: 12px;
+        font-size: 12px;
+        color: var(--gris);
+    }
+
+    .dato-movil-valor {
+        font-weight: 700;
+        color: var(--verde-oscuro);
+    }
+
+    .acciones-movil {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .acciones-movil .boton {
+        flex: 1;
+    }
+
+    .boton-icono-grande {
+        width: 46px;
+        height: 46px;
+    }
+
+    .boton-icono-vino {
+        border-color: rgba(150, 63, 56, 0.35);
+    }
+}
