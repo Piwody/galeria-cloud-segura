@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión · Muralia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="contenedor">
+        <section class="presentacion">
+
+            <header class="logo">
+                <img src="../assets/muralia-flor.png" alt="Flor de Muralia">
+                <span>Muralia</span>
+            </header>
+            <div class="mensaje">
+                <p class="etiqueta">EST. 2026</p>
+                <h1>Tu galería,<br>segura en la nube.</h1>
+                <p class="descripcion">
+                    Organiza, comparte y protege tus imágenes con
+                    Galería Cloud Segura. Acceso controlado por
+                    roles y almacenamiento en AWS.
+                </p>
+            </div>
+            <footer class="caracteristicas">
+                <p>
+                    <img src="../assets/shield.png" alt="">
+                    Acceso por roles (Administrador · Editor · Usuario)
+                </p>
+                <p>
+                    <img src="../assets/cloud.png" alt="">
+                    Imágenes almacenadas en AWS S3
+                </p>
+                <p>
+                    <img src="../assets/lock.png" alt="">
+                    Conexión cifrada (HTTPS)
+                </p>
+            </footer>
+        </section>
+        <section class="zona-login">
+            <div class="tarjeta-login">
+                <h2>Iniciar sesión</h2>
+                <p class="subtitulo">
+                    Ingresa con tu correo o usuario para continuar.
+                </p>
+                <form action="#" method="post">
+                    <div class="campo">
+                        <label for="correo">Correo o usuario</label>
+                        <div class="entrada">
+                            <img src="../assets/person.png" alt="">
+                            <input
+                                type="text"
+                                id="correo"
+                                name="correo"
+                                placeholder="mateo.cantos@muralia.com"
+                                autocomplete="username"
+                                required
+                            >
+                        </div>
+                    </div>
+                    <div class="campo">
+                        <label for="contrasena">Contraseña</label>
+                        <div class="entrada">
+                            <img src="../assets/lock.png" alt="">
+                            <input
+                                type="password"
+                                id="contrasena"
+                                name="contrasena"
+                                placeholder="Ingresa tu contraseña"
+                                autocomplete="current-password"
+                                required
+                            >
+                        </div>
+                    </div>
+                    <div class="opciones">
+                        <label class="recordar">
+                            <input type="checkbox" name="recordar">
+                            <span>Recordarme</span>
+                        </label>
+
+                        <a href="#">¿Olvidaste tu contraseña?</a>
+
+                    </div>
+                    <a class="boton-ingresar" href="../02-galeria-principal/index.html">Ingresar</a>
+                </form>
+                <div class="separador">
+                    <span></span>
+                    <p>o</p>
+                    <span></span>
+                </div>
+                <p class="solicitud">
+                    ¿No tienes cuenta?
+                    <a href="#">Solicitar acceso al administrador</a>
+                </p>
+            </div>
+            <p class="conexion">
+                <img src="../assets/shield.png" alt="">
+                Conexión segura · Autenticación gestionada con AWS
+            </p>
+        </section>
+    </main>
+</body>
+</html>
