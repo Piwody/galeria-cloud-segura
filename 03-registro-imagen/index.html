@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar imagen · Muralia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <aside class="lateral">
+            <header class="logo">
+                <img src="../assets/muralia-flor.png" alt="Flor de Muralia">
+                <div>
+                    <span>Muralia</span>
+                    <small>Galería Cloud Segura</small>
+                </div>
+            </header>
+            <nav class="menu">
+                <p class="menu-titulo">Menú</p>
+                <a href="../02-galeria-principal/index.html" class="menu-enlace">
+                    <img class="icono" src="../assets/grid_view.png" alt="">
+                    Galería
+                </a>
+                <a href="#" class="menu-enlace activo" aria-current="page">
+                    <img class="icono" src="../assets/upload.png" alt="">
+                    Subir imagen
+                </a>
+                <a href="#" class="menu-enlace">
+                    <img class="icono" src="../assets/image.png" alt="">
+                    Mis imágenes
+                </a>
+                <a href="#" class="menu-enlace">
+                    <img class="icono" src="../assets/favorite.png" alt="">
+                    Favoritos
+                </a>
+                <p class="menu-titulo">Administración</p>
+                <a href="#" class="menu-enlace">
+                    <img class="icono" src="../assets/usuers.png" alt="">
+                    Usuarios
+                </a>
+                <a href="#" class="menu-enlace">
+                    <img class="icono" src="../assets/shield.png" alt="">
+                    Seguridad
+                </a>
+            </nav>
+            <footer class="usuario">
+                <span class="avatar">MC</span>
+                <div class="usuario-datos">
+                    <strong>Mateo Cantos</strong>
+                    <small>Administrador</small>
+                </div>
+                <a href="../01-inicio-sesion/index.html" class="salir" aria-label="Cerrar sesión">
+                    <img class="icono" src="../assets/logout.png" alt="">
+                </a>
+            </footer>
+        </aside>
+        <main class="principal">
+            <nav class="migas" aria-label="Ruta de navegación">
+                <a href="../02-galeria-principal/index.html">Galería</a>
+                <img class="icono" src="../assets/right.png" alt="">
+                <strong>Subir imagen</strong>
+            </nav>
+            <header class="encabezado">
+                <a href="../02-galeria-principal/index.html" class="volver" aria-label="Volver a la galería">
+                    <img class="icono" src="../assets/left.png" alt="">
+                </a>
+                <div>
+                    <h1>
+                        <span class="solo-movil">Registrar imagen</span>
+                        <span class="solo-grande">Registrar nueva imagen</span>
+                    </h1>
+                    <p class="descripcion">Completa la información para publicar tu imagen en la galería.</p>
+                </div>
+            </header>
+            <form class="formulario" action="#" method="post" enctype="multipart/form-data">
+                <section class="paso paso-archivo">
+                    <h2>1. Selecciona tu imagen</h2>
+                    <input type="file" id="archivo" name="archivo" class="oculto"
+                            accept="image/jpeg,image/png,image/webp">
+                    <label for="archivo" class="zona-carga">
+                        <span class="icono-carga">
+                            <img class="icono" src="../assets/upload.png" alt="">
+                        </span>
+                        <span class="carga-titulo">
+                            <span class="solo-movil">Toca para elegir una imagen</span>
+                            <span class="solo-grande">Arrastra y suelta tu imagen aquí</span>
+                        </span>
+                        <span class="carga-o solo-grande">o</span>
+                        <span class="boton-archivo solo-grande">
+                            <svg class="icono" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5z"/>
+                                <path d="M14 3v5h5"/>
+                            </svg>
+                            Seleccionar archivo
+                        </span>
+                        <span class="carga-formatos">
+                            <span class="solo-movil">Galería o cámara · JPG, PNG · máx. 10 MB</span>
+                            <span class="solo-grande">Formatos permitidos: JPG, PNG, WEBP · Tamaño máximo 10 MB</span>
+                        </span>
+                    </label>
+                </section>
+                <section class="paso paso-info">
+                    <h2>2. Información de la imagen</h2>
+                    <div class="campo">
+                        <label for="titulo">Título o nombre *</label>
+                        <div class="entrada">
+                            <input type="text" id="titulo" name="titulo"
+                                value="Atardecer en la costa" placeholder="Ej. Atardecer en la costa" required>
+                        </div>
+                    </div>
+                    <div class="campo">
+                        <label for="categoria">Categoría *</label>
+                        <div class="entrada">
+                            <svg class="icono" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M3 3h8l10 10-8 8L3 11V3z"/>
+                                <circle cx="7.5" cy="7.5" r="1.2"/>
+                            </svg>
+                            <select id="categoria" name="categoria" required>
+                                <option value="naturaleza" selected>Naturaleza</option>
+                                <option value="ciudad">Ciudad</option>
+                                <option value="retratos">Retratos</option>
+                                <option value="arquitectura">Arquitectura</option>
+                                <option value="viajes">Viajes</option>
+                                <option value="otros">Otros</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="campo">
+                        <label for="descripcion">Descripción</label>
+                        <textarea id="descripcion" name="descripcion" maxlength="500"
+                                placeholder="Describe tu imagen">Fotografía tomada en la playa de Montañita durante la puesta de sol. Tonos cálidos y siluetas de montañas.</textarea>
+                        <p class="contador">112 / 500 caracteres</p>
+                    </div>
+                    <div class="campo">
+                        <span class="etiqueta-campo" id="etiqueta-visibilidad">Visibilidad</span>
+                        <div class="visibilidad" role="radiogroup" aria-labelledby="etiqueta-visibilidad">
+                            <input type="radio" id="publica" name="visibilidad" value="publica" checked>
+                            <label for="publica">
+                                <img class="icono" src="../assets/world.png" alt="">
+                                Pública
+                            </label>
+                            <input type="radio" id="privada" name="visibilidad" value="privada">
+                            <label for="privada">
+                                <img class="icono" src="../assets/lock.png" alt="">
+                                Privada
+                            </label>
+                        </div>
+                    </div>
+                    <div class="acciones">
+                        <a class="boton-cancelar" href="../02-galeria-principal/index.html">Cancelar</a>
+                        <a class="boton-registrar" href="../02-galeria-principal/index.html">
+                            <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+                            <span>Registrar<span class="solo-grande"> imagen</span></span>
+                        </a>
+                    </div>
+                </section>
+            </form>
+        </main>
+    </div>
+</body>
+</html>
