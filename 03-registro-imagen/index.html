@@ -4,43 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar imagen · Muralia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="app">
         <aside class="lateral">
             <header class="logo">
-                <img src="../assets/muralia-flor.png" alt="Flor de Muralia">
-                <div>
-                    <span>Muralia</span>
-                    <small>Galería Cloud Segura</small>
-                </div>
+                <img src="assets/flor.svg" alt="Flor de Muralia">
+                <span>Muralia</span>
             </header>
+            <small class="logo-subtitulo">Galería Cloud Segura</small>
             <nav class="menu">
                 <p class="menu-titulo">Menú</p>
                 <a href="../02-galeria-principal/index.html" class="menu-enlace">
-                    <img class="icono" src="../assets/grid_view.png" alt="">
+                    <img class="icono" src="assets/galeria.svg" alt="">
                     Galería
                 </a>
-                <a href="#" class="menu-enlace activo" aria-current="page">
-                    <img class="icono" src="../assets/upload.png" alt="">
+                <a href="index.html" class="menu-enlace activo" aria-current="page">
+                    <img class="icono" src="assets/subir.svg" alt="">
                     Subir imagen
                 </a>
-                <a href="#" class="menu-enlace">
-                    <img class="icono" src="../assets/image.png" alt="">
+                <a href="../06-mis-imagenes/index.html" class="menu-enlace">
+                    <img class="icono" src="assets/mis-imagenes.svg" alt="">
                     Mis imágenes
                 </a>
-                <a href="#" class="menu-enlace">
-                    <img class="icono" src="../assets/favorite.png" alt="">
+                <a href="../07-favoritos/index.html" class="menu-enlace">
+                    <img class="icono" src="assets/favoritos.svg" alt="">
                     Favoritos
                 </a>
                 <p class="menu-titulo">Administración</p>
-                <a href="#" class="menu-enlace">
-                    <img class="icono" src="../assets/usuers.png" alt="">
+                <a href="../05-gestion-usuarios/index.html" class="menu-enlace">
+                    <img class="icono" src="assets/usuarios.svg" alt="">
                     Usuarios
                 </a>
-                <a href="#" class="menu-enlace">
-                    <img class="icono" src="../assets/shield.png" alt="">
+                <a href="../08-seguridad/index.html" class="menu-enlace">
+                    <img class="icono" src="assets/seguridad.svg" alt="">
                     Seguridad
                 </a>
             </nav>
@@ -51,19 +52,19 @@
                     <small>Administrador</small>
                 </div>
                 <a href="../01-inicio-sesion/index.html" class="salir" aria-label="Cerrar sesión">
-                    <img class="icono" src="../assets/logout.png" alt="">
+                    <img class="icono" src="assets/salir.svg" alt="">
                 </a>
             </footer>
         </aside>
         <main class="principal">
             <nav class="migas" aria-label="Ruta de navegación">
                 <a href="../02-galeria-principal/index.html">Galería</a>
-                <img class="icono" src="../assets/right.png" alt="">
+                <img class="icono" src="assets/derecha.svg" alt="">
                 <strong>Subir imagen</strong>
             </nav>
             <header class="encabezado">
                 <a href="../02-galeria-principal/index.html" class="volver" aria-label="Volver a la galería">
-                    <img class="icono" src="../assets/left.png" alt="">
+                    <img class="icono" src="assets/izquierda.svg" alt="">
                 </a>
                 <div>
                     <h1>
@@ -80,7 +81,7 @@
                             accept="image/jpeg,image/png,image/webp">
                     <label for="archivo" class="zona-carga">
                         <span class="icono-carga">
-                            <img class="icono" src="../assets/upload.png" alt="">
+                            <img class="icono" src="assets/subir-zona.svg" alt="">
                         </span>
                         <span class="carga-titulo">
                             <span class="solo-movil">Toca para elegir una imagen</span>
@@ -99,6 +100,20 @@
                             <span class="solo-grande">Formatos permitidos: JPG, PNG, WEBP · Tamaño máximo 10 MB</span>
                         </span>
                     </label>
+                    <div class="archivo">
+                        <div class="archivo-imagen">
+                            <img src="assets/imagen.svg" alt="">
+                        </div>
+                        <div class="archivo-datos">
+                            <p class="archivo-fila">
+                                <strong>atardecer-costa.jpg</strong>
+                                <span>3,2 MB · 78 %</span>
+                            </p>
+                            <div class="progreso"><span></span></div>
+                            <p class="archivo-estado">Subiendo imagen</p>
+                        </div>
+                        <img class="archivo-cerrar" src="assets/cerrar.svg" alt="Quitar archivo">
+                    </div>
                 </section>
                 <section class="paso paso-info">
                     <h2>2. Información de la imagen</h2>
@@ -112,10 +127,7 @@
                     <div class="campo">
                         <label for="categoria">Categoría *</label>
                         <div class="entrada">
-                            <svg class="icono" viewBox="0 0 24 24" aria-hidden="true">
-                                <path d="M3 3h8l10 10-8 8L3 11V3z"/>
-                                <circle cx="7.5" cy="7.5" r="1.2"/>
-                            </svg>
+                            <img class="icono" src="assets/etiqueta.svg" alt="">
                             <select id="categoria" name="categoria" required>
                                 <option value="naturaleza" selected>Naturaleza</option>
                                 <option value="ciudad">Ciudad</option>
@@ -137,12 +149,12 @@
                         <div class="visibilidad" role="radiogroup" aria-labelledby="etiqueta-visibilidad">
                             <input type="radio" id="publica" name="visibilidad" value="publica" checked>
                             <label for="publica">
-                                <img class="icono" src="../assets/world.png" alt="">
+                                <img class="icono" src="assets/world.png" alt="">
                                 Pública
                             </label>
                             <input type="radio" id="privada" name="visibilidad" value="privada">
                             <label for="privada">
-                                <img class="icono" src="../assets/lock.png" alt="">
+                                <img class="icono" src="assets/lock.png" alt="">
                                 Privada
                             </label>
                         </div>

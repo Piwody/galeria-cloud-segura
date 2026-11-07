@@ -21,19 +21,19 @@
 
             <p class="menu-titulo">Menú</p>
             <nav class="menu">
-                <a href="#" class="menu-item activo">
+                <a href="../02-galeria-principal/index.html" class="menu-item activo">
                     <img src="img/galeria.svg" alt="" width="20" height="20">
                     Galería
                 </a>
-                <a href="#" class="menu-item">
+                <a href="../03-registro-imagen/index.html" class="menu-item">
                     <img src="img/subir.svg" alt="" width="20" height="20">
                     Subir imagen
                 </a>
-                <a href="#" class="menu-item">
+                <a href="../06-mis-imagenes/index.html" class="menu-item">
                     <img src="img/mis-imagenes.svg" alt="" width="20" height="20">
                     Mis imágenes
                 </a>
-                <a href="#" class="menu-item">
+                <a href="../07-favoritos/index.html" class="menu-item">
                     <img src="img/favoritos.svg" alt="" width="20" height="20">
                     Favoritos
                 </a>
@@ -41,11 +41,11 @@
 
             <p class="menu-titulo menu-titulo-admin">Administración</p>
             <nav class="menu">
-                <a href="#" class="menu-item">
+                <a href="../05-gestion-usuarios/index.html" class="menu-item">
                     <img src="img/usuarios.svg" alt="" width="20" height="20">
                     Usuarios
                 </a>
-                <a href="#" class="menu-item">
+                <a href="../08-seguridad/index.html" class="menu-item">
                     <img src="img/seguridad.svg" alt="" width="20" height="20">
                     Seguridad
                 </a>
@@ -57,7 +57,7 @@
                     <p class="usuario-actual-nombre">Mateo Cantos</p>
                     <p class="usuario-actual-rol">Administrador</p>
                 </div>
-                <a href="#" class="salir">
+                <a href="../01-inicio-sesion/index.html" class="salir">
                     <img src="img/salir.svg" alt="Cerrar sesión" width="20" height="20">
                 </a>
             </div>
@@ -66,7 +66,7 @@
         <main class="contenido">
 
             <header class="barra-superior solo-escritorio">
-                <a href="#" class="boton boton-blanco">
+                <a href="../02-galeria-principal/index.html" class="boton boton-blanco">
                     <img src="img/izquierda.svg" alt="" width="18" height="18">
                     Volver
                 </a>
@@ -79,28 +79,32 @@
                     <div class="imagen-principal">
                         <img class="imagen-principal-img solo-escritorio" src="img/imagen.svg" alt="Atardecer en la costa">
                         <img class="imagen-principal-img solo-movil" src="img/imagen-movil.svg" alt="Atardecer en la costa">
+                        <img id="vista-1" class="vista" src="img/miniatura-1.svg" alt="">
+                        <img id="vista-2" class="vista" src="img/miniatura-2.svg" alt="">
+                        <img id="vista-3" class="vista" src="img/miniatura-3.svg" alt="">
+                        <img id="vista-4" class="vista" src="img/miniatura-4.svg" alt="">
 
                         <div class="acciones-flotantes solo-movil">
-                            <a href="#" class="boton-icono">
+                            <a href="../02-galeria-principal/index.html" class="boton-icono">
                                 <img src="img/izquierda.svg" alt="Volver" width="18" height="18">
                             </a>
                             <div class="acciones-flotantes-derecha">
-                                <button type="button" class="boton-icono">
+                                <a href="#compartir" class="boton-icono">
                                     <img src="img/compartir.svg" alt="Compartir" width="18" height="18">
-                                </button>
-                                <button type="button" class="boton-icono">
+                                </a>
+                                <a href="../07-favoritos/index.html" class="boton-icono">
                                     <img src="img/guardar.svg" alt="Guardar" width="18" height="18">
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
 
                     <div class="mas-del-autor solo-escritorio">
                         <p>Más de Gabriel Terán</p>
-                        <a href="#" class="miniatura miniatura-1"><img src="img/miniatura-1.svg" alt="" width="56" height="56"></a>
-                        <a href="#" class="miniatura miniatura-2"><img src="img/miniatura-2.svg" alt="" width="56" height="56"></a>
-                        <a href="#" class="miniatura miniatura-3"><img src="img/miniatura-3.svg" alt="" width="56" height="56"></a>
-                        <a href="#" class="miniatura miniatura-4"><img src="img/miniatura-4.svg" alt="" width="56" height="56"></a>
+                        <a href="#vista-1" class="miniatura miniatura-1"><img src="img/miniatura-1.svg" alt="" width="56" height="56"></a>
+                        <a href="#vista-2" class="miniatura miniatura-2"><img src="img/miniatura-2.svg" alt="" width="56" height="56"></a>
+                        <a href="#vista-3" class="miniatura miniatura-3"><img src="img/miniatura-3.svg" alt="" width="56" height="56"></a>
+                        <a href="#vista-4" class="miniatura miniatura-4"><img src="img/miniatura-4.svg" alt="" width="56" height="56"></a>
                     </div>
                 </section>
 
@@ -202,47 +206,67 @@
                     <div class="bloque solo-escritorio">
                         <h2 class="bloque-titulo">Acciones disponibles</h2>
                         <div class="fila-botones">
-                            <button type="button" class="boton boton-verde">
+                            <a href="img/imagen.svg" download="atardecer-en-la-costa.svg" class="boton boton-verde">
                                 <img src="img/descargar.svg" alt="" width="18" height="18">
                                 Descargar
-                            </button>
-                            <button type="button" class="boton boton-blanco">
+                            </a>
+                            <a href="#compartir" class="boton boton-blanco">
                                 <img src="img/compartir.svg" alt="" width="18" height="18">
                                 Compartir
-                            </button>
-                            <button type="button" class="boton boton-blanco">
+                            </a>
+                            <a href="../07-favoritos/index.html" class="boton boton-blanco">
                                 <img src="img/guardar.svg" alt="" width="18" height="18">
                                 Guardar
-                            </button>
+                            </a>
                         </div>
                         <div class="fila-botones">
-                            <button type="button" class="boton boton-crema">
+                            <a href="../03-registro-imagen/index.html" class="boton boton-crema">
                                 <img src="img/editar.svg" alt="" width="18" height="18">
                                 Editar información
-                            </button>
-                            <button type="button" class="boton boton-vino">
+                            </a>
+                            <a href="#eliminar" class="boton boton-vino">
                                 <img src="img/eliminar.svg" alt="" width="18" height="18">
                                 Eliminar
-                            </button>
+                            </a>
                         </div>
                     </div>
 
                     <div class="acciones-movil solo-movil">
-                        <button type="button" class="boton boton-verde">
+                        <a href="img/imagen-movil.svg" download="atardecer-en-la-costa.svg" class="boton boton-verde">
                             <img src="img/descargar.svg" alt="" width="18" height="18">
                             Descargar
-                        </button>
-                        <button type="button" class="boton-icono boton-icono-grande">
+                        </a>
+                        <a href="../03-registro-imagen/index.html" class="boton-icono boton-icono-grande">
                             <img src="img/editar.svg" alt="Editar" width="18" height="18">
-                        </button>
-                        <button type="button" class="boton-icono boton-icono-grande boton-icono-vino">
+                        </a>
+                        <a href="#eliminar" class="boton-icono boton-icono-grande boton-icono-vino">
                             <img src="img/eliminar-vino.svg" alt="Eliminar" width="18" height="18">
-                        </button>
+                        </a>
                     </div>
 
                 </section>
             </div>
         </main>
     </div>
+
+    <section id="compartir" class="ventana">
+        <div class="ventana-caja">
+            <h2>Compartir imagen</h2>
+            <p>Copia este enlace para compartir «Atardecer en la costa».</p>
+            <input class="enlace" type="text" value="muralia.com/imagen/atardecer-en-la-costa" readonly>
+            <a href="#" class="boton boton-verde">Listo</a>
+        </div>
+    </section>
+
+    <section id="eliminar" class="ventana">
+        <div class="ventana-caja">
+            <h2>¿Eliminar imagen?</h2>
+            <p>«Atardecer en la costa» se quitará de la galería.</p>
+            <div class="ventana-botones">
+                <a href="#" class="boton boton-blanco">Cancelar</a>
+                <a href="../02-galeria-principal/index.html" class="boton boton-vino">Eliminar</a>
+            </div>
+        </div>
+    </section>
 </body>
 </html>

@@ -56,10 +56,11 @@ img {
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 3px 10px;
+    padding: 4px 10px;
     border-radius: 999px;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: bold;
+    line-height: 1.4;
 }
 
 .insignia-crema {
@@ -146,6 +147,7 @@ img {
 }
 
 .sobretitulo {
+    margin-bottom: 5px;
     font-size: 11px;
     font-weight: bold;
     letter-spacing: 1.3px;
@@ -161,7 +163,7 @@ img {
 
 .herramientas {
     display: flex;
-    gap: 10px;
+    gap: 12px;
 }
 
 .buscador {
@@ -171,13 +173,13 @@ img {
 
 .buscador img {
     position: absolute;
-    top: 13px;
+    top: 14px;
     left: 14px;
 }
 
 .buscador input {
     width: 100%;
-    height: 44px;
+    height: 46px;
     padding: 0 14px 0 42px;
     background-color: white;
     border: 1px solid #E6E0CF;
@@ -202,10 +204,16 @@ img {
 .chips {
     display: flex;
     gap: 8px;
+    scrollbar-width: none;
+}
+
+.filtro {
+    display: none;
 }
 
 .chip {
     padding: 7px 16px;
+    cursor: pointer;
     background-color: white;
     border: 1px solid #E6E0CF;
     border-radius: 999px;
@@ -218,10 +226,27 @@ img {
     border-color: #0A5A50;
 }
 
-.chip.activa {
+#cat-todas:checked ~ .categorias [for="cat-todas"],
+#cat-naturaleza:checked ~ .categorias [for="cat-naturaleza"],
+#cat-arquitectura:checked ~ .categorias [for="cat-arquitectura"],
+#cat-arte:checked ~ .categorias [for="cat-arte"],
+#cat-fotografia:checked ~ .categorias [for="cat-fotografia"],
+#cat-retratos:checked ~ .categorias [for="cat-retratos"],
+#cat-viajes:checked ~ .categorias [for="cat-viajes"],
+#cat-diseno:checked ~ .categorias [for="cat-diseno"] {
     background-color: #013E37;
     border-color: #013E37;
     color: #FFEFB3;
+}
+
+#cat-naturaleza:checked ~ .galeria .tarjeta:not(.naturaleza),
+#cat-arquitectura:checked ~ .galeria .tarjeta:not(.arquitectura),
+#cat-arte:checked ~ .galeria .tarjeta:not(.arte),
+#cat-fotografia:checked ~ .galeria .tarjeta:not(.fotografia),
+#cat-retratos:checked ~ .galeria .tarjeta:not(.retratos),
+#cat-viajes:checked ~ .galeria .tarjeta:not(.viajes),
+#cat-diseno:checked ~ .galeria .tarjeta:not(.diseno) {
+    display: none;
 }
 
 .contador {
@@ -233,13 +258,13 @@ img {
 .galeria {
     display: flex;
     align-items: flex-start;
-    gap: 16px;
+    gap: 20px;
 }
 
 .columna {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
     flex: 1;
     min-width: 0;
 }
@@ -250,7 +275,7 @@ img {
     overflow: hidden;
     background-color: white;
     border: 1px solid #E6E0CF;
-    border-radius: 14px;
+    border-radius: 16px;
 }
 
 .tarjeta:hover {
@@ -270,7 +295,7 @@ img {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 12px;
+    padding: 14px;
 }
 
 .tarjeta-titulo {
@@ -295,9 +320,21 @@ img {
 }
 
 .autor .avatar {
-    width: 26px;
-    height: 26px;
-    font-size: 10px;
+    width: 28px;
+    height: 28px;
+    font-size: 11px;
+}
+
+.alta {
+    height: 340px;
+}
+
+.media {
+    height: 270px;
+}
+
+.baja {
+    height: 210px;
 }
 
 .me-gusta {
@@ -306,6 +343,44 @@ img {
     gap: 4px;
     font-size: 12px;
     font-weight: bold;
+    color: #5E6F6B;
+}
+
+.ventana {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: rgba(1, 62, 55, 0.55);
+}
+
+.ventana:target {
+    display: flex;
+}
+
+.ventana-caja {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 380px;
+    padding: 28px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.ventana-caja h2 {
+    font-family: "Bodoni Moda", serif;
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.25;
+}
+
+.ventana-caja p {
+    color: #5E6F6B;
 }
 
 
@@ -402,7 +477,7 @@ img {
     .contenido {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 24px;
         flex: 1;
         min-width: 0;
         padding: 32px 40px;
@@ -414,17 +489,6 @@ img {
         justify-content: space-between;
     }
 
-    .alta {
-        height: 210px;
-    }
-
-    .media {
-        height: 168px;
-    }
-
-    .baja {
-        height: 130px;
-    }
 }
 
 
@@ -461,7 +525,7 @@ img {
     }
 
     .encabezado-movil .logo-texto {
-        font-size: 22px;
+        font-size: 26px;
     }
 
     .avatar-pequeno {
@@ -476,28 +540,11 @@ img {
 
     .galeria,
     .columna {
+        gap: 14px;
+    }
+
+    .herramientas {
         gap: 10px;
-    }
-
-    .alta {
-        height: 226px;
-    }
-
-    .media {
-        height: 140px;
-    }
-
-    .baja {
-        height: 110px;
-    }
-
-    .tarjeta-info {
-        gap: 8px;
-        padding: 10px;
-    }
-
-    .tarjeta-titulo {
-        font-size: 13px;
     }
 
     .barra-pestanas {
@@ -522,6 +569,7 @@ img {
         width: 60px;
         font-size: 12px;
         color: #5E6F6B;
+        cursor: pointer;
     }
 
     .tab.activa {

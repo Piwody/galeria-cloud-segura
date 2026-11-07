@@ -6,7 +6,7 @@
     <title>Gestión de usuarios · Muralia</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Bodoni+Moda:opsz,wght@6..96,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,19 +21,19 @@
 
             <p class="menu-titulo">Menú</p>
             <nav class="menu">
-                <a href="#" class="menu-item">
+                <a href="../02-galeria-principal/index.html" class="menu-item">
                     <img src="img/galeria.svg" alt="" width="20" height="20">
                     Galería
                 </a>
-                <a href="#" class="menu-item">
+                <a href="../03-registro-imagen/index.html" class="menu-item">
                     <img src="img/subir.svg" alt="" width="20" height="20">
                     Subir imagen
                 </a>
-                <a href="#" class="menu-item">
+                <a href="../06-mis-imagenes/index.html" class="menu-item">
                     <img src="img/mis-imagenes.svg" alt="" width="20" height="20">
                     Mis imágenes
                 </a>
-                <a href="#" class="menu-item">
+                <a href="../07-favoritos/index.html" class="menu-item">
                     <img src="img/favoritos.svg" alt="" width="20" height="20">
                     Favoritos
                 </a>
@@ -41,11 +41,11 @@
 
             <p class="menu-titulo menu-titulo-admin">Administración</p>
             <nav class="menu">
-                <a href="#" class="menu-item activo">
+                <a href="index.html" class="menu-item activo">
                     <img src="img/usuarios.svg" alt="" width="20" height="20">
                     Usuarios
                 </a>
-                <a href="#" class="menu-item">
+                <a href="../08-seguridad/index.html" class="menu-item">
                     <img src="img/seguridad.svg" alt="" width="20" height="20">
                     Seguridad
                 </a>
@@ -57,7 +57,7 @@
                     <p class="usuario-actual-nombre">Mateo Cantos</p>
                     <p class="usuario-actual-rol">Administrador</p>
                 </div>
-                <a href="#">
+                <a href="../01-inicio-sesion/index.html">
                     <img src="img/salir.svg" alt="Cerrar sesión" width="20" height="20">
                 </a>
             </div>
@@ -75,11 +75,11 @@
                     <p class="descripcion solo-escritorio">Administra cuentas, roles y estados de acceso a la plataforma.</p>
                 </div>
                 <div class="encabezado-botones">
-                    <a href="#" class="boton boton-blanco solo-escritorio">
+                    <a href="usuarios.csv" download class="boton boton-blanco solo-escritorio">
                         <img src="img/descargar.svg" alt="" width="18" height="18">
                         Exportar
                     </a>
-                    <a href="#" class="boton boton-verde">
+                    <a href="#nuevo" class="boton boton-verde">
                         <img src="img/mas.svg" alt="" width="18" height="18">
                         <span>Nuevo<span class="solo-escritorio"> usuario</span></span>
                     </a>
@@ -171,9 +171,9 @@
                         <td class="acceso">Hoy, 10:24</td>
                         <td>
                             <div class="acciones">
-                                <button type="button" class="boton-icono"><img src="img/editar.svg" alt="Editar" width="18" height="18"></button>
-                                <button type="button" class="boton-icono"><img src="img/bloquear.svg" alt="Suspender" width="18" height="18"></button>
-                                <button type="button" class="boton-icono boton-icono-vino"><img src="img/eliminar.svg" alt="Eliminar" width="18" height="18"></button>
+                                <a href="#editar" class="boton-icono"><img src="img/editar.svg" alt="Editar" width="18" height="18"></a>
+                                <a href="#suspender" class="boton-icono"><img src="img/bloquear.svg" alt="Suspender" width="18" height="18"></a>
+                                <a href="#eliminar" class="boton-icono boton-icono-vino"><img src="img/eliminar.svg" alt="Eliminar" width="18" height="18"></a>
                             </div>
                         </td>
                     </tr>
@@ -198,9 +198,9 @@
                         <td class="acceso">Hoy, 09:10</td>
                         <td>
                             <div class="acciones">
-                                <button type="button" class="boton-icono"><img src="img/editar.svg" alt="Editar" width="18" height="18"></button>
-                                <button type="button" class="boton-icono"><img src="img/bloquear.svg" alt="Suspender" width="18" height="18"></button>
-                                <button type="button" class="boton-icono boton-icono-vino"><img src="img/eliminar.svg" alt="Eliminar" width="18" height="18"></button>
+                                <a href="#editar" class="boton-icono"><img src="img/editar.svg" alt="Editar" width="18" height="18"></a>
+                                <a href="#suspender" class="boton-icono"><img src="img/bloquear.svg" alt="Suspender" width="18" height="18"></a>
+                                <a href="#eliminar" class="boton-icono boton-icono-vino"><img src="img/eliminar.svg" alt="Eliminar" width="18" height="18"></a>
                             </div>
                         </td>
                     </tr>
@@ -225,9 +225,9 @@
                         <td class="acceso">Ayer, 21:47</td>
                         <td>
                             <div class="acciones">
-                                <button type="button" class="boton-icono"><img src="img/editar.svg" alt="Editar" width="18" height="18"></button>
-                                <button type="button" class="boton-icono"><img src="img/bloquear.svg" alt="Suspender" width="18" height="18"></button>
-                                <button type="button" class="boton-icono boton-icono-vino"><img src="img/eliminar.svg" alt="Eliminar" width="18" height="18"></button>
+                                <a href="#editar" class="boton-icono"><img src="img/editar.svg" alt="Editar" width="18" height="18"></a>
+                                <a href="#suspender" class="boton-icono"><img src="img/bloquear.svg" alt="Suspender" width="18" height="18"></a>
+                                <a href="#eliminar" class="boton-icono boton-icono-vino"><img src="img/eliminar.svg" alt="Eliminar" width="18" height="18"></a>
                             </div>
                         </td>
                     </tr>
@@ -252,9 +252,9 @@
                         <td class="acceso">05/10/2026</td>
                         <td>
                             <div class="acciones">
-                                <button type="button" class="boton-icono"><img src="img/editar.svg" alt="Editar" width="18" height="18"></button>
-                                <button type="button" class="boton-icono"><img src="img/bloquear.svg" alt="Suspender" width="18" height="18"></button>
-                                <button type="button" class="boton-icono boton-icono-vino"><img src="img/eliminar.svg" alt="Eliminar" width="18" height="18"></button>
+                                <a href="#editar" class="boton-icono"><img src="img/editar.svg" alt="Editar" width="18" height="18"></a>
+                                <a href="#suspender" class="boton-icono"><img src="img/bloquear.svg" alt="Suspender" width="18" height="18"></a>
+                                <a href="#eliminar" class="boton-icono boton-icono-vino"><img src="img/eliminar.svg" alt="Eliminar" width="18" height="18"></a>
                             </div>
                         </td>
                     </tr>
@@ -279,9 +279,9 @@
                         <td class="acceso">21/09/2026</td>
                         <td>
                             <div class="acciones">
-                                <button type="button" class="boton-icono"><img src="img/editar.svg" alt="Editar" width="18" height="18"></button>
-                                <button type="button" class="boton-icono"><img src="img/bloquear.svg" alt="Suspender" width="18" height="18"></button>
-                                <button type="button" class="boton-icono boton-icono-vino"><img src="img/eliminar.svg" alt="Eliminar" width="18" height="18"></button>
+                                <a href="#editar" class="boton-icono"><img src="img/editar.svg" alt="Editar" width="18" height="18"></a>
+                                <a href="#suspender" class="boton-icono"><img src="img/bloquear.svg" alt="Suspender" width="18" height="18"></a>
+                                <a href="#eliminar" class="boton-icono boton-icono-vino"><img src="img/eliminar.svg" alt="Eliminar" width="18" height="18"></a>
                             </div>
                         </td>
                     </tr>
@@ -306,9 +306,9 @@
                         <td class="acceso">14/09/2026</td>
                         <td>
                             <div class="acciones">
-                                <button type="button" class="boton-icono"><img src="img/editar.svg" alt="Editar" width="18" height="18"></button>
-                                <button type="button" class="boton-icono"><img src="img/check-fila.svg" alt="Reactivar" width="18" height="18"></button>
-                                <button type="button" class="boton-icono boton-icono-vino"><img src="img/eliminar.svg" alt="Eliminar" width="18" height="18"></button>
+                                <a href="#editar" class="boton-icono"><img src="img/editar.svg" alt="Editar" width="18" height="18"></a>
+                                <a href="#reactivar" class="boton-icono"><img src="img/check-fila.svg" alt="Reactivar" width="18" height="18"></a>
+                                <a href="#eliminar" class="boton-icono boton-icono-vino"><img src="img/eliminar.svg" alt="Eliminar" width="18" height="18"></a>
                             </div>
                         </td>
                     </tr>
@@ -332,20 +332,24 @@
                 <div class="busqueda-movil">
                     <label class="buscador">
                         <img src="img/buscar.svg" alt="" width="18" height="18">
-                        <input type="text" placeholder="Buscar usuario…">
+                        <input type="text" id="buscar-movil" placeholder="Buscar usuario…">
                     </label>
                     <button type="button" class="boton-icono boton-icono-grande">
                         <img src="img/filtros.svg" alt="Filtros" width="18" height="18">
                     </button>
                 </div>
 
+                <input type="radio" name="estado" id="ver-todos" class="filtro" checked>
+                <input type="radio" name="estado" id="ver-activos" class="filtro">
+                <input type="radio" name="estado" id="ver-suspendidos" class="filtro">
+
                 <div class="pestanas">
-                    <a href="#" class="pestana activa">Todos (48)</a>
-                    <a href="#" class="pestana">Activos</a>
-                    <a href="#" class="pestana">Suspendidos</a>
+                    <label for="ver-todos" class="pestana">Todos (48)</label>
+                    <label for="ver-activos" class="pestana">Activos</label>
+                    <label for="ver-suspendidos" class="pestana">Suspendidos</label>
                 </div>
 
-                <div class="usuario">
+                <div class="usuario estado-activo">
                     <span class="avatar avatar-verde">MC</span>
                     <div class="usuario-datos">
                         <p class="persona-nombre">Mateo Cantos</p>
@@ -357,10 +361,10 @@
                             </span>
                         </div>
                     </div>
-                    <button type="button" class="mas-opciones"><img src="img/mas-opciones.svg" alt="Más opciones" width="22" height="22"></button>
+                    <a href="#opciones" class="mas-opciones"><img src="img/mas-opciones.svg" alt="Más opciones" width="22" height="22"></a>
                 </div>
 
-                <div class="usuario">
+                <div class="usuario estado-activo">
                     <span class="avatar avatar-verde-oscuro">PC</span>
                     <div class="usuario-datos">
                         <p class="persona-nombre">Pedro Carranza</p>
@@ -372,10 +376,10 @@
                             </span>
                         </div>
                     </div>
-                    <button type="button" class="mas-opciones"><img src="img/mas-opciones.svg" alt="Más opciones" width="22" height="22"></button>
+                    <a href="#opciones" class="mas-opciones"><img src="img/mas-opciones.svg" alt="Más opciones" width="22" height="22"></a>
                 </div>
 
-                <div class="usuario">
+                <div class="usuario estado-activo">
                     <span class="avatar avatar-vino">GT</span>
                     <div class="usuario-datos">
                         <p class="persona-nombre">Gabriel Terán</p>
@@ -387,10 +391,10 @@
                             </span>
                         </div>
                     </div>
-                    <button type="button" class="mas-opciones"><img src="img/mas-opciones.svg" alt="Más opciones" width="22" height="22"></button>
+                    <a href="#opciones" class="mas-opciones"><img src="img/mas-opciones.svg" alt="Más opciones" width="22" height="22"></a>
                 </div>
 
-                <div class="usuario">
+                <div class="usuario estado-inactivo">
                     <span class="avatar avatar-vino-oscuro">SR</span>
                     <div class="usuario-datos">
                         <p class="persona-nombre">Sofía Ruiz</p>
@@ -402,10 +406,10 @@
                             </span>
                         </div>
                     </div>
-                    <button type="button" class="mas-opciones"><img src="img/mas-opciones.svg" alt="Más opciones" width="22" height="22"></button>
+                    <a href="#opciones" class="mas-opciones"><img src="img/mas-opciones.svg" alt="Más opciones" width="22" height="22"></a>
                 </div>
 
-                <div class="usuario">
+                <div class="usuario estado-suspendido">
                     <span class="avatar avatar-verde">AV</span>
                     <div class="usuario-datos">
                         <p class="persona-nombre">Andrés Vega</p>
@@ -417,32 +421,127 @@
                             </span>
                         </div>
                     </div>
-                    <button type="button" class="mas-opciones"><img src="img/mas-opciones.svg" alt="Más opciones" width="22" height="22"></button>
+                    <a href="#opciones" class="mas-opciones"><img src="img/mas-opciones.svg" alt="Más opciones" width="22" height="22"></a>
                 </div>
             </section>
         </main>
 
         <nav class="barra-pestanas solo-movil">
-            <a href="#" class="tab">
+            <a href="../02-galeria-principal/index.html" class="tab">
                 <img src="img/tab-galeria.svg" alt="" width="22" height="22">
                 Galería
             </a>
-            <a href="#" class="tab">
+            <label for="buscar-movil" class="tab">
                 <img src="img/tab-buscar.svg" alt="" width="22" height="22">
                 Buscar
-            </a>
-            <a href="#" class="tab-subir">
+            </label>
+            <a href="../03-registro-imagen/index.html" class="tab-subir">
                 <img src="img/tab-mas.svg" alt="Subir imagen" width="24" height="24">
             </a>
-            <a href="#" class="tab">
+            <a href="../07-favoritos/index.html" class="tab">
                 <img src="img/tab-favoritos.svg" alt="" width="22" height="22">
                 Favoritos
             </a>
-            <a href="#" class="tab activa">
+            <a href="index.html" class="tab activa">
                 <img src="img/tab-usuarios.svg" alt="" width="22" height="22">
                 Usuarios
             </a>
         </nav>
     </div>
+
+    <section id="nuevo" class="ventana">
+        <div class="ventana-caja">
+            <h2>Nuevo usuario</h2>
+            <div class="campo">
+                <label for="nuevo-nombre">Nombre completo</label>
+                <input type="text" id="nuevo-nombre" placeholder="Nombre y apellido">
+            </div>
+            <div class="campo">
+                <label for="nuevo-correo">Correo</label>
+                <input type="email" id="nuevo-correo" placeholder="correo@muralia.com">
+            </div>
+            <div class="campo">
+                <label for="nuevo-rol">Rol</label>
+                <select id="nuevo-rol">
+                    <option>Usuario</option>
+                    <option>Editor</option>
+                    <option>Administrador</option>
+                </select>
+            </div>
+            <div class="ventana-botones">
+                <a href="#" class="boton boton-blanco">Cancelar</a>
+                <a href="#" class="boton boton-verde">Crear</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="editar" class="ventana">
+        <div class="ventana-caja">
+            <h2>Editar usuario</h2>
+            <div class="campo">
+                <label for="editar-nombre">Nombre completo</label>
+                <input type="text" id="editar-nombre" value="Mateo Cantos">
+            </div>
+            <div class="campo">
+                <label for="editar-correo">Correo</label>
+                <input type="email" id="editar-correo" value="mateo.cantos@muralia.com">
+            </div>
+            <div class="campo">
+                <label for="editar-rol">Rol</label>
+                <select id="editar-rol">
+                    <option>Usuario</option>
+                    <option>Editor</option>
+                    <option>Administrador</option>
+                </select>
+            </div>
+            <div class="ventana-botones">
+                <a href="#" class="boton boton-blanco">Cancelar</a>
+                <a href="#" class="boton boton-verde">Guardar</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="suspender" class="ventana">
+        <div class="ventana-caja">
+            <h2>¿Suspender usuario?</h2>
+            <p>La persona no podrá entrar a la plataforma hasta que la reactives.</p>
+            <div class="ventana-botones">
+                <a href="#" class="boton boton-blanco">Cancelar</a>
+                <a href="#" class="boton boton-verde">Suspender</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="reactivar" class="ventana">
+        <div class="ventana-caja">
+            <h2>¿Reactivar usuario?</h2>
+            <p>La persona podrá volver a entrar a la plataforma.</p>
+            <div class="ventana-botones">
+                <a href="#" class="boton boton-blanco">Cancelar</a>
+                <a href="#" class="boton boton-verde">Reactivar</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="eliminar" class="ventana">
+        <div class="ventana-caja">
+            <h2>¿Eliminar usuario?</h2>
+            <p>Esta cuenta se quitará de la plataforma.</p>
+            <div class="ventana-botones">
+                <a href="#" class="boton boton-blanco">Cancelar</a>
+                <a href="#" class="boton boton-vino">Eliminar</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="opciones" class="ventana">
+        <div class="ventana-caja">
+            <h2>Opciones</h2>
+            <a href="#editar" class="boton boton-blanco">Editar</a>
+            <a href="#suspender" class="boton boton-blanco">Suspender</a>
+            <a href="#eliminar" class="boton boton-vino">Eliminar</a>
+            <a href="#" class="boton boton-blanco">Cerrar</a>
+        </div>
+    </section>
 </body>
 </html>

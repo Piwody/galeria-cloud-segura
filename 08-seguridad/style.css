@@ -1,0 +1,475 @@
+:root {
+    --crema: #FFEFB3;
+    --verde-oscuro: #013E37;
+    --verde: #0A5A50;
+    --blanco: #FFFFFF;
+    --vino: #963F38;
+    --fondo: #FBF8EF;
+    --borde: #E6E0CF;
+    --gris: #5E6F6B;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--fondo);
+    font-family: "Arimo", sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--verde-oscuro);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input {
+    font: inherit;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+img {
+    display: block;
+}
+
+.avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-weight: 700;
+    color: var(--crema);
+}
+
+.avatar-verde {
+    background: var(--verde);
+}
+
+.avatar-verde-oscuro {
+    background: var(--verde-oscuro);
+}
+
+.avatar-vino {
+    background: var(--vino);
+}
+
+.avatar-vino-oscuro {
+    background: #64302F;
+}
+
+.avatar-gris {
+    background: var(--gris);
+}
+
+.insignia {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.insignia-verde {
+    background: rgba(10, 90, 80, 0.12);
+    color: var(--verde);
+}
+
+.insignia-crema {
+    background: var(--crema);
+}
+
+.insignia-gris {
+    background: rgba(94, 111, 107, 0.12);
+    color: var(--gris);
+}
+
+.insignia-vino {
+    background: rgba(150, 63, 56, 0.12);
+    color: var(--vino);
+}
+
+.boton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.boton-verde {
+    background: var(--verde);
+    color: var(--blanco);
+}
+
+.boton-blanco {
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+}
+
+.boton-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+}
+
+.boton-icono-vino {
+    border-color: rgba(150, 63, 56, 0.35);
+}
+
+.boton:hover,
+.boton-icono:hover {
+    opacity: 0.85;
+}
+
+.titulo {
+    font-family: "Bodoni Moda", serif;
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.encabezado {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.persona-nombre {
+    font-weight: 700;
+}
+
+
+
+@media (min-width: 769px) {
+
+    .solo-movil {
+        display: none;
+    }
+
+    .pagina {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    .barra-lateral {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        flex-shrink: 0;
+        width: 256px;
+        padding: 28px 20px 20px;
+        background: var(--verde-oscuro);
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .logo-texto {
+        font-family: "Bodoni Moda", serif;
+        font-size: 26px;
+        color: var(--crema);
+    }
+
+    .logo-subtitulo,
+    .usuario-actual-rol {
+        font-size: 12px;
+        color: rgba(255, 239, 179, 0.7);
+    }
+
+    .menu-titulo,
+    th {
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 1.3;
+        letter-spacing: 1.3px;
+        text-transform: uppercase;
+        color: var(--gris);
+    }
+
+    .menu-titulo {
+        margin-top: 32px;
+        color: rgba(255, 239, 179, 0.55);
+    }
+
+    .menu-titulo-admin {
+        margin-top: 24px;
+    }
+
+    .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        height: 44px;
+        padding: 0 14px;
+        border-radius: 10px;
+        color: rgba(255, 255, 255, 0.75);
+    }
+
+    .activo {
+        background: var(--verde);
+        font-weight: 700;
+        color: var(--crema);
+    }
+
+    .usuario-actual {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: auto;
+        padding-top: 14px;
+        border-top: 1px solid rgba(255, 239, 179, 0.15);
+    }
+
+    .usuario-actual-datos {
+        flex: 1;
+    }
+
+    .usuario-actual-nombre {
+        font-weight: 700;
+        color: var(--blanco);
+    }
+
+    .contenido {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        flex: 1;
+        padding: 32px 40px;
+    }
+
+    .tabla-titulo {
+        padding: 16px 20px;
+        font-family: "Bodoni Moda", serif;
+        font-size: 19px;
+        font-weight: 600;
+        line-height: 1.3;
+    }
+
+    .titulo {
+        margin-bottom: 6px;
+    }
+
+    .descripcion {
+        color: var(--gris);
+    }
+
+    .resumen {
+        display: flex;
+        gap: 16px;
+    }
+
+    .tarjeta {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex: 1;
+        padding: 18px 20px;
+        background: var(--blanco);
+        border: 1px solid var(--borde);
+        border-radius: 16px;
+    }
+
+    .tarjeta-icono {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        background: var(--crema);
+        border-radius: 12px;
+    }
+
+    .tarjeta-icono-vino {
+        background: rgba(150, 63, 56, 0.12);
+    }
+
+    .tarjeta-numero {
+        font-family: "Bodoni Moda", serif;
+        font-size: 26px;
+        line-height: 1.25;
+    }
+
+    .tarjeta-texto {
+        font-size: 12px;
+        color: var(--gris);
+    }
+
+    .tabla {
+        background: var(--blanco);
+        border: 1px solid var(--borde);
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        padding: 12px 6px;
+        border-top: 1px solid var(--borde);
+        text-align: left;
+    }
+
+    th:first-child,
+    td:first-child {
+        padding-left: 20px;
+    }
+
+    th:last-child,
+    td:last-child {
+        padding-right: 20px;
+    }
+
+    th {
+        background: var(--fondo);
+    }
+
+    .acceso {
+        color: var(--gris);
+    }
+
+    .persona {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .persona-correo {
+        margin-top: 2px;
+        font-size: 12px;
+        color: var(--gris);
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+    .solo-escritorio {
+        display: none;
+    }
+
+    .contenido {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 24px 20px 100px;
+    }
+
+    .encabezado {
+        align-items: center;
+    }
+
+    .sobretitulo {
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 1.3;
+        letter-spacing: 1.3px;
+        text-transform: uppercase;
+        color: var(--verde);
+    }
+
+    .lista {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .usuario {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 14px;
+        background: var(--blanco);
+        border: 1px solid var(--borde);
+        border-radius: 14px;
+    }
+
+    .usuario-datos {
+        flex: 1;
+    }
+
+    .persona-correo {
+        margin-top: 4px;
+        font-size: 12px;
+        color: var(--gris);
+    }
+
+
+    .barra-pestanas {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 80px;
+        padding: 0 22px 12px;
+        background: var(--blanco);
+        border-top: 1px solid var(--borde);
+    }
+
+    .tab {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        width: 60px;
+        font-size: 12px;
+        color: var(--gris);
+        cursor: pointer;
+    }
+
+    .tab.activa {
+        color: var(--verde-oscuro);
+    }
+
+    .tab-subir {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 52px;
+        height: 52px;
+        background: var(--verde);
+        border-radius: 50%;
+    }
+}

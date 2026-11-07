@@ -126,6 +126,11 @@ img {
     border: 1px solid var(--borde);
 }
 
+.boton-vino {
+    background: var(--vino);
+    color: var(--blanco);
+}
+
 .boton-icono {
     display: flex;
     align-items: center;
@@ -187,6 +192,69 @@ img {
 
 .persona-nombre {
     font-weight: 700;
+}
+
+.ventana {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(1, 62, 55, 0.55);
+}
+
+.ventana:target {
+    display: flex;
+}
+
+.ventana-caja {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    max-width: 400px;
+    padding: 28px;
+    background: var(--blanco);
+    border-radius: 20px;
+}
+
+.ventana-caja h2 {
+    font-family: "Bodoni Moda", serif;
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.25;
+}
+
+.ventana-caja p {
+    color: var(--gris);
+}
+
+.ventana-botones {
+    display: flex;
+    gap: 12px;
+}
+
+.ventana-botones .boton {
+    flex: 1;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.campo input,
+.campo select {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 10px;
 }
 
 
@@ -522,6 +590,7 @@ img {
     }
 
     .pestana {
+        cursor: pointer;
         padding: 8px 16px;
         background: var(--blanco);
         border: 1px solid var(--borde);
@@ -530,10 +599,21 @@ img {
         font-weight: 700;
     }
 
-    .pestana.activa {
+    .filtro {
+        display: none;
+    }
+
+    #ver-todos:checked ~ .pestanas [for="ver-todos"],
+    #ver-activos:checked ~ .pestanas [for="ver-activos"],
+    #ver-suspendidos:checked ~ .pestanas [for="ver-suspendidos"] {
         background: var(--verde-oscuro);
         border-color: var(--verde-oscuro);
         color: var(--crema);
+    }
+
+    #ver-activos:checked ~ .usuario:not(.estado-activo),
+    #ver-suspendidos:checked ~ .usuario:not(.estado-suspendido) {
+        display: none;
     }
 
     .usuario {
@@ -556,10 +636,6 @@ img {
         margin-top: 6px;
     }
 
-    .mas-opciones {
-        border: none;
-        background: none;
-    }
 
     .barra-pestanas {
         position: fixed;
@@ -583,6 +659,7 @@ img {
         width: 60px;
         font-size: 12px;
         color: var(--gris);
+        cursor: pointer;
     }
 
     .tab.activa {

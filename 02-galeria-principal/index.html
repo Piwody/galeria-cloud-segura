@@ -31,11 +31,11 @@
             <img src="img/subir.svg" alt="" width="20" height="20" />
             Subir imagen
           </a>
-          <a href="#" class="menu-item">
+          <a href="../06-mis-imagenes/index.html" class="menu-item">
             <img src="img/mis-imagenes.svg" alt="" width="20" height="20" />
             Mis imágenes
           </a>
-          <a href="#" class="menu-item">
+          <a href="../07-favoritos/index.html" class="menu-item">
             <img src="img/favoritos.svg" alt="" width="20" height="20" />
             Favoritos
           </a>
@@ -47,7 +47,7 @@
             <img src="img/usuarios.svg" alt="" width="20" height="20" />
             Usuarios
           </a>
-          <a href="#" class="menu-item">
+          <a href="../08-seguridad/index.html" class="menu-item">
             <img src="img/seguridad.svg" alt="" width="20" height="20" />
             Seguridad
           </a>
@@ -77,14 +77,14 @@
             <h1 class="titulo">Galería</h1>
           </div>
           <div class="encabezado-botones">
-            <button type="button" class="boton-redondo">
+            <a href="#notificaciones" class="boton-redondo">
               <img
                 src="img/campana.svg"
                 alt="Notificaciones"
                 width="20"
                 height="20"
               />
-            </button>
+            </a>
             <a
               href="../03-registro-imagen/index.html"
               class="boton boton-verde"
@@ -101,15 +101,15 @@
             <span class="logo-texto">Muralia</span>
           </div>
           <div class="encabezado-botones">
-            <button type="button" class="boton-transparente">
+            <a href="#notificaciones" class="boton-transparente">
               <img
                 src="img/campana.svg"
                 alt="Notificaciones"
                 width="20"
                 height="20"
               />
-            </button>
-            <span class="avatar avatar-verde avatar-pequeno">MC</span>
+            </a>
+            <a href="#cuenta" class="avatar avatar-verde avatar-pequeno">MC</a>
           </div>
         </header>
 
@@ -123,6 +123,7 @@
             />
             <input
               type="text"
+              id="buscar-movil"
               placeholder="Buscar imágenes…"
               class="solo-movil"
             />
@@ -140,23 +141,32 @@
           </button>
         </section>
 
+        <input type="radio" name="categoria" id="cat-todas" class="filtro" checked />
+        <input type="radio" name="categoria" id="cat-naturaleza" class="filtro" />
+        <input type="radio" name="categoria" id="cat-arquitectura" class="filtro" />
+        <input type="radio" name="categoria" id="cat-arte" class="filtro" />
+        <input type="radio" name="categoria" id="cat-fotografia" class="filtro" />
+        <input type="radio" name="categoria" id="cat-retratos" class="filtro" />
+        <input type="radio" name="categoria" id="cat-viajes" class="filtro" />
+        <input type="radio" name="categoria" id="cat-diseno" class="filtro" />
+
         <section class="categorias">
           <nav class="chips">
-            <a href="#" class="chip activa">Todas</a>
-            <a href="#" class="chip">Naturaleza</a>
-            <a href="#" class="chip">Arquitectura</a>
-            <a href="#" class="chip">Arte</a>
-            <a href="#" class="chip">Fotografía</a>
-            <a href="#" class="chip">Retratos</a>
-            <a href="#" class="chip">Viajes</a>
-            <a href="#" class="chip">Diseño</a>
+            <label for="cat-todas" class="chip">Todas</label>
+            <label for="cat-naturaleza" class="chip">Naturaleza</label>
+            <label for="cat-arquitectura" class="chip">Arquitectura</label>
+            <label for="cat-arte" class="chip">Arte</label>
+            <label for="cat-fotografia" class="chip">Fotografía</label>
+            <label for="cat-retratos" class="chip">Retratos</label>
+            <label for="cat-viajes" class="chip">Viajes</label>
+            <label for="cat-diseno" class="chip">Diseño</label>
           </nav>
           <p class="contador solo-escritorio">128 imágenes</p>
         </section>
 
         <section class="galeria">
           <div class="columna">
-            <a href="../04-detalle-imagen/index.html" class="tarjeta">
+            <a href="../04-detalle-imagen/index.html" class="tarjeta naturaleza">
               <div class="tarjeta-imagen alta">
                 <img src="img/imagen-1.svg" alt="Atardecer en la costa" />
               </div>
@@ -195,7 +205,43 @@
               </div>
             </a>
 
-            <a href="../04-detalle-imagen/index.html" class="tarjeta">
+            <a href="../04-detalle-imagen/index.html" class="tarjeta fotografia solo-movil">
+              <div class="tarjeta-imagen baja">
+                <img src="img/imagen-3.svg" alt="Volcán Cotopaxi" />
+              </div>
+              <div class="tarjeta-info">
+                <h2 class="tarjeta-titulo">Volcán Cotopaxi</h2>
+                <div class="tarjeta-fila">
+                  <span class="insignia insignia-crema">
+                    <img
+                      src="img/punto-oscuro.svg"
+                      alt=""
+                      width="6"
+                      height="6"
+                    />
+                    Fotografía
+                  </span>
+                  <img
+                    src="img/mundo.svg"
+                    alt="Pública"
+                    width="16"
+                    height="16"
+                  />
+                </div>
+                <div class="tarjeta-fila">
+                  <span class="autor">
+                    <span class="avatar avatar-verde-oscuro">PC</span>
+                    <span>Pedro Carranza</span>
+                  </span>
+                  <span class="me-gusta">
+                    <img src="img/me-gusta.svg" alt="" width="14" height="14" />
+                    412
+                  </span>
+                </div>
+              </div>
+            </a>
+
+            <a href="../04-detalle-imagen/index.html" class="tarjeta arte solo-escritorio">
               <div class="tarjeta-imagen media">
                 <img src="img/imagen-5.svg" alt="Rosas del valle" />
               </div>
@@ -234,7 +280,7 @@
               </div>
             </a>
 
-            <a href="../04-detalle-imagen/index.html" class="tarjeta">
+            <a href="../04-detalle-imagen/index.html" class="tarjeta viajes">
               <div class="tarjeta-imagen baja">
                 <img src="img/imagen-9.svg" alt="Laguna de Quilotoa" />
               </div>
@@ -275,7 +321,81 @@
           </div>
 
           <div class="columna">
-            <a href="../04-detalle-imagen/index.html" class="tarjeta">
+            <a href="../04-detalle-imagen/index.html" class="tarjeta arte solo-movil">
+              <div class="tarjeta-imagen baja">
+                <img src="img/imagen-6.svg" alt="Flores de temporada" />
+              </div>
+              <div class="tarjeta-info">
+                <h2 class="tarjeta-titulo">Flores de temporada</h2>
+                <div class="tarjeta-fila">
+                  <span class="insignia insignia-crema">
+                    <img
+                      src="img/punto-oscuro.svg"
+                      alt=""
+                      width="6"
+                      height="6"
+                    />
+                    Arte
+                  </span>
+                  <img
+                    src="img/mundo.svg"
+                    alt="Pública"
+                    width="16"
+                    height="16"
+                  />
+                </div>
+                <div class="tarjeta-fila">
+                  <span class="autor">
+                    <span class="avatar avatar-verde">MC</span>
+                    <span
+                      ><span class="solo-escritorio">Mateo</span
+                      ><span class="solo-movil">M.</span> Cantos</span
+                    >
+                  </span>
+                  <span class="me-gusta">
+                    <img src="img/me-gusta.svg" alt="" width="14" height="14" />
+                    203
+                  </span>
+                </div>
+              </div>
+            </a>
+
+            <a href="../04-detalle-imagen/index.html" class="tarjeta naturaleza solo-movil">
+              <div class="tarjeta-imagen alta">
+                <img src="img/imagen-8.svg" alt="Bosque nublado" />
+              </div>
+              <div class="tarjeta-info">
+                <h2 class="tarjeta-titulo">Bosque nublado</h2>
+                <div class="tarjeta-fila">
+                  <span class="insignia insignia-crema">
+                    <img
+                      src="img/punto-oscuro.svg"
+                      alt=""
+                      width="6"
+                      height="6"
+                    />
+                    Naturaleza
+                  </span>
+                  <img
+                    src="img/mundo.svg"
+                    alt="Pública"
+                    width="16"
+                    height="16"
+                  />
+                </div>
+                <div class="tarjeta-fila">
+                  <span class="autor">
+                    <span class="avatar avatar-verde">MC</span>
+                    <span>Mateo Cantos</span>
+                  </span>
+                  <span class="me-gusta">
+                    <img src="img/me-gusta.svg" alt="" width="14" height="14" />
+                    149
+                  </span>
+                </div>
+              </div>
+            </a>
+            <a href="../04-detalle-imagen/index.html" class="tarjeta viajes solo-escritorio">
               <div class="tarjeta-imagen media">
                 <img src="img/imagen-2.svg" alt="Calles de Cuenca" />
               </div>
@@ -314,7 +434,7 @@
               </div>
             </a>
 
-            <a href="../04-detalle-imagen/index.html" class="tarjeta">
+            <a href="../04-detalle-imagen/index.html" class="tarjeta naturaleza">
               <div class="tarjeta-imagen alta">
                 <img src="img/imagen-6.svg" alt="Páramo andino" />
               </div>
@@ -353,7 +473,7 @@
               </div>
             </a>
 
-            <a href="../04-detalle-imagen/index.html" class="tarjeta">
+            <a href="../04-detalle-imagen/index.html" class="tarjeta retratos">
               <div class="tarjeta-imagen baja">
                 <img src="img/imagen-10.svg" alt="Retrato en sepia" />
               </div>
@@ -394,7 +514,7 @@
           </div>
 
           <div class="columna solo-escritorio">
-            <a href="../04-detalle-imagen/index.html" class="tarjeta">
+            <a href="../04-detalle-imagen/index.html" class="tarjeta fotografia">
               <div class="tarjeta-imagen baja">
                 <img src="img/imagen-3.svg" alt="Volcán Cotopaxi" />
               </div>
@@ -430,7 +550,7 @@
               </div>
             </a>
 
-            <a href="../04-detalle-imagen/index.html" class="tarjeta">
+            <a href="../04-detalle-imagen/index.html" class="tarjeta fotografia">
               <div class="tarjeta-imagen alta">
                 <img src="img/imagen-7.svg" alt="Dunas al atardecer" />
               </div>
@@ -466,7 +586,7 @@
               </div>
             </a>
 
-            <a href="../04-detalle-imagen/index.html" class="tarjeta">
+            <a href="../04-detalle-imagen/index.html" class="tarjeta diseno">
               <div class="tarjeta-imagen media">
                 <img src="img/imagen-11.svg" alt="Cartel minimalista" />
               </div>
@@ -504,7 +624,7 @@
           </div>
 
           <div class="columna columna-cuatro solo-escritorio">
-            <a href="../04-detalle-imagen/index.html" class="tarjeta">
+            <a href="../04-detalle-imagen/index.html" class="tarjeta arquitectura">
               <div class="tarjeta-imagen media">
                 <img src="img/imagen-4.svg" alt="Catedral de Quito" />
               </div>
@@ -540,7 +660,7 @@
               </div>
             </a>
 
-            <a href="../04-detalle-imagen/index.html" class="tarjeta">
+            <a href="../04-detalle-imagen/index.html" class="tarjeta naturaleza">
               <div class="tarjeta-imagen baja">
                 <img src="img/imagen-8.svg" alt="Bosque nublado" />
               </div>
@@ -576,7 +696,7 @@
               </div>
             </a>
 
-            <a href="../04-detalle-imagen/index.html" class="tarjeta">
+            <a href="../04-detalle-imagen/index.html" class="tarjeta arquitectura">
               <div class="tarjeta-imagen alta">
                 <img src="img/imagen-12.svg" alt="Iglesia de San Francisco" />
               </div>
@@ -620,10 +740,10 @@
           <img src="img/tab-galeria.svg" alt="" width="22" height="22" />
           Galería
         </a>
-        <a href="#" class="tab">
+        <label for="buscar-movil" class="tab">
           <img src="img/tab-buscar.svg" alt="" width="22" height="22" />
           Buscar
-        </a>
+        </label>
         <a href="../03-registro-imagen/index.html" class="tab-subir">
           <img
             src="img/tab-mas.svg"
@@ -632,7 +752,7 @@
             height="24"
           />
         </a>
-        <a href="#" class="tab">
+        <a href="../07-favoritos/index.html" class="tab">
           <img src="img/tab-favoritos.svg" alt="" width="22" height="22" />
           Favoritos
         </a>
@@ -641,6 +761,26 @@
           Usuarios
         </a>
       </nav>
+
+      <section id="notificaciones" class="ventana">
+        <div class="ventana-caja">
+          <h2>Notificaciones</h2>
+          <p>Gabriel Terán subió «Calles de Cuenca».</p>
+          <p>Pedro Carranza subió «Catedral de Quito».</p>
+          <a href="#" class="boton boton-verde">Cerrar</a>
+        </div>
+      </section>
+
+      <section id="cuenta" class="ventana">
+        <div class="ventana-caja">
+          <h2>Mateo Cantos</h2>
+          <p>Administrador</p>
+          <a href="../06-mis-imagenes/index.html" class="boton boton-blanco">Mis imágenes</a>
+          <a href="../08-seguridad/index.html" class="boton boton-blanco">Seguridad</a>
+          <a href="../01-inicio-sesion/index.html" class="boton boton-blanco">Cerrar sesión</a>
+          <a href="#" class="boton boton-verde">Cerrar</a>
+        </div>
+      </section>
     </div>
   </body>
 </html>

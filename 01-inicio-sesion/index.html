@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar sesión · Muralia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Bodoni+Moda:opsz,wght@6..96,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,29 +14,30 @@
         <section class="presentacion">
 
             <header class="logo">
-                <img src="../assets/muralia-flor.png" alt="Flor de Muralia">
+                <img src="assets/flor.svg" alt="Flor de Muralia">
                 <span>Muralia</span>
             </header>
             <div class="mensaje">
                 <p class="etiqueta">EST. 2026</p>
                 <h1>Tu galería,<br>segura en la nube.</h1>
-                <p class="descripcion">
+                <p class="descripcion solo-grande">
                     Organiza, comparte y protege tus imágenes con
                     Galería Cloud Segura. Acceso controlado por
                     roles y almacenamiento en AWS.
                 </p>
+                <p class="descripcion solo-movil">Accede para ver y gestionar tus imágenes.</p>
             </div>
             <footer class="caracteristicas">
                 <p>
-                    <img src="../assets/shield.png" alt="">
+                    <img src="assets/shield-crema.png" alt="">
                     Acceso por roles (Administrador · Editor · Usuario)
                 </p>
                 <p>
-                    <img src="../assets/cloud.png" alt="">
+                    <img src="assets/cloud-crema.png" alt="">
                     Imágenes almacenadas en AWS S3
                 </p>
                 <p>
-                    <img src="../assets/lock.png" alt="">
+                    <img src="assets/lock-crema.png" alt="">
                     Conexión cifrada (HTTPS)
                 </p>
             </footer>
@@ -48,12 +52,12 @@
                     <div class="campo">
                         <label for="correo">Correo o usuario</label>
                         <div class="entrada">
-                            <img src="../assets/person.png" alt="">
+                            <img src="assets/usuario.svg" alt="">
                             <input
                                 type="text"
                                 id="correo"
                                 name="correo"
-                                placeholder="mateo.cantos@muralia.com"
+                                value="mateo.cantos@muralia.com"
                                 autocomplete="username"
                                 required
                             >
@@ -62,12 +66,13 @@
                     <div class="campo">
                         <label for="contrasena">Contraseña</label>
                         <div class="entrada">
-                            <img src="../assets/lock.png" alt="">
+                            <img src="assets/candado.svg" alt="">
                             <input
                                 type="password"
                                 id="contrasena"
                                 name="contrasena"
-                                placeholder="Ingresa tu contraseña"
+                                value="muralia2026!"
+                                autofocus
                                 autocomplete="current-password"
                                 required
                             >
@@ -75,11 +80,11 @@
                     </div>
                     <div class="opciones">
                         <label class="recordar">
-                            <input type="checkbox" name="recordar">
+                            <input type="checkbox" name="recordar" checked>
                             <span>Recordarme</span>
                         </label>
 
-                        <a href="#">¿Olvidaste tu contraseña?</a>
+                        <a href="#recuperar">¿Olvidaste tu contraseña?</a>
 
                     </div>
                     <a class="boton-ingresar" href="../02-galeria-principal/index.html">Ingresar</a>
@@ -91,14 +96,53 @@
                 </div>
                 <p class="solicitud">
                     ¿No tienes cuenta?
-                    <a href="#">Solicitar acceso al administrador</a>
+                    <a href="#solicitar">Solicitar acceso al administrador</a>
                 </p>
             </div>
-            <p class="conexion">
-                <img src="../assets/shield.png" alt="">
-                Conexión segura · Autenticación gestionada con AWS
-            </p>
         </section>
     </main>
+
+    <section id="recuperar" class="ventana">
+        <div class="ventana-caja">
+            <h2>Recuperar contraseña</h2>
+            <p>Escribe tu correo y te enviaremos un enlace para crear una contraseña nueva.</p>
+            <div class="campo">
+                <label for="correo-recuperar">Correo</label>
+                <div class="entrada">
+                    <img src="assets/usuario.svg" alt="">
+                    <input type="email" id="correo-recuperar" placeholder="tu.correo@muralia.com">
+                </div>
+            </div>
+            <div class="ventana-botones">
+                <a href="#" class="boton-secundario">Cancelar</a>
+                <a href="#" class="boton-ingresar">Enviar enlace</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="solicitar" class="ventana">
+        <div class="ventana-caja">
+            <h2>Solicitar acceso</h2>
+            <p>El administrador revisará tu solicitud y te dará un rol.</p>
+            <div class="campo">
+                <label for="nombre-solicitud">Nombre completo</label>
+                <div class="entrada">
+                    <img src="assets/usuario.svg" alt="">
+                    <input type="text" id="nombre-solicitud" placeholder="Tu nombre">
+                </div>
+            </div>
+            <div class="campo">
+                <label for="correo-solicitud">Correo</label>
+                <div class="entrada">
+                    <img src="assets/usuario.svg" alt="">
+                    <input type="email" id="correo-solicitud" placeholder="tu.correo@muralia.com">
+                </div>
+            </div>
+            <div class="ventana-botones">
+                <a href="#" class="boton-secundario">Cancelar</a>
+                <a href="#" class="boton-ingresar">Enviar solicitud</a>
+            </div>
+        </div>
+    </section>
 </body>
 </html>

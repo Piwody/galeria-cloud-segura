@@ -22,7 +22,7 @@ La aplicación tiene tres roles:
 
 ## Pantallas
 
-Cada pantalla tiene su propia carpeta con su `index.html`, su `style.css` y su carpeta `img/`.
+Cada pantalla tiene su propia carpeta con su `index.html`, su `style.css` y su carpeta de imágenes (`img/` o `assets/`).
 
 | Carpeta | Pantalla | Para qué sirve |
 |---|---|---|
@@ -31,20 +31,26 @@ Cada pantalla tiene su propia carpeta con su `index.html`, su `style.css` y su c
 | `03-registro-imagen` | Registro de imagen | Subir una imagen nueva con su información |
 | `04-detalle-imagen` | Detalle de imagen | Ver una imagen con sus datos, su responsable y las acciones disponibles |
 | `05-gestion-usuarios` | Gestión de usuarios | Ver, buscar y administrar las cuentas de la plataforma |
+| `06-mis-imagenes` | Mis imágenes | Ver las imágenes subidas por el usuario |
+| `07-favoritos` | Favoritos | Ver las imágenes guardadas |
+| `08-seguridad` | Seguridad | Ver los roles, sus permisos y la actividad reciente |
+
+Las pantallas 01 a 05 siguen los mockups de Figma, con cambios acordados por el equipo en 04 y 05. Las pantallas 06, 07 y 08 no tienen mockup: se diseñaron con el mismo estilo.
 
 Todas las pantallas funcionan en **escritorio** y en **celular**.
 
 ## Tecnologías
 
 - **HTML5**: la estructura de cada página.
-- **CSS3**: los estilos, con variables para los colores y dos media queries:
-  - `min-width: 769px` para escritorio.
-  - `max-width: 768px` para celular.
+- **CSS3**: los estilos, con Flexbox, Grid y media queries:
+  - `01` y `03`: `min-width: 768px` y `min-width: 1024px`.
+  - `02`, `04`, `05`, `06`, `07` y `08`: `min-width: 769px` para escritorio y `max-width: 768px` para celular.
+  - Interacción sin JavaScript: `:target` para las ventanas emergentes y `:checked` para los filtros.
 - **Google Fonts**: Bodoni Moda para los títulos y Arimo para el texto.
 - **Figma**: el diseño de los mockups y los íconos.
 - **Git y GitHub**: para trabajar en equipo y guardar las versiones del proyecto.
 
-Por ahora el proyecto es **solo frontend**: los botones y enlaces todavía no hacen nada. La parte de backend (guardar usuarios, subir imágenes, iniciar sesión) se agregará más adelante.
+Por ahora el proyecto es **solo frontend**: los enlaces conectan las 8 pantallas y las ventanas, filtros y pestañas funcionan con CSS, pero nada se guarda de verdad. Los datos son de ejemplo y AWS S3, el cifrado y la paginación solo se muestran como parte del diseño.
 
 ## Guía de estilo
 
