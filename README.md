@@ -4,13 +4,11 @@ Proyecto Integrador 2026 · Programación Web · UIDE
 
 ## ¿Qué es el Proyecto Integrador?
 
-Es el proyecto del semestre donde aplicamos lo aprendido en la materia de Programación Web. Partimos de los mockups que diseñamos en Figma y los convertimos en páginas web reales, para escritorio y para celular.
+Es el proyecto del semestre donde aplicamos lo aprendido en la materia de Programación Web. Partimos de los mockups que diseñamos en Figma, los convertimos en páginas web reales y ahora las conectamos a un backend con base de datos.
 
 ## ¿Qué es Muralia?
 
-Muralia es una **galería de imágenes en la nube** donde cada persona puede subir, ver, guardar y descargar fotos de forma segura.
-
-Cada imagen tiene su información (categoría, fecha de registro, formato, tamaño y responsable) y se guarda cifrada en la nube.
+Muralia es una **galería de imágenes** donde cada persona puede subir, ver y descargar fotos. Cada imagen tiene su título, descripción, categoría, visibilidad, fecha de registro y un usuario responsable.
 
 La aplicación tiene tres roles:
 
@@ -20,37 +18,140 @@ La aplicación tiene tres roles:
 | **Editor** | Lo mismo que el usuario, y además editar la información de sus propias imágenes |
 | **Administrador** | Todo lo anterior, eliminar cualquier imagen y gestionar las cuentas de usuarios (roles y estados) |
 
-## Pantallas
+## Arquitectura (Avance 3)
 
-Cada pantalla tiene su propia carpeta con su `index.html`, su `style.css` y su carpeta de imágenes (`img/` o `assets/`).
+```
+Navegador ──► Frontend (HTML, CSS y JavaScript) publicado en Amazon S3
+                 │  fetch()
+                 ▼
+             Backend FastAPI en el computador (http://localhost:8000)
+                 │  SQLAlchemy
+                 ▼
+             Base de datos SQLite (backend/galeria.db)
+             Imágenes subidas (backend/uploads/)
+```
 
-| Carpeta | Pantalla | Para qué sirve |
+- El **frontend** se publica en Amazon S3 como sitio web estático.
+- El **backend** y la **base de datos** corren en el computador del equipo.
+- El archivo [api.js](api.js) tiene la dirección del backend y las funciones que usan todas las páginas para hablar con la API.
+
+## Estructura del proyecto
+
+```
+galeria-cloud-segura/
+├── index.html                 Redirige al inicio de sesión
+├── api.js                     Conexión del frontend con la API
+├── 01-inicio-sesion/ … 08-seguridad/   Una carpeta por pantalla
+├── despliegue/
+│   └── politica-bucket.json   Permiso de lectura pública para S3
+└── backend/
+    ├── requirements.txt
+    └── app/
+        ├── main.py            Crea la API, CORS y carpeta de imágenes
+        ├── config.py          Rutas, orígenes permitidos y límites
+        ├── database.py        Conexión a SQLite
+        ├── models.py          Tablas: usuarios, categorías, imágenes
+        ├── schemas.py         Datos que entran y salen de la API
+        ├── seguridad.py       Cifrado de contraseñas
+        ├── datos_iniciales.py Datos de ejemplo de la primera vez
+        ├── routers/           Endpoints de cada recurso
+        └── services/          Lógica de negocio de cada recurso
+```
+
+## Modelo de datos (SQLite)
+
+| Tabla | Campos |
+|---|---|
+| **usuarios** | id, nombre, correo (único), contrasena (cifrada con PBKDF2), rol, estado |
+| **categorias** | id, nombre (único), descripcion |
+| **imagenes** | id, titulo, archivo, descripcion, visibilidad, fecha_registro, **categoria_id**, **usuario_id** |
+
+Relaciones:
+
+- Un usuario registra muchas imágenes (`imagenes.usuario_id → usuarios.id`).
+- Una categoría tiene muchas imágenes (`imagenes.categoria_id → categorias.id`).
+- No se puede borrar un usuario ni una categoría que todavía tengan imágenes.
+
+## Endpoints
+
+| Método | Ruta | Qué hace |
 |---|---|---|
-| `01-inicio-sesion` | Inicio de sesión | Entrar a la aplicación con correo y contraseña |
-| `02-galeria-principal` | Galería principal | Ver todas las imágenes por categorías |
-| `03-registro-imagen` | Registro de imagen | Subir una imagen nueva con su información |
-| `04-detalle-imagen` | Detalle de imagen | Ver una imagen con sus datos, su responsable y las acciones disponibles |
-| `05-gestion-usuarios` | Gestión de usuarios | Ver, buscar y administrar las cuentas de la plataforma |
-| `06-mis-imagenes` | Mis imágenes | Ver las imágenes subidas por el usuario |
-| `07-favoritos` | Favoritos | Ver las imágenes guardadas |
-| `08-seguridad` | Seguridad | Ver los roles, sus permisos y la actividad reciente |
+| POST | `/imagenes` | Registra una imagen (formulario con archivo) |
+| GET | `/imagenes` | Lista las imágenes (filtros opcionales `?categoria_id=` y `?usuario_id=`) |
+| GET | `/imagenes/{id}` | Detalle de una imagen |
+| PUT | `/imagenes/{id}` | Actualiza título, descripción, visibilidad o categoría |
+| DELETE | `/imagenes/{id}` | Elimina la imagen y su archivo |
+| POST | `/usuarios` | Registra un usuario |
+| GET | `/usuarios` | Lista los usuarios |
+| GET | `/usuarios/{id}` | Detalle de un usuario |
+| PUT | `/usuarios/{id}` | Actualiza nombre, correo, contraseña, rol o estado |
+| DELETE | `/usuarios/{id}` | Elimina un usuario |
+| POST | `/categorias` | Registra una categoría |
+| GET | `/categorias` | Lista las categorías |
+| GET | `/categorias/{id}` | Detalle de una categoría |
+| PUT | `/categorias/{id}` | Actualiza una categoría |
+| DELETE | `/categorias/{id}` | Elimina una categoría |
 
-Las pantallas 01 a 05 siguen los mockups de Figma, con cambios acordados por el equipo en 04 y 05. Las pantallas 06, 07 y 08 no tienen mockup: se diseñaron con el mismo estilo.
+Con el backend encendido, la documentación interactiva está en http://localhost:8000/docs.
 
-Todas las pantallas funcionan en **escritorio** y en **celular**.
+## Qué pantallas usan la API
+
+| Pantalla | Qué hace con la API |
+|---|---|
+| `02` Galería | Lista las imágenes y las categorías, y filtra por categoría |
+| `03` Registro | Registra imágenes, crea categorías nuevas y edita imágenes (`?id=`) |
+| `04` Detalle | Muestra una imagen (`?id=`), otras del mismo autor y la elimina |
+| `05` Usuarios | Lista, registra, edita, suspende y elimina usuarios |
+
+Las pantallas `01`, `06`, `07` y `08` siguen siendo solo diseño. Todavía no hay inicio de sesión real: las imágenes nuevas se registran a nombre del usuario 1 (Mateo Cantos).
+
+## Cómo ejecutar el backend
+
+Desde la carpeta `backend`:
+
+```bash
+pip install -r requirements.txt
+```
+
+```bash
+python -m uvicorn app.main:app --reload
+```
+
+La primera vez se crea `galeria.db` con 7 categorías, 6 usuarios y 12 imágenes de ejemplo. La contraseña de los usuarios de ejemplo es `muralia2026`. Para empezar de cero, borra `backend/galeria.db` y la carpeta `backend/uploads`.
+
+## Cómo ver el frontend en el computador
+
+Abre la carpeta del proyecto en VS Code y abre cualquier `index.html` con **Live Server**. El backend debe estar encendido.
+
+## Sitio publicado en Amazon S3
+
+http://muraliacloudintegrador.s3-website.us-east-2.amazonaws.com
+
+- Bucket: `muraliacloudintegrador`, región `us-east-2` (Ohio).
+- Para que la página cargue datos, el backend tiene que estar encendido en el mismo computador donde se abre el enlace.
+- La primera vez, el navegador puede bloquear la conexión con `localhost`. En Chrome o Brave, haz clic en el ícono de la barra de direcciones, permite el **acceso a la red local** y recarga la página.
+
+## Cómo publicar el frontend en Amazon S3
+
+1. En la consola de AWS entra a **S3** y crea un bucket, por ejemplo `muraliacloudintegrador`.
+2. En **Bloquear acceso público**, desmarca la opción y confirma.
+3. Sube el contenido de la carpeta del proyecto **menos la carpeta `backend`**: `index.html`, `api.js` y las carpetas `01-…` a `08-…`. Arrastra las carpetas completas para que se conserven las rutas.
+4. En **Propiedades → Alojamiento de sitios web estáticos**, actívalo con documento de índice `index.html`.
+5. En **Permisos → Política del bucket**, pega [politica-bucket.json](despliegue/politica-bucket.json). Si usas otro bucket, cambia `muraliacloudintegrador` por su nombre.
+6. Abre el **punto de enlace del sitio web** que aparece en Propiedades (`http://…s3-website-…amazonaws.com`).
+
+El backend ya acepta peticiones (CORS) de cualquier dirección `s3-website` de AWS y de `localhost`, así que no hay que cambiar nada para conectar el sitio de S3 con el backend local. El backend debe estar encendido en el mismo computador donde abres la página.
 
 ## Tecnologías
 
-- **HTML5**: la estructura de cada página.
-- **CSS3**: los estilos, con Flexbox, Grid y media queries:
-  - `01` y `03`: `min-width: 768px` y `min-width: 1024px`.
-  - `02`, `04`, `05`, `06`, `07` y `08`: `min-width: 769px` para escritorio y `max-width: 768px` para celular.
-  - Interacción sin JavaScript: `:target` para las ventanas emergentes y `:checked` para los filtros.
+- **HTML5 y CSS3**: estructura y estilos, con Flexbox, Grid y media queries.
+- **JavaScript**: `fetch()` para comunicarse con la API.
+- **Python, FastAPI y Uvicorn**: la API.
+- **SQLAlchemy y SQLite**: la base de datos local.
+- **Amazon S3**: publicación del frontend.
 - **Google Fonts**: Bodoni Moda para los títulos y Arimo para el texto.
 - **Figma**: el diseño de los mockups y los íconos.
-- **Git y GitHub**: para trabajar en equipo y guardar las versiones del proyecto.
-
-Por ahora el proyecto es **solo frontend**: los enlaces conectan las 8 pantallas y las ventanas, filtros y pestañas funcionan con CSS, pero nada se guarda de verdad. Los datos son de ejemplo y AWS S3, el cifrado y la paginación solo se muestran como parte del diseño.
+- **Git y GitHub**: trabajo en equipo y control de versiones.
 
 ## Guía de estilo
 
@@ -63,16 +164,6 @@ Por ahora el proyecto es **solo frontend**: los enlaces conectan las 8 pantallas
 | Fondo | `#FBF8EF` |
 | Borde | `#E6E0CF` |
 | Texto secundario | `#5E6F6B` |
-
-## Cómo verlo
-
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/Piwody/galeria-cloud-segura.git
-   ```
-2. Abre la carpeta en VS Code.
-3. Abre el `index.html` de cualquier pantalla con **Live Server**, o con doble clic.
-4. Para ver la versión de celular, presiona **F12** y luego **Ctrl + Shift + M**.
 
 ## Equipo
 

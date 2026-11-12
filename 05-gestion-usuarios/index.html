@@ -75,10 +75,10 @@
                     <p class="descripcion solo-escritorio">Administra cuentas, roles y estados de acceso a la plataforma.</p>
                 </div>
                 <div class="encabezado-botones">
-                    <a href="usuarios.csv" download class="boton boton-blanco solo-escritorio">
+                    <button type="button" class="boton boton-blanco solo-escritorio" id="exportar">
                         <img src="img/descargar.svg" alt="" width="18" height="18">
                         Exportar
-                    </a>
+                    </button>
                     <a href="#nuevo" class="boton boton-verde">
                         <img src="img/mas.svg" alt="" width="18" height="18">
                         <span>Nuevo<span class="solo-escritorio"> usuario</span></span>
@@ -92,7 +92,7 @@
                         <img src="img/usuarios-tarjeta.svg" alt="" width="20" height="20">
                     </span>
                     <div>
-                        <p class="tarjeta-numero">48</p>
+                        <p class="tarjeta-numero" id="total-usuarios">0</p>
                         <p class="tarjeta-texto">Total de usuarios</p>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                         <img src="img/check.svg" alt="" width="20" height="20">
                     </span>
                     <div>
-                        <p class="tarjeta-numero">41</p>
+                        <p class="tarjeta-numero" id="total-activos">0</p>
                         <p class="tarjeta-texto">Activos</p>
                     </div>
                 </div>
@@ -110,7 +110,7 @@
                         <img src="img/escudo.svg" alt="" width="20" height="20">
                     </span>
                     <div>
-                        <p class="tarjeta-numero">3</p>
+                        <p class="tarjeta-numero" id="total-admins">0</p>
                         <p class="tarjeta-texto">Administradores</p>
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                         <img src="img/bloquear-vino.svg" alt="" width="20" height="20">
                     </span>
                     <div>
-                        <p class="tarjeta-numero">2</p>
+                        <p class="tarjeta-numero" id="total-suspendidos">0</p>
                         <p class="tarjeta-texto">Suspendidos</p>
                     </div>
                 </div>
@@ -129,202 +129,66 @@
                 <div class="herramientas">
                     <label class="buscador">
                         <img src="img/buscar.svg" alt="" width="18" height="18">
-                        <input type="text" placeholder="Buscar por nombre o correo…">
+                        <input type="text" id="buscar-escritorio" placeholder="Buscar por nombre o correo…">
                     </label>
-                    <button type="button" class="boton boton-blanco">
-                        <img src="img/abajo.svg" alt="" width="18" height="18">
-                        Rol: Todos
-                    </button>
-                    <button type="button" class="boton boton-blanco">
-                        <img src="img/abajo.svg" alt="" width="18" height="18">
-                        Estado: Todos
-                    </button>
+                    <select class="boton boton-blanco" id="filtro-rol">
+                        <option value="">Rol: Todos</option>
+                        <option>Administrador</option>
+                        <option>Editor</option>
+                        <option>Usuario</option>
+                    </select>
+                    <select class="boton boton-blanco" id="filtro-estado">
+                        <option value="">Estado: Todos</option>
+                        <option>Activo</option>
+                        <option>Inactivo</option>
+                        <option>Suspendido</option>
+                    </select>
                 </div>
 
                 <table>
-                    <tr>
-                        <th>Usuario</th>
-                        <th class="col-rol">Rol</th>
-                        <th class="col-estado">Estado</th>
-                        <th class="col-imagenes">Imágenes</th>
-                        <th class="col-acceso">Último acceso</th>
-                        <th class="col-acciones">Acciones</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="persona">
-                                <span class="avatar avatar-verde">MC</span>
-                                <div>
-                                    <p class="persona-nombre">Mateo Cantos</p>
-                                    <p class="persona-correo">mateo.cantos@muralia.com</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="insignia insignia-verde">Administrador</span></td>
-                        <td>
-                            <span class="insignia insignia-verde">
-                                <img src="img/punto-verde.svg" alt="" width="6" height="6">
-                                Activo
-                            </span>
-                        </td>
-                        <td>42</td>
-                        <td class="acceso">Hoy, 10:24</td>
-                        <td>
-                            <div class="acciones">
-                                <a href="#editar" class="boton-icono"><img src="img/editar.svg" alt="Editar" width="18" height="18"></a>
-                                <a href="#suspender" class="boton-icono"><img src="img/bloquear.svg" alt="Suspender" width="18" height="18"></a>
-                                <a href="#eliminar" class="boton-icono boton-icono-vino"><img src="img/eliminar.svg" alt="Eliminar" width="18" height="18"></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="persona">
-                                <span class="avatar avatar-verde-oscuro">PC</span>
-                                <div>
-                                    <p class="persona-nombre">Pedro Carranza</p>
-                                    <p class="persona-correo">pedro.carranza@muralia.com</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="insignia insignia-verde">Administrador</span></td>
-                        <td>
-                            <span class="insignia insignia-verde">
-                                <img src="img/punto-verde.svg" alt="" width="6" height="6">
-                                Activo
-                            </span>
-                        </td>
-                        <td>35</td>
-                        <td class="acceso">Hoy, 09:10</td>
-                        <td>
-                            <div class="acciones">
-                                <a href="#editar" class="boton-icono"><img src="img/editar.svg" alt="Editar" width="18" height="18"></a>
-                                <a href="#suspender" class="boton-icono"><img src="img/bloquear.svg" alt="Suspender" width="18" height="18"></a>
-                                <a href="#eliminar" class="boton-icono boton-icono-vino"><img src="img/eliminar.svg" alt="Eliminar" width="18" height="18"></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="persona">
-                                <span class="avatar avatar-vino">GT</span>
-                                <div>
-                                    <p class="persona-nombre">Gabriel Terán</p>
-                                    <p class="persona-correo">gabriel.teran@muralia.com</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="insignia insignia-crema">Editor</span></td>
-                        <td>
-                            <span class="insignia insignia-verde">
-                                <img src="img/punto-verde.svg" alt="" width="6" height="6">
-                                Activo
-                            </span>
-                        </td>
-                        <td>58</td>
-                        <td class="acceso">Ayer, 21:47</td>
-                        <td>
-                            <div class="acciones">
-                                <a href="#editar" class="boton-icono"><img src="img/editar.svg" alt="Editar" width="18" height="18"></a>
-                                <a href="#suspender" class="boton-icono"><img src="img/bloquear.svg" alt="Suspender" width="18" height="18"></a>
-                                <a href="#eliminar" class="boton-icono boton-icono-vino"><img src="img/eliminar.svg" alt="Eliminar" width="18" height="18"></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="persona">
-                                <span class="avatar avatar-gris">LA</span>
-                                <div>
-                                    <p class="persona-nombre">Laura Andrade</p>
-                                    <p class="persona-correo">laura.andrade@muralia.com</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="insignia insignia-gris">Usuario</span></td>
-                        <td>
-                            <span class="insignia insignia-verde">
-                                <img src="img/punto-verde.svg" alt="" width="6" height="6">
-                                Activo
-                            </span>
-                        </td>
-                        <td>12</td>
-                        <td class="acceso">05/10/2026</td>
-                        <td>
-                            <div class="acciones">
-                                <a href="#editar" class="boton-icono"><img src="img/editar.svg" alt="Editar" width="18" height="18"></a>
-                                <a href="#suspender" class="boton-icono"><img src="img/bloquear.svg" alt="Suspender" width="18" height="18"></a>
-                                <a href="#eliminar" class="boton-icono boton-icono-vino"><img src="img/eliminar.svg" alt="Eliminar" width="18" height="18"></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="persona">
-                                <span class="avatar avatar-vino-oscuro">SR</span>
-                                <div>
-                                    <p class="persona-nombre">Sofía Ruiz</p>
-                                    <p class="persona-correo">sofia.ruiz@muralia.com</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="insignia insignia-crema">Editor</span></td>
-                        <td>
-                            <span class="insignia insignia-gris">
-                                <img src="img/punto-gris.svg" alt="" width="6" height="6">
-                                Inactivo
-                            </span>
-                        </td>
-                        <td>27</td>
-                        <td class="acceso">21/09/2026</td>
-                        <td>
-                            <div class="acciones">
-                                <a href="#editar" class="boton-icono"><img src="img/editar.svg" alt="Editar" width="18" height="18"></a>
-                                <a href="#suspender" class="boton-icono"><img src="img/bloquear.svg" alt="Suspender" width="18" height="18"></a>
-                                <a href="#eliminar" class="boton-icono boton-icono-vino"><img src="img/eliminar.svg" alt="Eliminar" width="18" height="18"></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="persona">
-                                <span class="avatar avatar-verde">AV</span>
-                                <div>
-                                    <p class="persona-nombre">Andrés Vega</p>
-                                    <p class="persona-correo">andres.vega@muralia.com</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td><span class="insignia insignia-gris">Usuario</span></td>
-                        <td>
-                            <span class="insignia insignia-vino">
-                                <img src="img/punto-vino.svg" alt="" width="6" height="6">
-                                Suspendido
-                            </span>
-                        </td>
-                        <td>3</td>
-                        <td class="acceso">14/09/2026</td>
-                        <td>
-                            <div class="acciones">
-                                <a href="#editar" class="boton-icono"><img src="img/editar.svg" alt="Editar" width="18" height="18"></a>
-                                <a href="#reactivar" class="boton-icono"><img src="img/check-fila.svg" alt="Reactivar" width="18" height="18"></a>
-                                <a href="#eliminar" class="boton-icono boton-icono-vino"><img src="img/eliminar.svg" alt="Eliminar" width="18" height="18"></a>
-                            </div>
-                        </td>
-                    </tr>
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th class="col-rol">Rol</th>
+                            <th class="col-estado">Estado</th>
+                            <th class="col-imagenes">Imágenes</th>
+                            <th class="col-acciones">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="filas"></tbody>
                 </table>
 
+                <template id="plantilla-fila">
+                    <tr>
+                        <td>
+                            <div class="persona">
+                                <span class="avatar"></span>
+                                <div>
+                                    <p class="persona-nombre"></p>
+                                    <p class="persona-correo"></p>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="insignia rol"></span></td>
+                        <td>
+                            <span class="insignia estado">
+                                <img src="" alt="" width="6" height="6">
+                                <span class="estado-texto"></span>
+                            </span>
+                        </td>
+                        <td class="total-imagenes"></td>
+                        <td>
+                            <div class="acciones">
+                                <a href="#editar" class="boton-icono editar"><img src="img/editar.svg" alt="Editar" width="18" height="18"></a>
+                                <a href="#estado" class="boton-icono cambiar-estado"><img src="" alt="" width="18" height="18"></a>
+                                <a href="#eliminar" class="boton-icono boton-icono-vino eliminar"><img src="img/eliminar.svg" alt="Eliminar" width="18" height="18"></a>
+                            </div>
+                        </td>
+                    </tr>
+                </template>
+
                 <div class="paginacion">
-                    <p>Mostrando 1–6 de 48 usuarios</p>
-                    <div class="paginas">
-                        <a href="#" class="boton-icono"><img src="img/izquierda.svg" alt="Anterior" width="18" height="18"></a>
-                        <a href="#" class="numero activa">1</a>
-                        <a href="#" class="numero">2</a>
-                        <a href="#" class="numero">3</a>
-                        <span class="numero">…</span>
-                        <a href="#" class="numero">8</a>
-                        <a href="#" class="boton-icono"><img src="img/derecha.svg" alt="Siguiente" width="18" height="18"></a>
-                    </div>
+                    <p id="mostrando">Cargando usuarios…</p>
                 </div>
             </section>
 
@@ -334,9 +198,9 @@
                         <img src="img/buscar.svg" alt="" width="18" height="18">
                         <input type="text" id="buscar-movil" placeholder="Buscar usuario…">
                     </label>
-                    <button type="button" class="boton-icono boton-icono-grande">
+                    <a href="#filtros" class="boton-icono boton-icono-grande">
                         <img src="img/filtros.svg" alt="Filtros" width="18" height="18">
-                    </button>
+                    </a>
                 </div>
 
                 <input type="radio" name="estado" id="ver-todos" class="filtro" checked>
@@ -344,85 +208,32 @@
                 <input type="radio" name="estado" id="ver-suspendidos" class="filtro">
 
                 <div class="pestanas">
-                    <label for="ver-todos" class="pestana">Todos (48)</label>
+                    <label for="ver-todos" class="pestana">Todos (<span id="cuenta-todos">0</span>)</label>
                     <label for="ver-activos" class="pestana">Activos</label>
                     <label for="ver-suspendidos" class="pestana">Suspendidos</label>
                 </div>
 
-                <div class="usuario estado-activo">
-                    <span class="avatar avatar-verde">MC</span>
-                    <div class="usuario-datos">
-                        <p class="persona-nombre">Mateo Cantos</p>
-                        <div class="insignias">
-                            <span class="insignia insignia-verde">Administrador</span>
-                            <span class="insignia insignia-verde">
-                                <img src="img/punto-verde.svg" alt="" width="6" height="6">
-                                Activo
-                            </span>
-                        </div>
-                    </div>
-                    <a href="#opciones" class="mas-opciones"><img src="img/mas-opciones.svg" alt="Más opciones" width="22" height="22"></a>
-                </div>
+                <p class="aviso" id="aviso-movil"></p>
+                <div class="tarjetas" id="tarjetas"></div>
 
-                <div class="usuario estado-activo">
-                    <span class="avatar avatar-verde-oscuro">PC</span>
-                    <div class="usuario-datos">
-                        <p class="persona-nombre">Pedro Carranza</p>
-                        <div class="insignias">
-                            <span class="insignia insignia-verde">Administrador</span>
-                            <span class="insignia insignia-verde">
-                                <img src="img/punto-verde.svg" alt="" width="6" height="6">
-                                Activo
-                            </span>
+                <template id="plantilla-tarjeta">
+                    <div class="usuario">
+                        <span class="avatar"></span>
+                        <div class="usuario-datos">
+                            <p class="persona-nombre"></p>
+                            <div class="insignias">
+                                <span class="insignia rol"></span>
+                                <span class="insignia estado">
+                                    <img src="" alt="" width="6" height="6">
+                                    <span class="estado-texto"></span>
+                                </span>
+                            </div>
                         </div>
+                        <a href="#opciones" class="mas-opciones">
+                            <img src="img/mas-opciones.svg" alt="Más opciones" width="22" height="22">
+                        </a>
                     </div>
-                    <a href="#opciones" class="mas-opciones"><img src="img/mas-opciones.svg" alt="Más opciones" width="22" height="22"></a>
-                </div>
-
-                <div class="usuario estado-activo">
-                    <span class="avatar avatar-vino">GT</span>
-                    <div class="usuario-datos">
-                        <p class="persona-nombre">Gabriel Terán</p>
-                        <div class="insignias">
-                            <span class="insignia insignia-crema">Editor</span>
-                            <span class="insignia insignia-verde">
-                                <img src="img/punto-verde.svg" alt="" width="6" height="6">
-                                Activo
-                            </span>
-                        </div>
-                    </div>
-                    <a href="#opciones" class="mas-opciones"><img src="img/mas-opciones.svg" alt="Más opciones" width="22" height="22"></a>
-                </div>
-
-                <div class="usuario estado-inactivo">
-                    <span class="avatar avatar-vino-oscuro">SR</span>
-                    <div class="usuario-datos">
-                        <p class="persona-nombre">Sofía Ruiz</p>
-                        <div class="insignias">
-                            <span class="insignia insignia-crema">Editor</span>
-                            <span class="insignia insignia-gris">
-                                <img src="img/punto-gris.svg" alt="" width="6" height="6">
-                                Inactivo
-                            </span>
-                        </div>
-                    </div>
-                    <a href="#opciones" class="mas-opciones"><img src="img/mas-opciones.svg" alt="Más opciones" width="22" height="22"></a>
-                </div>
-
-                <div class="usuario estado-suspendido">
-                    <span class="avatar avatar-verde">AV</span>
-                    <div class="usuario-datos">
-                        <p class="persona-nombre">Andrés Vega</p>
-                        <div class="insignias">
-                            <span class="insignia insignia-gris">Usuario</span>
-                            <span class="insignia insignia-vino">
-                                <img src="img/punto-vino.svg" alt="" width="6" height="6">
-                                Suspendido
-                            </span>
-                        </div>
-                    </div>
-                    <a href="#opciones" class="mas-opciones"><img src="img/mas-opciones.svg" alt="Más opciones" width="22" height="22"></a>
-                </div>
+                </template>
             </section>
         </main>
 
@@ -450,75 +261,83 @@
     </div>
 
     <section id="nuevo" class="ventana">
-        <div class="ventana-caja">
+        <form class="ventana-caja" id="form-nuevo">
             <h2>Nuevo usuario</h2>
             <div class="campo">
-                <label for="nuevo-nombre">Nombre completo</label>
-                <input type="text" id="nuevo-nombre" placeholder="Nombre y apellido">
+                <label for="nuevo-nombre">Nombre completo *</label>
+                <input type="text" id="nuevo-nombre" name="nombre" minlength="2" required>
             </div>
             <div class="campo">
-                <label for="nuevo-correo">Correo</label>
-                <input type="email" id="nuevo-correo" placeholder="correo@muralia.com">
+                <label for="nuevo-correo">Correo *</label>
+                <input type="email" id="nuevo-correo" name="correo" required>
+            </div>
+            <div class="campo">
+                <label for="nuevo-contrasena">Contraseña *</label>
+                <input type="password" id="nuevo-contrasena" name="contrasena" minlength="6" required>
             </div>
             <div class="campo">
                 <label for="nuevo-rol">Rol</label>
-                <select id="nuevo-rol">
+                <select id="nuevo-rol" name="rol">
                     <option>Usuario</option>
                     <option>Editor</option>
                     <option>Administrador</option>
                 </select>
             </div>
+            <p class="mensaje-error"></p>
             <div class="ventana-botones">
                 <a href="#" class="boton boton-blanco">Cancelar</a>
-                <a href="#" class="boton boton-verde">Crear</a>
+                <button type="submit" class="boton boton-verde">Crear</button>
             </div>
-        </div>
+        </form>
     </section>
 
     <section id="editar" class="ventana">
-        <div class="ventana-caja">
+        <form class="ventana-caja" id="form-editar">
             <h2>Editar usuario</h2>
             <div class="campo">
-                <label for="editar-nombre">Nombre completo</label>
-                <input type="text" id="editar-nombre" value="Mateo Cantos">
+                <label for="editar-nombre">Nombre completo *</label>
+                <input type="text" id="editar-nombre" name="nombre" minlength="2" required>
             </div>
             <div class="campo">
-                <label for="editar-correo">Correo</label>
-                <input type="email" id="editar-correo" value="mateo.cantos@muralia.com">
+                <label for="editar-correo">Correo *</label>
+                <input type="email" id="editar-correo" name="correo" required>
+            </div>
+            <div class="campo">
+                <label for="editar-contrasena">Contraseña (déjala vacía para no cambiarla)</label>
+                <input type="password" id="editar-contrasena" name="contrasena" minlength="6">
             </div>
             <div class="campo">
                 <label for="editar-rol">Rol</label>
-                <select id="editar-rol">
+                <select id="editar-rol" name="rol">
                     <option>Usuario</option>
                     <option>Editor</option>
                     <option>Administrador</option>
                 </select>
             </div>
+            <div class="campo">
+                <label for="editar-estado">Estado</label>
+                <select id="editar-estado" name="estado">
+                    <option>Activo</option>
+                    <option>Inactivo</option>
+                    <option>Suspendido</option>
+                </select>
+            </div>
+            <p class="mensaje-error"></p>
             <div class="ventana-botones">
                 <a href="#" class="boton boton-blanco">Cancelar</a>
-                <a href="#" class="boton boton-verde">Guardar</a>
+                <button type="submit" class="boton boton-verde">Guardar</button>
             </div>
-        </div>
+        </form>
     </section>
 
-    <section id="suspender" class="ventana">
+    <section id="estado" class="ventana">
         <div class="ventana-caja">
-            <h2>¿Suspender usuario?</h2>
-            <p>La persona no podrá entrar a la plataforma hasta que la reactives.</p>
+            <h2 id="estado-titulo">¿Suspender usuario?</h2>
+            <p id="estado-texto"></p>
+            <p class="mensaje-error"></p>
             <div class="ventana-botones">
                 <a href="#" class="boton boton-blanco">Cancelar</a>
-                <a href="#" class="boton boton-verde">Suspender</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="reactivar" class="ventana">
-        <div class="ventana-caja">
-            <h2>¿Reactivar usuario?</h2>
-            <p>La persona podrá volver a entrar a la plataforma.</p>
-            <div class="ventana-botones">
-                <a href="#" class="boton boton-blanco">Cancelar</a>
-                <a href="#" class="boton boton-verde">Reactivar</a>
+                <button type="button" class="boton boton-verde" id="confirmar-estado">Confirmar</button>
             </div>
         </div>
     </section>
@@ -526,22 +345,39 @@
     <section id="eliminar" class="ventana">
         <div class="ventana-caja">
             <h2>¿Eliminar usuario?</h2>
-            <p>Esta cuenta se quitará de la plataforma.</p>
+            <p id="eliminar-texto"></p>
+            <p class="mensaje-error"></p>
             <div class="ventana-botones">
                 <a href="#" class="boton boton-blanco">Cancelar</a>
-                <a href="#" class="boton boton-vino">Eliminar</a>
+                <button type="button" class="boton boton-vino" id="confirmar-eliminar">Eliminar</button>
             </div>
         </div>
     </section>
 
     <section id="opciones" class="ventana">
         <div class="ventana-caja">
-            <h2>Opciones</h2>
+            <h2 id="opciones-titulo">Opciones</h2>
             <a href="#editar" class="boton boton-blanco">Editar</a>
-            <a href="#suspender" class="boton boton-blanco">Suspender</a>
+            <a href="#estado" class="boton boton-blanco" id="opciones-estado">Suspender</a>
             <a href="#eliminar" class="boton boton-vino">Eliminar</a>
             <a href="#" class="boton boton-blanco">Cerrar</a>
         </div>
     </section>
+
+    <section id="filtros" class="ventana">
+        <div class="ventana-caja">
+            <h2>Filtrar por rol</h2>
+            <select class="boton boton-blanco" id="filtro-rol-movil">
+                <option value="">Todos los roles</option>
+                <option>Administrador</option>
+                <option>Editor</option>
+                <option>Usuario</option>
+            </select>
+            <a href="#" class="boton boton-verde">Listo</a>
+        </div>
+    </section>
+
+    <script src="../api.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

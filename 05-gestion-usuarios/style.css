@@ -247,6 +247,32 @@ img {
     font-weight: 700;
 }
 
+.mensaje-error {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--vino);
+}
+
+.mensaje-error:empty,
+.aviso:empty {
+    display: none;
+}
+
+.aviso {
+    color: var(--gris);
+}
+
+button.boton,
+select.boton {
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+select.boton {
+    color: var(--verde-oscuro);
+}
+
 .campo input,
 .campo select {
     width: 100%;
@@ -568,6 +594,12 @@ img {
         gap: 12px;
     }
 
+    .tarjetas {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
     .busqueda-movil {
         display: flex;
         gap: 10px;
@@ -611,8 +643,8 @@ img {
         color: var(--crema);
     }
 
-    #ver-activos:checked ~ .usuario:not(.estado-activo),
-    #ver-suspendidos:checked ~ .usuario:not(.estado-suspendido) {
+    #ver-activos:checked ~ .tarjetas .usuario:not(.estado-activo),
+    #ver-suspendidos:checked ~ .tarjetas .usuario:not(.estado-suspendido) {
         display: none;
     }
 

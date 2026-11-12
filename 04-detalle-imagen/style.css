@@ -61,6 +61,10 @@ hr {
     background: var(--vino);
 }
 
+.avatar-verde-oscuro {
+    background: var(--verde-oscuro);
+}
+
 .insignias {
     display: flex;
     gap: 8px;
@@ -142,18 +146,22 @@ hr {
     position: absolute;
     width: 100%;
     height: 100%;
+    object-fit: contain;
 }
 
-.vista {
+.mensaje-error {
+    font-weight: 700;
+    color: var(--vino);
+}
+
+.mensaje-error:empty {
     display: none;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
-.vista:target {
-    display: block;
+button.boton {
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
 }
 
 .informacion,
@@ -395,6 +403,10 @@ hr {
     .miniatura {
         overflow: hidden;
         border-radius: 10px;
+    }
+
+    .miniatura img {
+        object-fit: cover;
     }
 
     .miniatura-1 {

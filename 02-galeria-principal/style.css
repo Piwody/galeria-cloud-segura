@@ -207,12 +207,10 @@ img {
     scrollbar-width: none;
 }
 
-.filtro {
-    display: none;
-}
-
 .chip {
     padding: 7px 16px;
+    font-family: "Arimo", sans-serif;
+    color: #013E37;
     cursor: pointer;
     background-color: white;
     border: 1px solid #E6E0CF;
@@ -226,27 +224,10 @@ img {
     border-color: #0A5A50;
 }
 
-#cat-todas:checked ~ .categorias [for="cat-todas"],
-#cat-naturaleza:checked ~ .categorias [for="cat-naturaleza"],
-#cat-arquitectura:checked ~ .categorias [for="cat-arquitectura"],
-#cat-arte:checked ~ .categorias [for="cat-arte"],
-#cat-fotografia:checked ~ .categorias [for="cat-fotografia"],
-#cat-retratos:checked ~ .categorias [for="cat-retratos"],
-#cat-viajes:checked ~ .categorias [for="cat-viajes"],
-#cat-diseno:checked ~ .categorias [for="cat-diseno"] {
+.chip.activa {
     background-color: #013E37;
     border-color: #013E37;
     color: #FFEFB3;
-}
-
-#cat-naturaleza:checked ~ .galeria .tarjeta:not(.naturaleza),
-#cat-arquitectura:checked ~ .galeria .tarjeta:not(.arquitectura),
-#cat-arte:checked ~ .galeria .tarjeta:not(.arte),
-#cat-fotografia:checked ~ .galeria .tarjeta:not(.fotografia),
-#cat-retratos:checked ~ .galeria .tarjeta:not(.retratos),
-#cat-viajes:checked ~ .galeria .tarjeta:not(.viajes),
-#cat-diseno:checked ~ .galeria .tarjeta:not(.diseno) {
-    display: none;
 }
 
 .contador {
@@ -255,23 +236,24 @@ img {
     white-space: nowrap;
 }
 
-.galeria {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
+.mensaje {
+    color: #5E6F6B;
 }
 
-.columna {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    flex: 1;
-    min-width: 0;
+.mensaje:empty {
+    display: none;
+}
+
+.galeria {
+    column-count: 4;
+    column-gap: 20px;
 }
 
 .tarjeta {
     display: flex;
     flex-direction: column;
+    break-inside: avoid;
+    margin-bottom: 20px;
     overflow: hidden;
     background-color: white;
     border: 1px solid #E6E0CF;
@@ -289,6 +271,7 @@ img {
 .tarjeta-imagen img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 
 .tarjeta-info {
@@ -498,8 +481,8 @@ img {
 
 @media (min-width: 769px) and (max-width: 1100px) {
 
-    .columna-cuatro {
-        display: none;
+    .galeria {
+        column-count: 3;
     }
 
     .categorias,
@@ -542,9 +525,17 @@ img {
         overflow-x: auto;
     }
 
-    .galeria,
-    .columna {
-        gap: 14px;
+    .galeria {
+        column-count: 2;
+        column-gap: 14px;
+    }
+
+    .tarjeta {
+        margin-bottom: 14px;
+    }
+
+    .me-gusta {
+        display: none;
     }
 
     .herramientas {

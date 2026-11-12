@@ -248,6 +248,11 @@ textarea {
 
 .boton-cancelar,
 .boton-registrar {
+    border: none;
+    font-family: inherit;
+    font-size: 14px;
+    color: inherit;
+    cursor: pointer;
     flex: 1;
     display: flex;
     align-items: center;
@@ -266,6 +271,81 @@ textarea {
 .boton-registrar {
     background-color: #0A5A50;
     color: #FFFFFF;
+}
+
+.boton-registrar:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.enlace-campo {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #0A5A50;
+}
+
+.mensaje-form {
+    margin-bottom: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #963F38;
+}
+
+.mensaje-form:empty {
+    display: none;
+}
+
+.mensaje-form.exito {
+    color: #0A5A50;
+}
+
+.archivo[hidden],
+.zona-carga[hidden],
+.archivo-cerrar[hidden] {
+    display: none;
+}
+
+.archivo-cerrar {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.ventana {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: rgba(1, 62, 55, 0.55);
+}
+
+.ventana:target {
+    display: flex;
+}
+
+.ventana-caja {
+    width: 100%;
+    max-width: 400px;
+    padding: 28px;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+}
+
+.ventana-caja h2 {
+    margin-bottom: 16px;
+    font-family: "Bodoni Moda", serif;
+    font-size: 26px;
+    font-weight: 500;
+}
+
+.ventana-botones {
+    display: flex;
+    gap: 12px;
 }
 
 .boton-registrar:hover {
@@ -455,7 +535,8 @@ textarea {
         color: #5E6F6B;
     }
 
-    .archivo-cerrar {
+    .archivo-cerrar img {
+        display: block;
         width: 18px;
         height: 18px;
     }

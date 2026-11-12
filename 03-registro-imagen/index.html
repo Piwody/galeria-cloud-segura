@@ -67,18 +67,18 @@
                     <img class="icono" src="assets/izquierda.svg" alt="">
                 </a>
                 <div>
-                    <h1>
+                    <h1 id="titulo-pagina">
                         <span class="solo-movil">Registrar imagen</span>
                         <span class="solo-grande">Registrar nueva imagen</span>
                     </h1>
                     <p class="descripcion">Completa la información para publicar tu imagen en la galería.</p>
                 </div>
             </header>
-            <form class="formulario" action="#" method="post" enctype="multipart/form-data">
+            <form class="formulario" id="formulario">
                 <section class="paso paso-archivo">
                     <h2>1. Selecciona tu imagen</h2>
                     <input type="file" id="archivo" name="archivo" class="oculto"
-                            accept="image/jpeg,image/png,image/webp">
+                            accept="image/jpeg,image/png,image/webp,image/svg+xml">
                     <label for="archivo" class="zona-carga">
                         <span class="icono-carga">
                             <img class="icono" src="assets/subir-zona.svg" alt="">
@@ -100,19 +100,21 @@
                             <span class="solo-grande">Formatos permitidos: JPG, PNG, WEBP · Tamaño máximo 10 MB</span>
                         </span>
                     </label>
-                    <div class="archivo">
+                    <div class="archivo" id="archivo-elegido" hidden>
                         <div class="archivo-imagen">
-                            <img src="assets/imagen.svg" alt="">
+                            <img id="archivo-vista" src="assets/imagen.svg" alt="">
                         </div>
                         <div class="archivo-datos">
                             <p class="archivo-fila">
-                                <strong>atardecer-costa.jpg</strong>
-                                <span>3,2 MB · 78 %</span>
+                                <strong id="archivo-nombre">atardecer-costa.jpg</strong>
+                                <span id="archivo-tamano">3,2 MB</span>
                             </p>
-                            <div class="progreso"><span></span></div>
-                            <p class="archivo-estado">Subiendo imagen</p>
+                            <div class="progreso"><span id="archivo-progreso"></span></div>
+                            <p class="archivo-estado" id="archivo-estado">Lista para subir</p>
                         </div>
-                        <img class="archivo-cerrar" src="assets/cerrar.svg" alt="Quitar archivo">
+                        <button type="button" class="archivo-cerrar" id="quitar-archivo">
+                            <img src="assets/cerrar.svg" alt="Quitar archivo">
+                        </button>
                     </div>
                 </section>
                 <section class="paso paso-info">
@@ -121,54 +123,77 @@
                         <label for="titulo">Título o nombre *</label>
                         <div class="entrada">
                             <input type="text" id="titulo" name="titulo"
-                                value="Atardecer en la costa" placeholder="Ej. Atardecer en la costa" required>
+                                placeholder="Ej. Atardecer en la costa" minlength="2" required>
                         </div>
                     </div>
                     <div class="campo">
                         <label for="categoria">Categoría *</label>
                         <div class="entrada">
                             <img class="icono" src="assets/etiqueta.svg" alt="">
-                            <select id="categoria" name="categoria" required>
-                                <option value="naturaleza" selected>Naturaleza</option>
-                                <option value="ciudad">Ciudad</option>
-                                <option value="retratos">Retratos</option>
-                                <option value="arquitectura">Arquitectura</option>
-                                <option value="viajes">Viajes</option>
-                                <option value="otros">Otros</option>
+                            <select id="categoria" name="categoria_id" required>
+                                <option value="">Cargando categorías…</option>
                             </select>
                         </div>
+                        <a href="#nueva-categoria" class="enlace-campo">+ Nueva categoría</a>
                     </div>
                     <div class="campo">
                         <label for="descripcion">Descripción</label>
                         <textarea id="descripcion" name="descripcion" maxlength="500"
-                                placeholder="Describe tu imagen">Fotografía tomada en la playa de Montañita durante la puesta de sol. Tonos cálidos y siluetas de montañas.</textarea>
-                        <p class="contador">112 / 500 caracteres</p>
+                                placeholder="Describe tu imagen"></textarea>
+                        <p class="contador" id="contador">0 / 500 caracteres</p>
                     </div>
                     <div class="campo">
                         <span class="etiqueta-campo" id="etiqueta-visibilidad">Visibilidad</span>
                         <div class="visibilidad" role="radiogroup" aria-labelledby="etiqueta-visibilidad">
-                            <input type="radio" id="publica" name="visibilidad" value="publica" checked>
+                            <input type="radio" id="publica" name="visibilidad" value="Pública" checked>
                             <label for="publica">
                                 <img class="icono" src="assets/world.png" alt="">
                                 Pública
                             </label>
-                            <input type="radio" id="privada" name="visibilidad" value="privada">
+                            <input type="radio" id="privada" name="visibilidad" value="Privada">
                             <label for="privada">
                                 <img class="icono" src="assets/lock.png" alt="">
                                 Privada
                             </label>
                         </div>
                     </div>
+                    <p class="mensaje-form" id="mensaje-form"></p>
                     <div class="acciones">
                         <a class="boton-cancelar" href="../02-galeria-principal/index.html">Cancelar</a>
-                        <a class="boton-registrar" href="../02-galeria-principal/index.html">
+                        <button type="submit" class="boton-registrar" id="boton-registrar">
                             <svg class="icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
-                            <span>Registrar<span class="solo-grande"> imagen</span></span>
-                        </a>
+                            <span id="texto-boton">Registrar<span class="solo-grande"> imagen</span></span>
+                        </button>
                     </div>
                 </section>
             </form>
         </main>
     </div>
+
+    <section id="nueva-categoria" class="ventana">
+        <form class="ventana-caja" id="formulario-categoria">
+            <h2>Nueva categoría</h2>
+            <div class="campo">
+                <label for="nombre-categoria">Nombre *</label>
+                <div class="entrada">
+                    <input type="text" id="nombre-categoria" name="nombre" minlength="2" required>
+                </div>
+            </div>
+            <div class="campo">
+                <label for="descripcion-categoria">Descripción</label>
+                <div class="entrada">
+                    <input type="text" id="descripcion-categoria" name="descripcion">
+                </div>
+            </div>
+            <p class="mensaje-form" id="mensaje-categoria"></p>
+            <div class="ventana-botones">
+                <a href="#" class="boton-cancelar">Cancelar</a>
+                <button type="submit" class="boton-registrar">Guardar</button>
+            </div>
+        </form>
+    </section>
+
+    <script src="../api.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

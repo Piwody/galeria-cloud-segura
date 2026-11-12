@@ -77,12 +77,7 @@
 
                 <section class="visor">
                     <div class="imagen-principal">
-                        <img class="imagen-principal-img solo-escritorio" src="img/imagen.svg" alt="Atardecer en la costa">
-                        <img class="imagen-principal-img solo-movil" src="img/imagen-movil.svg" alt="Atardecer en la costa">
-                        <img id="vista-1" class="vista" src="img/miniatura-1.svg" alt="">
-                        <img id="vista-2" class="vista" src="img/miniatura-2.svg" alt="">
-                        <img id="vista-3" class="vista" src="img/miniatura-3.svg" alt="">
-                        <img id="vista-4" class="vista" src="img/miniatura-4.svg" alt="">
+                        <img class="imagen-principal-img" id="imagen" src="img/imagen.svg" alt="">
 
                         <div class="acciones-flotantes solo-movil">
                             <a href="../02-galeria-principal/index.html" class="boton-icono">
@@ -99,13 +94,15 @@
                         </div>
                     </div>
 
-                    <div class="mas-del-autor solo-escritorio">
-                        <p>Más de Gabriel Terán</p>
-                        <a href="#vista-1" class="miniatura miniatura-1"><img src="img/miniatura-1.svg" alt="" width="56" height="56"></a>
-                        <a href="#vista-2" class="miniatura miniatura-2"><img src="img/miniatura-2.svg" alt="" width="56" height="56"></a>
-                        <a href="#vista-3" class="miniatura miniatura-3"><img src="img/miniatura-3.svg" alt="" width="56" height="56"></a>
-                        <a href="#vista-4" class="miniatura miniatura-4"><img src="img/miniatura-4.svg" alt="" width="56" height="56"></a>
+                    <div class="mas-del-autor solo-escritorio" id="mas-del-autor">
+                        <p id="mas-del-autor-titulo"></p>
                     </div>
+
+                    <template id="plantilla-miniatura">
+                        <a class="miniatura" href="">
+                            <img src="" alt="" width="56" height="56">
+                        </a>
+                    </template>
                 </section>
 
                 <section class="informacion">
@@ -114,18 +111,15 @@
                         <div class="insignias">
                             <span class="insignia insignia-crema">
                                 <img src="img/punto-oscuro.svg" alt="" width="6" height="6">
-                                Naturaleza
+                                <span id="insignia-categoria">…</span>
                             </span>
                             <span class="insignia insignia-verde">
                                 <img src="img/punto-verde.svg" alt="" width="6" height="6">
-                                Pública
+                                <span id="insignia-visibilidad">…</span>
                             </span>
                         </div>
-                        <h1 class="titulo">Atardecer en la costa</h1>
-                        <p class="descripcion">
-                            Fotografía tomada en la playa de Montañita durante la puesta de sol.
-                            <span class="solo-escritorio">Tonos cálidos y siluetas de montañas al fondo.</span>
-                        </p>
+                        <h1 class="titulo" id="titulo">Cargando…</h1>
+                        <p class="descripcion" id="descripcion"></p>
                         <div class="estadisticas solo-escritorio">
                             <span class="estadistica">
                                 <img src="img/me-gusta.svg" alt="" width="16" height="16">
@@ -145,23 +139,23 @@
                         <dl class="datos">
                             <div class="dato">
                                 <dt>Categoría</dt>
-                                <dd>Naturaleza</dd>
+                                <dd id="dato-categoria">…</dd>
                             </div>
                             <div class="dato">
                                 <dt>Fecha de registro</dt>
-                                <dd>02/10/2026 · 18:42</dd>
+                                <dd id="dato-fecha">…</dd>
                             </div>
                             <div class="dato">
                                 <dt>Formato</dt>
-                                <dd>JPG · 4032 × 3024 px</dd>
+                                <dd id="dato-formato">…</dd>
                             </div>
                             <div class="dato">
                                 <dt>Tamaño</dt>
-                                <dd>3,2 MB</dd>
+                                <dd id="dato-tamano">…</dd>
                             </div>
                             <div class="dato">
                                 <dt>Almacenamiento</dt>
-                                <dd>AWS S3 · cifrado</dd>
+                                <dd>Servidor local</dd>
                             </div>
                         </dl>
                     </div>
@@ -171,17 +165,17 @@
                     <div class="bloque">
                         <h2 class="bloque-titulo solo-escritorio">Responsable</h2>
                         <div class="responsable">
-                            <span class="avatar avatar-vino">GT</span>
+                            <span class="avatar avatar-vino" id="responsable-avatar"></span>
                             <div class="responsable-datos">
-                                <p class="responsable-nombre">Gabriel Terán</p>
+                                <p class="responsable-nombre" id="responsable-nombre"></p>
                                 <p class="responsable-detalle">
-                                    <span class="solo-escritorio">gabriel.teran@muralia.com</span>
-                                    <span class="solo-movil">Responsable · 02/10/2026</span>
+                                    <span class="solo-escritorio" id="responsable-correo"></span>
+                                    <span class="solo-movil" id="responsable-fecha"></span>
                                 </p>
                             </div>
                             <span class="insignia insignia-verde">
                                 <img class="solo-escritorio" src="img/punto-verde.svg" alt="" width="6" height="6">
-                                Editor
+                                <span id="responsable-rol"></span>
                             </span>
                         </div>
                     </div>
@@ -189,15 +183,15 @@
                     <div class="datos-movil solo-movil">
                         <div class="dato-movil">
                             <p>Formato</p>
-                            <p class="dato-movil-valor">JPG</p>
+                            <p class="dato-movil-valor" id="movil-formato"></p>
                         </div>
                         <div class="dato-movil">
                             <p>Tamaño</p>
-                            <p class="dato-movil-valor">3,2 MB</p>
+                            <p class="dato-movil-valor" id="movil-tamano"></p>
                         </div>
                         <div class="dato-movil">
-                            <p>Resolución</p>
-                            <p class="dato-movil-valor">4032×3024</p>
+                            <p>Visibilidad</p>
+                            <p class="dato-movil-valor" id="movil-visibilidad"></p>
                         </div>
                     </div>
 
@@ -206,7 +200,7 @@
                     <div class="bloque solo-escritorio">
                         <h2 class="bloque-titulo">Acciones disponibles</h2>
                         <div class="fila-botones">
-                            <a href="img/imagen.svg" download="atardecer-en-la-costa.svg" class="boton boton-verde">
+                            <a href="#" target="_blank" download class="boton boton-verde descargar">
                                 <img src="img/descargar.svg" alt="" width="18" height="18">
                                 Descargar
                             </a>
@@ -220,7 +214,7 @@
                             </a>
                         </div>
                         <div class="fila-botones">
-                            <a href="../03-registro-imagen/index.html" class="boton boton-crema">
+                            <a href="../03-registro-imagen/index.html" class="boton boton-crema editar">
                                 <img src="img/editar.svg" alt="" width="18" height="18">
                                 Editar información
                             </a>
@@ -232,11 +226,11 @@
                     </div>
 
                     <div class="acciones-movil solo-movil">
-                        <a href="img/imagen-movil.svg" download="atardecer-en-la-costa.svg" class="boton boton-verde">
+                        <a href="#" target="_blank" download class="boton boton-verde descargar">
                             <img src="img/descargar.svg" alt="" width="18" height="18">
                             Descargar
                         </a>
-                        <a href="../03-registro-imagen/index.html" class="boton-icono boton-icono-grande">
+                        <a href="../03-registro-imagen/index.html" class="boton-icono boton-icono-grande editar">
                             <img src="img/editar.svg" alt="Editar" width="18" height="18">
                         </a>
                         <a href="#eliminar" class="boton-icono boton-icono-grande boton-icono-vino">
@@ -252,8 +246,8 @@
     <section id="compartir" class="ventana">
         <div class="ventana-caja">
             <h2>Compartir imagen</h2>
-            <p>Copia este enlace para compartir «Atardecer en la costa».</p>
-            <input class="enlace" type="text" value="muralia.com/imagen/atardecer-en-la-costa" readonly>
+            <p>Copia este enlace para compartir la imagen.</p>
+            <input class="enlace" type="text" id="enlace-compartir" readonly>
             <a href="#" class="boton boton-verde">Listo</a>
         </div>
     </section>
@@ -261,12 +255,15 @@
     <section id="eliminar" class="ventana">
         <div class="ventana-caja">
             <h2>¿Eliminar imagen?</h2>
-            <p>«Atardecer en la costa» se quitará de la galería.</p>
+            <p>La imagen se quitará de la galería y se borrará del servidor.</p>
+            <p class="mensaje-error" id="mensaje-eliminar"></p>
             <div class="ventana-botones">
                 <a href="#" class="boton boton-blanco">Cancelar</a>
-                <a href="../02-galeria-principal/index.html" class="boton boton-vino">Eliminar</a>
+                <button type="button" class="boton boton-vino" id="confirmar-eliminar">Eliminar</button>
             </div>
         </div>
     </section>
+    <script src="../api.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
