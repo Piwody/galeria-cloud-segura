@@ -1,27 +1,22 @@
-from typing import Annotated
-
-from fastapi import APIRouter, Depends, File, Form, UploadFile
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.database import obtener_sesion
-from app.schemas import ImagenActualizar, ImagenRespuesta, Visibilidad
+from app.schemas import (FirmaSubida, ImagenActualizar, ImagenCrear, ImagenRespuesta,
+                         SolicitudSubida)
 from app.services import imagenes as servicio
 
 router = APIRouter(prefix="/imagenes", tags=["Imágenes"])
 
 
+@router.post("/subida", response_model=FirmaSubida)
+def pedir_permiso_de_subida(datos: SolicitudSubida):
+    return servicio.firmar_subida(datos)
+
+
 @router.post("", response_model=ImagenRespuesta, status_code=201)
-def registrar_imagen(
-    titulo: Annotated[str, Form(min_length=2, max_length=120)],
-    categoria_id: Annotated[int, Form()],
-    usuario_id: Annotated[int, Form()],
-    archivo: Annotated[UploadFile, File()],
-    descripcion: Annotated[str, Form()] = "",
-    visibilidad: Annotated[Visibilidad, Form()] = "Pública",
-    sesion: Session = Depends(obtener_sesion),
-):
-    imagen = servicio.crear(sesion, titulo, descripcion, visibilidad, categoria_id, usuario_id, archivo)
-    return servicio.a_respuesta(imagen)
+def registrar_imagen(datos: ImagenCrear, sesion: Session = Depends(obtener_sesion)):
+    return servicio.a_respuesta(servicio.crear(sesion, datos))
 
 
 @router.get("", response_model=list[ImagenRespuesta])

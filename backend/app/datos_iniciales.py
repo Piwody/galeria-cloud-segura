@@ -1,10 +1,10 @@
-import shutil
 from datetime import datetime, timedelta
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.config import CARPETA_BACKEND, CARPETA_IMAGENES
+from app import s3
+from app.config import CARPETA_BACKEND, S3_BUCKET, S3_CARPETA
 from app.models import Categoria, Imagen, Usuario
 from app.seguridad import cifrar_contrasena
 
@@ -55,21 +55,29 @@ def cargar_datos_iniciales(sesion: Session):
 
     categorias = {n: Categoria(nombre=n, descripcion=d) for n, d in CATEGORIAS}
     usuarios = {
-        c: Usuario(nombre=n, correo=c, contrasena=cifrar_contrasena(CONTRASENA_DEMO), rol=r, estado=e)
+        c: Usuario(nombre=n, usuario=c.split("@")[0], correo=c,
+                   contrasena=cifrar_contrasena(CONTRASENA_DEMO), rol=r, estado=e)
         for n, c, r, e in USUARIOS
     }
     sesion.add_all([*categorias.values(), *usuarios.values()])
 
-    CARPETA_IMAGENES.mkdir(exist_ok=True)
     fecha = datetime(2026, 10, 2, 18, 42)
     for titulo, archivo, categoria, correo, visibilidad, descripcion in IMAGENES:
         origen = CARPETA_EJEMPLOS / archivo
         if not origen.exists():
             continue
-        shutil.copy(origen, CARPETA_IMAGENES / archivo)
+        clave = f"{S3_CARPETA}ejemplo-{archivo}"
+        try:
+            s3.subir_desde_disco(origen, clave, "image/svg+xml")
+        except s3.ErrorDeS3 as error:
+            print(f"Aviso: no se pudieron subir las imágenes de ejemplo al bucket {S3_BUCKET}: {error}")
+            break
         sesion.add(Imagen(
             titulo=titulo,
-            archivo=archivo,
+            url=s3.url_de(clave),
+            nombre_archivo=archivo,
+            formato="SVG",
+            tamano_kb=round(origen.stat().st_size / 1024),
             descripcion=descripcion,
             visibilidad=visibilidad,
             fecha_registro=fecha,

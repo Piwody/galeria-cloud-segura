@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import DateTime, ForeignKey, String, Text
+from sqlalchemy import DateTime, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
@@ -11,6 +11,7 @@ class Usuario(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     nombre: Mapped[str] = mapped_column(String(100))
+    usuario: Mapped[str] = mapped_column(String(40), unique=True)
     correo: Mapped[str] = mapped_column(String(120), unique=True)
     contrasena: Mapped[str] = mapped_column(String(200))
     rol: Mapped[str] = mapped_column(String(20), default="Usuario")
@@ -34,7 +35,10 @@ class Imagen(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     titulo: Mapped[str] = mapped_column(String(120))
-    archivo: Mapped[str] = mapped_column(String(200))
+    url: Mapped[str] = mapped_column(String(500), unique=True)
+    nombre_archivo: Mapped[str] = mapped_column(String(200))
+    formato: Mapped[str] = mapped_column(String(10))
+    tamano_kb: Mapped[int] = mapped_column(Integer)
     descripcion: Mapped[str] = mapped_column(Text, default="")
     visibilidad: Mapped[str] = mapped_column(String(10), default="Pública")
     fecha_registro: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)

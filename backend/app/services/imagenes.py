@@ -1,28 +1,25 @@
-import uuid
-from pathlib import Path
-
-from fastapi import HTTPException, UploadFile
+from fastapi import HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.config import CARPETA_IMAGENES, EXTENSIONES_PERMITIDAS, TAMANO_MAXIMO
+from app import s3
+from app.config import TAMANO_MAXIMO, TIPOS_PERMITIDOS
 from app.models import Imagen
-from app.schemas import ImagenActualizar, ImagenRespuesta
+from app.schemas import (FirmaSubida, ImagenActualizar, ImagenCrear, ImagenRespuesta,
+                         SolicitudSubida)
 from app.services import categorias, usuarios
 
 
 def a_respuesta(imagen: Imagen) -> ImagenRespuesta:
-    ruta = CARPETA_IMAGENES / imagen.archivo
-    tamano = ruta.stat().st_size if ruta.exists() else 0
     return ImagenRespuesta(
         id=imagen.id,
         titulo=imagen.titulo,
-        archivo=imagen.archivo,
-        url=f"/uploads/{imagen.archivo}",
+        archivo=imagen.nombre_archivo,
+        url=imagen.url,
         descripcion=imagen.descripcion,
         visibilidad=imagen.visibilidad,
-        formato=Path(imagen.archivo).suffix.lstrip(".").upper(),
-        tamano_kb=round(tamano / 1024),
+        formato=imagen.formato,
+        tamano_kb=imagen.tamano_kb,
         fecha_registro=imagen.fecha_registro,
         categoria=categorias.a_respuesta(imagen.categoria),
         usuario=usuarios.a_respuesta(imagen.usuario),
@@ -45,30 +42,44 @@ def listar(sesion: Session, categoria_id: int | None, usuario_id: int | None) ->
     return list(sesion.scalars(consulta))
 
 
-def guardar_archivo(archivo: UploadFile) -> str:
-    extension = Path(archivo.filename or "").suffix.lower()
-    if extension not in EXTENSIONES_PERMITIDAS:
+def firmar_subida(datos: SolicitudSubida) -> FirmaSubida:
+    if datos.tipo not in TIPOS_PERMITIDOS:
         raise HTTPException(400, "Formato no permitido. Usa JPG, PNG, WEBP o SVG")
-    contenido = archivo.file.read(TAMANO_MAXIMO + 1)
-    if len(contenido) > TAMANO_MAXIMO:
+    if datos.tamano > TAMANO_MAXIMO:
         raise HTTPException(400, "La imagen pesa más de 10 MB")
-    nombre = f"{uuid.uuid4().hex}{extension}"
-    CARPETA_IMAGENES.mkdir(exist_ok=True)
-    (CARPETA_IMAGENES / nombre).write_bytes(contenido)
-    return nombre
+    try:
+        return FirmaSubida(**s3.firmar_subida(datos.tipo))
+    except s3.ErrorDeS3:
+        raise HTTPException(503, "El backend no pudo conectarse con AWS S3. Revisa las credenciales")
 
 
-def crear(sesion: Session, titulo: str, descripcion: str, visibilidad: str,
-          categoria_id: int, usuario_id: int, archivo: UploadFile) -> Imagen:
-    categorias.buscar(sesion, categoria_id)
-    usuarios.buscar(sesion, usuario_id)
+def crear(sesion: Session, datos: ImagenCrear) -> Imagen:
+    categorias.buscar(sesion, datos.categoria_id)
+    usuarios.buscar(sesion, datos.usuario_id)
+
+    clave = s3.clave_de(datos.url)
+    if clave is None:
+        raise HTTPException(400, "La URL no pertenece al bucket de imágenes de Muralia")
+    if sesion.scalar(select(Imagen).where(Imagen.url == datos.url)) is not None:
+        raise HTTPException(409, "Esa imagen ya está registrada")
+
+    try:
+        archivo = s3.datos_del_archivo(clave)
+    except s3.ErrorDeS3:
+        raise HTTPException(503, "El backend no pudo conectarse con AWS S3. Revisa las credenciales")
+    if archivo is None:
+        raise HTTPException(400, "La imagen no se encuentra en S3. Vuelve a subirla")
+
     imagen = Imagen(
-        titulo=titulo,
-        archivo=guardar_archivo(archivo),
-        descripcion=descripcion,
-        visibilidad=visibilidad,
-        categoria_id=categoria_id,
-        usuario_id=usuario_id,
+        titulo=datos.titulo,
+        url=datos.url,
+        nombre_archivo=datos.nombre_archivo,
+        formato=clave.rsplit(".", 1)[-1].upper(),
+        tamano_kb=round(archivo["tamano"] / 1024),
+        descripcion=datos.descripcion,
+        visibilidad=datos.visibilidad,
+        categoria_id=datos.categoria_id,
+        usuario_id=datos.usuario_id,
     )
     sesion.add(imagen)
     sesion.commit()
@@ -94,7 +105,11 @@ def actualizar(sesion: Session, imagen_id: int, datos: ImagenActualizar) -> Imag
 
 def eliminar(sesion: Session, imagen_id: int):
     imagen = buscar(sesion, imagen_id)
-    ruta = CARPETA_IMAGENES / imagen.archivo
+    clave = s3.clave_de(imagen.url)
     sesion.delete(imagen)
     sesion.commit()
-    ruta.unlink(missing_ok=True)
+    if clave is not None:
+        try:
+            s3.borrar(clave)
+        except s3.ErrorDeS3:
+            print(f"Aviso: no se pudo borrar {clave} de S3")

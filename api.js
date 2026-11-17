@@ -1,7 +1,35 @@
 const API_URL = "http://localhost:8000";
 
+const CLAVE_SESION = "muralia_usuario";
 
-const USUARIO_ACTUAL = 1;
+function usuarioActual() {
+    try {
+        const guardado = localStorage.getItem(CLAVE_SESION) || sessionStorage.getItem(CLAVE_SESION);
+        return guardado ? JSON.parse(guardado) : null;
+    } catch (error) {
+        return null;
+    }
+}
+
+function guardarSesion(usuario, recordar) {
+    try {
+        localStorage.removeItem(CLAVE_SESION);
+        sessionStorage.removeItem(CLAVE_SESION);
+        const almacen = recordar ? localStorage : sessionStorage;
+        almacen.setItem(CLAVE_SESION, JSON.stringify(usuario));
+    } catch (error) {
+    }
+}
+
+function cerrarSesion() {
+    try {
+        localStorage.removeItem(CLAVE_SESION);
+        sessionStorage.removeItem(CLAVE_SESION);
+    } catch (error) {
+    }
+}
+
+const USUARIO_ACTUAL = usuarioActual() ? usuarioActual().id : null;
 
 
 function llamarApi(metodo, ruta, datos, siTodoBien, siHayError) {

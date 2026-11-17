@@ -7,7 +7,7 @@ function poner(id, texto) {
 function mostrarImagen(imagen) {
     imagenActual = imagen;
     const fecha = fechaCorta(imagen.fecha_registro);
-    const url = API_URL + imagen.url;
+    const url = imagen.url;
     document.title = imagen.titulo + " · Muralia";
 
     document.getElementById("imagen").src = url;
@@ -60,7 +60,7 @@ function mostrarMasDelAutor(imagenes) {
             const miniatura = plantilla.content.cloneNode(true);
             miniatura.querySelector("a").href = "index.html?id=" + imagenes[i].id;
             miniatura.querySelector("a").title = imagenes[i].titulo;
-            miniatura.querySelector("img").src = API_URL + imagenes[i].url;
+            miniatura.querySelector("img").src = imagenes[i].url;
             miniatura.querySelector("img").alt = imagenes[i].titulo;
             contenedor.appendChild(miniatura);
             cantidad = cantidad + 1;

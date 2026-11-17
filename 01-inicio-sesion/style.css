@@ -8,8 +8,8 @@ body {
     font-family: "Arimo", sans-serif;
     font-size: 14px;
     line-height: 1.5;
-    background-color: #013E37;
-    color: #013E37;
+    background-color: #013e37;
+    color: #013e37;
 }
 
 .solo-grande {
@@ -24,8 +24,8 @@ body {
 }
 
 .presentacion {
-    background-color: #013E37;
-    color: #FFEFB3;
+    background-color: #013e37;
+    color: #ffefb3;
     padding: 28px 28px 56px;
     display: flex;
     flex-direction: column;
@@ -76,7 +76,7 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    color: #FFEFB3;
+    color: #ffefb3;
 }
 
 .caracteristicas img {
@@ -86,7 +86,7 @@ body {
 
 .zona-login {
     flex: 1;
-    background-color: #FBF8EF;
+    background-color: #fbf8ef;
     border-radius: 28px 28px 0 0;
     margin-top: -28px;
     padding: 32px 24px;
@@ -132,13 +132,13 @@ body {
     gap: 10px;
     height: 48px;
     padding: 0 14px;
-    background-color: #FFFFFF;
-    border: 1px solid #E6E0CF;
+    background-color: #ffffff;
+    border: 1px solid #e6e0cf;
     border-radius: 10px;
 }
 
 .entrada:focus-within {
-    border: 2px solid #0A5A50;
+    border: 2px solid #0a5a50;
 }
 
 .entrada img {
@@ -155,11 +155,11 @@ body {
     background-color: transparent;
     font-family: inherit;
     font-size: 14px;
-    color: #013E37;
+    color: #013e37;
 }
 
 .entrada input::placeholder {
-    color: #5E6F6B;
+    color: #5e6f6b;
 }
 
 .opciones {
@@ -181,13 +181,13 @@ body {
 .recordar input {
     width: 18px;
     height: 18px;
-    accent-color: #0A5A50;
+    accent-color: #0a5a50;
     cursor: pointer;
 }
 
 .opciones a,
 .solicitud a {
-    color: #0A5A50;
+    color: #0a5a50;
     font-weight: bold;
     text-decoration: none;
 }
@@ -210,18 +210,50 @@ body {
 }
 
 .boton-ingresar {
-    background-color: #0A5A50;
-    color: #FFFFFF;
+    background-color: #0a5a50;
+    color: #ffffff;
+}
+
+button.boton-ingresar {
+    border: none;
+    font-family: inherit;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button.boton-ingresar:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.boton-registro {
+    margin-top: 12px;
+}
+
+.mensaje-form {
+    min-height: 18px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: #963f38;
+}
+
+.mensaje-form.exito {
+    color: #0a5a50;
+}
+
+.ventana-caja {
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
 }
 
 .boton-ingresar:hover {
-    background-color: #013E37;
+    background-color: #013e37;
 }
 
 .boton-secundario {
-    background-color: #FFFFFF;
-    border: 1px solid #E6E0CF;
-    color: #013E37;
+    background-color: #ffffff;
+    border: 1px solid #e6e0cf;
+    color: #013e37;
 }
 
 .separador,
@@ -233,20 +265,20 @@ body {
     align-items: center;
     gap: 12px;
     margin: 20px 0;
-    color: #5E6F6B;
+    color: #5e6f6b;
     font-size: 12px;
 }
 
 .separador span {
     flex: 1;
     height: 1px;
-    background-color: #E6E0CF;
+    background-color: #e6e0cf;
 }
 
 .solicitud {
     text-align: center;
     font-size: 12px;
-    color: #5E6F6B;
+    color: #5e6f6b;
 }
 
 .ventana {
@@ -268,7 +300,7 @@ body {
     width: 100%;
     max-width: 420px;
     padding: 28px;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border-radius: 20px;
 }
 
@@ -282,7 +314,7 @@ body {
 
 .ventana-caja > p {
     margin-bottom: 18px;
-    color: #5E6F6B;
+    color: #5e6f6b;
 }
 
 .ventana-botones {
@@ -291,7 +323,6 @@ body {
 }
 
 @media (min-width: 768px) {
-
     .solo-movil {
         display: none;
     }
@@ -334,9 +365,9 @@ body {
 
     .tarjeta-login {
         max-width: 468px;
-        background-color: #FFFFFF;
+        background-color: #ffffff;
         padding: 44px;
-        border: 1px solid #E6E0CF;
+        border: 1px solid #e6e0cf;
         border-radius: 24px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
     }
@@ -349,7 +380,7 @@ body {
 
     .subtitulo {
         display: block;
-        color: #5E6F6B;
+        color: #5e6f6b;
         margin-bottom: 20px;
     }
 
@@ -377,7 +408,6 @@ body {
 }
 
 @media (min-width: 1024px) {
-
     .contenedor {
         flex-direction: row;
     }

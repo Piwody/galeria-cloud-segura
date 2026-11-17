@@ -2,12 +2,11 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 
-from app.config import CARPETA_IMAGENES, ORIGENES_PERMITIDOS
+from app.config import ORIGENES_PERMITIDOS
 from app.database import Base, SesionLocal, motor
 from app.datos_iniciales import cargar_datos_iniciales
-from app.routers import categorias, imagenes, usuarios
+from app.routers import auth, categorias, imagenes, usuarios
 
 
 @asynccontextmanager
@@ -27,9 +26,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-CARPETA_IMAGENES.mkdir(exist_ok=True)
-app.mount("/uploads", StaticFiles(directory=CARPETA_IMAGENES), name="uploads")
-
+app.include_router(auth.router)
 app.include_router(imagenes.router)
 app.include_router(usuarios.router)
 app.include_router(categorias.router)

@@ -18,22 +18,25 @@ La aplicación tiene tres roles:
 | **Editor** | Lo mismo que el usuario, y además editar la información de sus propias imágenes |
 | **Administrador** | Todo lo anterior, eliminar cualquier imagen y gestionar las cuentas de usuarios (roles y estados) |
 
-## Arquitectura (Avance 3)
+## Arquitectura
 
 ```
-Navegador ──► Frontend (HTML, CSS y JavaScript) publicado en Amazon S3
-                 │  fetch()
-                 ▼
-             Backend FastAPI en el computador (http://localhost:8000)
-                 │  SQLAlchemy
-                 ▼
-             Base de datos SQLite (backend/galeria.db)
-             Imágenes subidas (backend/uploads/)
+Navegador ──► Frontend (HTML, CSS y JavaScript) publicado en S3 (muraliacloudintegrador)
+   │
+   │ 1. POST /imagenes/subida  ──► FastAPI firma un permiso de 5 minutos
+   │ 2. POST directo a S3       ──► el archivo se guarda en el bucket muraliacloudimagenes
+   │ 3. POST /imagenes (URL de S3 + datos del formulario) ──► FastAPI
+   ▼
+Backend FastAPI en el computador (http://localhost:8000)
+   │  SQLAlchemy
+   ▼
+Base de datos SQLite (backend/galeria.db): usuarios, categorías y datos de las imágenes (con su URL de S3)
 ```
 
-- El **frontend** se publica en Amazon S3 como sitio web estático.
-- El **backend** y la **base de datos** corren en el computador del equipo.
-- El archivo [api.js](api.js) tiene la dirección del backend y las funciones que usan todas las páginas para hablar con la API.
+- Los **archivos de imagen** se guardan en Amazon S3. El navegador los sube **directo a S3** al hacer clic en "Registrar imagen".
+- El backend **no recibe el archivo**: solo firma el permiso de subida, comprueba que el archivo esté en S3 y guarda su URL en la base.
+- Las **credenciales de AWS** solo las tiene el backend (`aws configure`). Nunca llegan al frontend.
+- **Usuarios y categorías** se guardan en la base SQLite. El inicio de sesión y el registro se validan contra esa base.
 
 ## Estructura del proyecto
 
@@ -43,7 +46,10 @@ galeria-cloud-segura/
 ├── api.js                     Conexión del frontend con la API
 ├── 01-inicio-sesion/ … 08-seguridad/   Una carpeta por pantalla
 ├── despliegue/
-│   └── politica-bucket.json   Permiso de lectura pública para S3
+│   ├── politica-bucket.json            Lectura pública del sitio web
+│   ├── politica-bucket-imagenes.json   Lectura pública de la carpeta imagenes/
+│   ├── cors-bucket-imagenes.json       Permite que el navegador suba a S3
+│   └── politica-iam-backend.json       Permisos mínimos del usuario IAM del backend
 └── backend/
     ├── requirements.txt
     └── app/
@@ -53,6 +59,7 @@ galeria-cloud-segura/
         ├── models.py          Tablas: usuarios, categorías, imágenes
         ├── schemas.py         Datos que entran y salen de la API
         ├── seguridad.py       Cifrado de contraseñas
+        ├── s3.py              Conexión con Amazon S3 (firmar subidas, comprobar y borrar)
         ├── datos_iniciales.py Datos de ejemplo de la primera vez
         ├── routers/           Endpoints de cada recurso
         └── services/          Lógica de negocio de cada recurso
@@ -62,9 +69,9 @@ galeria-cloud-segura/
 
 | Tabla | Campos |
 |---|---|
-| **usuarios** | id, nombre, correo (único), contrasena (cifrada con PBKDF2), rol, estado |
+| **usuarios** | id, nombre, usuario (único), correo (único), contrasena (cifrada con PBKDF2), rol, estado |
 | **categorias** | id, nombre (único), descripcion |
-| **imagenes** | id, titulo, archivo, descripcion, visibilidad, fecha_registro, **categoria_id**, **usuario_id** |
+| **imagenes** | id, titulo, **url** (dirección en S3), nombre_archivo, formato, tamano_kb, descripcion, visibilidad, fecha_registro, **categoria_id**, **usuario_id** |
 
 Relaciones:
 
@@ -76,11 +83,14 @@ Relaciones:
 
 | Método | Ruta | Qué hace |
 |---|---|---|
-| POST | `/imagenes` | Registra una imagen (formulario con archivo) |
+| POST | `/auth/registro` | Crea una cuenta nueva (rol Usuario). Revisa que el correo y el usuario no existan |
+| POST | `/auth/login` | Inicia sesión con correo o usuario y contraseña |
+| POST | `/imagenes/subida` | Devuelve el permiso temporal para subir un archivo a S3 |
+| POST | `/imagenes` | Registra una imagen con la URL de S3 y los datos del formulario |
 | GET | `/imagenes` | Lista las imágenes (filtros opcionales `?categoria_id=` y `?usuario_id=`) |
 | GET | `/imagenes/{id}` | Detalle de una imagen |
 | PUT | `/imagenes/{id}` | Actualiza título, descripción, visibilidad o categoría |
-| DELETE | `/imagenes/{id}` | Elimina la imagen y su archivo |
+| DELETE | `/imagenes/{id}` | Elimina la imagen de la base y su archivo de S3 |
 | POST | `/usuarios` | Registra un usuario |
 | GET | `/usuarios` | Lista los usuarios |
 | GET | `/usuarios/{id}` | Detalle de un usuario |
@@ -103,7 +113,9 @@ Con el backend encendido, la documentación interactiva está en http://localhos
 | `04` Detalle | Muestra una imagen (`?id=`), otras del mismo autor y la elimina |
 | `05` Usuarios | Lista, registra, edita, suspende y elimina usuarios |
 
-Las pantallas `01`, `06`, `07` y `08` siguen siendo solo diseño. Todavía no hay inicio de sesión real: las imágenes nuevas se registran a nombre del usuario 1 (Mateo Cantos).
+| `01` Inicio de sesión | Inicia sesión y registra usuarios nuevos |
+
+Las pantallas `06`, `07` y `08` siguen siendo solo diseño. Las imágenes nuevas se registran a nombre del usuario que inició sesión.
 
 ## Cómo ejecutar el backend
 
@@ -117,7 +129,19 @@ pip install -r requirements.txt
 python -m uvicorn app.main:app --reload
 ```
 
-La primera vez se crea `galeria.db` con 7 categorías, 6 usuarios y 12 imágenes de ejemplo. La contraseña de los usuarios de ejemplo es `muralia2026`. Para empezar de cero, borra `backend/galeria.db` y la carpeta `backend/uploads`.
+La primera vez se crea `galeria.db` con 7 categorías, 6 usuarios y 12 imágenes de ejemplo (que se suben a S3). La contraseña de los usuarios de ejemplo es `muralia2026`. Para empezar de cero, borra `backend/galeria.db`.
+
+Para usar otro bucket sin tocar el código: `MURALIA_S3_BUCKET=otro-bucket MURALIA_S3_REGION=us-east-1 python -m uvicorn app.main:app --reload`.
+
+## Cómo preparar el bucket de imágenes en AWS
+
+1. **Crear el bucket** `muraliacloudimagenes` en `us-east-2`. En **Bloquear acceso público**, desmarca solo las dos opciones de *políticas de bucket* (las de ACL pueden quedar marcadas).
+2. **Permisos → Política del bucket**: pega [politica-bucket-imagenes.json](despliegue/politica-bucket-imagenes.json). Así cualquiera puede ver las imágenes de `imagenes/`, pero nadie puede subir ni borrar.
+3. **Permisos → Uso compartido de recursos entre orígenes (CORS)**: pega [cors-bucket-imagenes.json](despliegue/cors-bucket-imagenes.json). Sin esto, el navegador no deja subir a S3.
+4. **IAM → Usuarios → Crear usuario** (por ejemplo `muralia-backend`) con una política en línea que tenga [politica-iam-backend.json](despliegue/politica-iam-backend.json). Luego, en **Credenciales de seguridad**, crea una clave de acceso tipo *Código local*.
+5. En el computador del backend ejecuta `aws configure` y pega la clave, el secreto y la región `us-east-2`. Las credenciales quedan en `~/.aws/credentials` y **nunca se suben a GitHub**.
+
+Si usas otro nombre de bucket, cámbialo en los tres archivos JSON y en la variable `MURALIA_S3_BUCKET`.
 
 ## Cómo ver el frontend en el computador
 
@@ -148,7 +172,8 @@ El backend ya acepta peticiones (CORS) de cualquier dirección `s3-website` de A
 - **JavaScript**: `fetch()` para comunicarse con la API.
 - **Python, FastAPI y Uvicorn**: la API.
 - **SQLAlchemy y SQLite**: la base de datos local.
-- **Amazon S3**: publicación del frontend.
+- **Amazon S3**: publicación del frontend y almacenamiento de las imágenes.
+- **boto3**: conexión del backend con S3.
 - **Google Fonts**: Bodoni Moda para los títulos y Arimo para el texto.
 - **Figma**: el diseño de los mockups y los íconos.
 - **Git y GitHub**: trabajo en equipo y control de versiones.

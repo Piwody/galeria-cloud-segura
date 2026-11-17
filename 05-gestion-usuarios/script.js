@@ -83,7 +83,7 @@ function crearTarjeta(usuario) {
 function cumpleFiltros(usuario) {
     const texto = (buscarEscritorio.value + buscarMovil.value).toLowerCase();
     const rol = filtroRol.value || filtroRolMovil.value;
-    const datos = (usuario.nombre + " " + usuario.correo).toLowerCase();
+    const datos = (usuario.nombre + " " + usuario.usuario + " " + usuario.correo).toLowerCase();
 
     if (!datos.includes(texto)) return false;
     if (rol && usuario.rol !== rol) return false;
@@ -117,7 +117,8 @@ function mostrarUsuarios() {
     document.getElementById("total-admins").textContent = administradores;
     document.getElementById("total-suspendidos").textContent = suspendidos;
     document.getElementById("cuenta-todos").textContent = usuarios.length;
-    document.getElementById("mostrando").textContent = "Mostrando " + mostrados + " de " + usuarios.length + " usuarios";
+    document.getElementById("mostrando").textContent =
+        "Mostrando " + mostrados + " de " + usuarios.length + " usuarios";
 
     if (mostrados === 0) {
         document.getElementById("aviso-movil").textContent = "No hay usuarios para mostrar.";
@@ -147,7 +148,6 @@ function cerrarYRecargar() {
     cargarUsuarios();
 }
 
-
 function elegir(usuario) {
     elegido = usuario;
 
@@ -159,16 +159,19 @@ function elegir(usuario) {
 
     if (usuario.estado === "Suspendido") {
         document.getElementById("estado-titulo").textContent = "¿Reactivar usuario?";
-        document.getElementById("estado-texto").textContent = usuario.nombre + " podrá volver a entrar a la plataforma.";
+        document.getElementById("estado-texto").textContent =
+            usuario.nombre + " podrá volver a entrar a la plataforma.";
         document.getElementById("opciones-estado").textContent = "Reactivar";
     } else {
         document.getElementById("estado-titulo").textContent = "¿Suspender usuario?";
-        document.getElementById("estado-texto").textContent = usuario.nombre + " no podrá entrar hasta que lo reactives.";
+        document.getElementById("estado-texto").textContent =
+            usuario.nombre + " no podrá entrar hasta que lo reactives.";
         document.getElementById("opciones-estado").textContent = "Suspender";
     }
 
     document.getElementById("opciones-titulo").textContent = usuario.nombre;
-    document.getElementById("eliminar-texto").textContent = "La cuenta de " + usuario.nombre + " se borrará de la base de datos.";
+    document.getElementById("eliminar-texto").textContent =
+        "La cuenta de " + usuario.nombre + " se borrará de la base de datos.";
     avisar("editar", "");
     avisar("estado", "");
     avisar("eliminar", "");
@@ -178,17 +181,24 @@ formNuevo.addEventListener("submit", function (evento) {
     evento.preventDefault();
     const nuevo = {
         nombre: formNuevo.nombre.value,
+        usuario: formNuevo.usuario.value,
         correo: formNuevo.correo.value,
         contrasena: formNuevo.contrasena.value,
         rol: formNuevo.rol.value,
     };
-    llamarApi("POST", "/usuarios", nuevo, function () {
-        formNuevo.reset();
-        avisar("nuevo", "");
-        cerrarYRecargar();
-    }, function (texto) {
-        avisar("nuevo", texto);
-    });
+    llamarApi(
+        "POST",
+        "/usuarios",
+        nuevo,
+        function () {
+            formNuevo.reset();
+            avisar("nuevo", "");
+            cerrarYRecargar();
+        },
+        function (texto) {
+            avisar("nuevo", texto);
+        },
+    );
 });
 
 formEditar.addEventListener("submit", function (evento) {

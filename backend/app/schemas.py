@@ -7,6 +7,8 @@ Rol = Literal["Administrador", "Editor", "Usuario"]
 Estado = Literal["Activo", "Inactivo", "Suspendido"]
 Visibilidad = Literal["Pública", "Privada"]
 Correo = str
+PATRON_CORREO = r"^[^@\s]+@[^@\s]+\.[^@\s]+$"
+PATRON_USUARIO = r"^[a-zA-Z0-9._-]{3,40}$"
 
 
 class CategoriaCrear(BaseModel):
@@ -30,7 +32,8 @@ class CategoriaRespuesta(BaseModel):
 
 class UsuarioCrear(BaseModel):
     nombre: str = Field(min_length=2, max_length=100)
-    correo: Correo = Field(pattern=r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+    usuario: str = Field(pattern=PATRON_USUARIO)
+    correo: Correo = Field(pattern=PATRON_CORREO)
     contrasena: str = Field(min_length=6)
     rol: Rol = "Usuario"
     estado: Estado = "Activo"
@@ -38,7 +41,8 @@ class UsuarioCrear(BaseModel):
 
 class UsuarioActualizar(BaseModel):
     nombre: str | None = Field(default=None, min_length=2, max_length=100)
-    correo: Correo | None = Field(default=None, pattern=r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+    usuario: str | None = Field(default=None, pattern=PATRON_USUARIO)
+    correo: Correo | None = Field(default=None, pattern=PATRON_CORREO)
     contrasena: str | None = Field(default=None, min_length=6)
     rol: Rol | None = None
     estado: Estado | None = None
@@ -49,10 +53,44 @@ class UsuarioRespuesta(BaseModel):
 
     id: int
     nombre: str
+    usuario: str
     correo: str
     rol: str
     estado: str
     total_imagenes: int = 0
+
+
+class RegistroUsuario(BaseModel):
+    nombre: str = Field(min_length=2, max_length=100)
+    usuario: str = Field(pattern=PATRON_USUARIO)
+    correo: Correo = Field(pattern=PATRON_CORREO)
+    contrasena: str = Field(min_length=6)
+
+
+class InicioSesion(BaseModel):
+    identificador: str = Field(min_length=3)
+    contrasena: str = Field(min_length=1)
+
+
+class SolicitudSubida(BaseModel):
+    tipo: str
+    tamano: int = Field(gt=0)
+
+
+class FirmaSubida(BaseModel):
+    url_subida: str
+    campos: dict[str, str]
+    url_imagen: str
+
+
+class ImagenCrear(BaseModel):
+    titulo: str = Field(min_length=2, max_length=120)
+    descripcion: str = ""
+    visibilidad: Visibilidad = "Pública"
+    categoria_id: int
+    usuario_id: int
+    url: str = Field(max_length=500)
+    nombre_archivo: str = Field(min_length=1, max_length=200)
 
 
 class ImagenActualizar(BaseModel):

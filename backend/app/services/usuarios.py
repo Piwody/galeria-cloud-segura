@@ -1,16 +1,17 @@
 from fastapi import HTTPException
-from sqlalchemy import select
+from sqlalchemy import or_, select
 from sqlalchemy.orm import Session
 
 from app.models import Usuario
-from app.schemas import UsuarioActualizar, UsuarioCrear, UsuarioRespuesta
-from app.seguridad import cifrar_contrasena
+from app.schemas import InicioSesion, UsuarioActualizar, UsuarioCrear, UsuarioRespuesta
+from app.seguridad import cifrar_contrasena, verificar_contrasena
 
 
 def a_respuesta(usuario: Usuario) -> UsuarioRespuesta:
     return UsuarioRespuesta(
         id=usuario.id,
         nombre=usuario.nombre,
+        usuario=usuario.usuario,
         correo=usuario.correo,
         rol=usuario.rol,
         estado=usuario.estado,
@@ -28,7 +29,13 @@ def buscar(sesion: Session, usuario_id: int) -> Usuario:
 def revisar_correo(sesion: Session, correo: str, id_actual: int | None = None):
     otro = sesion.scalar(select(Usuario).where(Usuario.correo == correo))
     if otro is not None and otro.id != id_actual:
-        raise HTTPException(409, "Ya existe un usuario con ese correo")
+        raise HTTPException(409, "Ya existe una cuenta registrada con ese correo")
+
+
+def revisar_usuario(sesion: Session, nombre_usuario: str, id_actual: int | None = None):
+    otro = sesion.scalar(select(Usuario).where(Usuario.usuario == nombre_usuario))
+    if otro is not None and otro.id != id_actual:
+        raise HTTPException(409, "Ese nombre de usuario ya está en uso")
 
 
 def listar(sesion: Session) -> list[Usuario]:
@@ -37,9 +44,12 @@ def listar(sesion: Session) -> list[Usuario]:
 
 def crear(sesion: Session, datos: UsuarioCrear) -> Usuario:
     correo = datos.correo.lower()
+    nombre_usuario = datos.usuario.lower()
     revisar_correo(sesion, correo)
+    revisar_usuario(sesion, nombre_usuario)
     usuario = Usuario(
         nombre=datos.nombre,
+        usuario=nombre_usuario,
         correo=correo,
         contrasena=cifrar_contrasena(datos.contrasena),
         rol=datos.rol,
@@ -57,6 +67,10 @@ def actualizar(sesion: Session, usuario_id: int, datos: UsuarioActualizar) -> Us
         correo = datos.correo.lower()
         revisar_correo(sesion, correo, usuario.id)
         usuario.correo = correo
+    if datos.usuario is not None:
+        nombre_usuario = datos.usuario.lower()
+        revisar_usuario(sesion, nombre_usuario, usuario.id)
+        usuario.usuario = nombre_usuario
     if datos.nombre is not None:
         usuario.nombre = datos.nombre
     if datos.contrasena is not None:
@@ -76,3 +90,15 @@ def eliminar(sesion: Session, usuario_id: int):
         raise HTTPException(409, "No se puede eliminar: el usuario tiene imágenes registradas")
     sesion.delete(usuario)
     sesion.commit()
+
+
+def iniciar_sesion(sesion: Session, datos: InicioSesion) -> Usuario:
+    identificador = datos.identificador.strip().lower()
+    usuario = sesion.scalar(select(Usuario).where(
+        or_(Usuario.correo == identificador, Usuario.usuario == identificador)
+    ))
+    if usuario is None or not verificar_contrasena(datos.contrasena, usuario.contrasena):
+        raise HTTPException(401, "Correo, usuario o contraseña incorrectos")
+    if usuario.estado != "Activo":
+        raise HTTPException(403, f"Tu cuenta está {usuario.estado.lower()[:-1]}a. Habla con un administrador")
+    return usuario

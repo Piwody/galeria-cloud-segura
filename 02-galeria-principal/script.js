@@ -14,7 +14,7 @@ function crearTarjeta(imagen, posicion) {
 
     tarjeta.querySelector(".tarjeta").href = "../04-detalle-imagen/index.html?id=" + imagen.id;
     tarjeta.querySelector(".tarjeta-imagen").classList.add(alturas[posicion % 4]);
-    tarjeta.querySelector(".tarjeta-imagen img").src = API_URL + imagen.url;
+    tarjeta.querySelector(".tarjeta-imagen img").src = imagen.url;
     tarjeta.querySelector(".tarjeta-imagen img").alt = imagen.titulo;
     tarjeta.querySelector(".tarjeta-titulo").textContent = imagen.titulo;
     tarjeta.querySelector(".categoria").textContent = imagen.categoria.nombre;
