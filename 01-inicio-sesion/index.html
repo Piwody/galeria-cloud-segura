@@ -11,6 +11,7 @@
             rel="stylesheet"
         />
         <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="../comun.css">
     </head>
     <body>
         <main class="contenedor">
@@ -105,24 +106,44 @@
             <form class="ventana-caja" id="form-registro">
                 <h2>Registrar nuevo usuario</h2>
                 <p>Crea tu cuenta para subir y guardar imágenes en Muralia.</p>
-                <div class="campo">
-                    <label for="registro-nombre">Nombre completo</label>
-                    <div class="entrada">
-                        <img src="assets/usuario.svg" alt="" />
-                        <input
-                            type="text"
-                            id="registro-nombre"
-                            name="nombre"
-                            placeholder="Tu nombre"
-                            minlength="2"
-                            maxlength="100"
-                            autocomplete="name"
-                            required
-                        />
+                <div class="fila-campos">
+                    <div class="campo">
+                        <label for="registro-nombre">Nombre *</label>
+                        <div class="entrada">
+                            <img src="assets/usuario.svg" alt="" />
+                            <input
+                                type="text"
+                                id="registro-nombre"
+                                name="nombre"
+                                placeholder="Ej. Gabriel"
+                                pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]{2,50}"
+                                title="Solo letras, sin espacios ni números (mínimo 2)"
+                                maxlength="50"
+                                autocomplete="given-name"
+                                required
+                            />
+                        </div>
+                    </div>
+                    <div class="campo">
+                        <label for="registro-apellido">Apellido *</label>
+                        <div class="entrada">
+                            <img src="assets/usuario.svg" alt="" />
+                            <input
+                                type="text"
+                                id="registro-apellido"
+                                name="apellido"
+                                placeholder="Ej. Terán"
+                                pattern="[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]{2,50}"
+                                title="Solo letras, sin espacios ni números (mínimo 2)"
+                                maxlength="50"
+                                autocomplete="family-name"
+                                required
+                            />
+                        </div>
                     </div>
                 </div>
                 <div class="campo">
-                    <label for="registro-usuario">Usuario</label>
+                    <label for="registro-usuario">Usuario *</label>
                     <div class="entrada">
                         <img src="assets/usuario.svg" alt="" />
                         <input
@@ -130,15 +151,16 @@
                             id="registro-usuario"
                             name="usuario"
                             placeholder="ej. gabriel.teran"
-                            pattern="[A-Za-z0-9._\-]{3,40}"
-                            title="De 3 a 40 letras, números, puntos, guiones o guiones bajos"
+                            pattern="[^\s@]{3,40}"
+                            maxlength="40"
+                            title="De 3 a 40 caracteres: letras, números y símbolos, sin espacios ni @"
                             autocomplete="username"
                             required
                         />
                     </div>
                 </div>
                 <div class="campo">
-                    <label for="registro-correo">Correo</label>
+                    <label for="registro-correo">Correo *</label>
                     <div class="entrada">
                         <img src="assets/usuario.svg" alt="" />
                         <input
@@ -152,19 +174,25 @@
                     </div>
                 </div>
                 <div class="campo">
-                    <label for="registro-contrasena">Contraseña</label>
+                    <label for="registro-contrasena">Contraseña *</label>
                     <div class="entrada">
                         <img src="assets/candado.svg" alt="" />
                         <input
                             type="password"
                             id="registro-contrasena"
                             name="contrasena"
-                            placeholder="Mínimo 6 caracteres"
-                            minlength="6"
+                            placeholder="Crea una contraseña segura"
+                            minlength="8"
+                            aria-describedby="requisitos-contrasena"
                             autocomplete="new-password"
                             required
                         />
                     </div>
+                    <ul class="requisitos" id="requisitos-contrasena">
+                        <li data-regla="largo">Mínimo 8 caracteres</li>
+                        <li data-regla="mayuscula">Al menos una letra mayúscula</li>
+                        <li data-regla="numero">Al menos un número</li>
+                    </ul>
                 </div>
                 <p class="mensaje-form" id="mensaje-registro" role="alert"></p>
                 <div class="ventana-botones">

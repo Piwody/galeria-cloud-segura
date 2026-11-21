@@ -61,6 +61,11 @@ function cargarCategorias(seleccionada) {
 }
 
 function llenarFormulario(imagen) {
+    if (imagen.usuario.id !== USUARIO_ACTUAL) {
+        // Solo el autor puede editar: si no lo es, vuelve al detalle
+        location.replace("../04-detalle-imagen/index.html?id=" + imagen.id);
+        return;
+    }
     document.title = "Editar imagen · Muralia";
     document.getElementById("titulo-pagina").textContent = "Editar imagen";
     document.getElementById("texto-boton").textContent = "Guardar cambios";
@@ -121,7 +126,7 @@ formulario.addEventListener("submit", function (evento) {
             categoria_id: Number(selectCategoria.value),
         };
         botonRegistrar.disabled = true;
-        llamarApi("PUT", "/imagenes/" + idEditar, cambios, irAlDetalle, mostrarErrorAlGuardar);
+        llamarApi("PUT", "/imagenes/" + idEditar + "?usuario_id=" + USUARIO_ACTUAL, cambios, irAlDetalle, mostrarErrorAlGuardar);
         return;
     }
 

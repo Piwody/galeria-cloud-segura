@@ -11,6 +11,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../comun.css">
   </head>
   <body>
     <div class="pagina">
@@ -27,10 +28,6 @@
             <img src="img/galeria.svg" alt="" width="20" height="20" />
             Galería
           </a>
-          <a href="../03-registro-imagen/index.html" class="menu-item">
-            <img src="img/subir.svg" alt="" width="20" height="20" />
-            Subir imagen
-          </a>
           <a href="index.html" class="menu-item activo">
             <img src="img/mis-imagenes.svg" alt="" width="20" height="20" />
             Mis imágenes
@@ -38,6 +35,10 @@
           <a href="../07-favoritos/index.html" class="menu-item">
             <img src="img/favoritos.svg" alt="" width="20" height="20" />
             Favoritos
+          </a>
+          <a href="../09-guardados/index.html" class="menu-item">
+            <img src="img/guardados.svg" alt="" width="20" height="20" />
+            Guardados
           </a>
         </nav>
 
@@ -105,156 +106,10 @@
           <h1 class="titulo">Mis imágenes</h1>
         </div>
 
-        <p class="contador">4 imágenes</p>
+        <p class="contador" id="contador">Cargando…</p>
 
-        <section class="galeria">
-          <a href="../04-detalle-imagen/index.html" class="tarjeta">
-              <div class="tarjeta-imagen media">
-                <img src="img/imagen-5.svg" alt="Rosas del valle" />
-              </div>
-              <div class="tarjeta-info">
-                <h2 class="tarjeta-titulo">Rosas del valle</h2>
-                <div class="tarjeta-fila">
-                  <span class="insignia insignia-crema">
-                    <img
-                      src="img/punto-oscuro.svg"
-                      alt=""
-                      width="6"
-                      height="6"
-                    />
-                    Arte
-                  </span>
-                  <img
-                    src="img/mundo.svg"
-                    alt="Pública"
-                    width="16"
-                    height="16"
-                  />
-                </div>
-                <div class="tarjeta-fila">
-                  <span class="autor">
-                    <span class="avatar avatar-verde">MC</span>
-                    <span
-                      ><span class="solo-escritorio">Mateo</span
-                      ><span class="solo-movil">M.</span> Cantos</span
-                    >
-                  </span>
-                  <span class="me-gusta">
-                    <img src="img/me-gusta.svg" alt="" width="14" height="14" />
-                    203
-                  </span>
-                </div>
-              </div>
-            </a>
-          <a href="../04-detalle-imagen/index.html" class="tarjeta">
-              <div class="tarjeta-imagen media">
-                <img src="img/imagen-6.svg" alt="Páramo andino" />
-              </div>
-              <div class="tarjeta-info">
-                <h2 class="tarjeta-titulo">Páramo andino</h2>
-                <div class="tarjeta-fila">
-                  <span class="insignia insignia-crema">
-                    <img
-                      src="img/punto-oscuro.svg"
-                      alt=""
-                      width="6"
-                      height="6"
-                    />
-                    Naturaleza
-                  </span>
-                  <img
-                    src="img/mundo.svg"
-                    alt="Pública"
-                    width="16"
-                    height="16"
-                  />
-                </div>
-                <div class="tarjeta-fila">
-                  <span class="autor">
-                    <span class="avatar avatar-verde">MC</span>
-                    <span
-                      ><span class="solo-escritorio">Mateo</span
-                      ><span class="solo-movil">M.</span> Cantos</span
-                    >
-                  </span>
-                  <span class="me-gusta">
-                    <img src="img/me-gusta.svg" alt="" width="14" height="14" />
-                    175
-                  </span>
-                </div>
-              </div>
-            </a>
-          <a href="../04-detalle-imagen/index.html" class="tarjeta">
-              <div class="tarjeta-imagen media">
-                <img src="img/imagen-11.svg" alt="Cartel minimalista" />
-              </div>
-              <div class="tarjeta-info">
-                <h2 class="tarjeta-titulo">Cartel minimalista</h2>
-                <div class="tarjeta-fila">
-                  <span class="insignia insignia-crema">
-                    <img
-                      src="img/punto-oscuro.svg"
-                      alt=""
-                      width="6"
-                      height="6"
-                    />
-                    Diseño
-                  </span>
-                  <img
-                    src="img/candado.svg"
-                    alt="Privada"
-                    width="16"
-                    height="16"
-                  />
-                </div>
-                <div class="tarjeta-fila">
-                  <span class="autor">
-                    <span class="avatar avatar-verde">MC</span>
-                    <span>Mateo Cantos</span>
-                  </span>
-                  <span class="me-gusta">
-                    <img src="img/me-gusta.svg" alt="" width="14" height="14" />
-                    33
-                  </span>
-                </div>
-              </div>
-            </a>
-          <a href="../04-detalle-imagen/index.html" class="tarjeta">
-              <div class="tarjeta-imagen media">
-                <img src="img/imagen-8.svg" alt="Bosque nublado" />
-              </div>
-              <div class="tarjeta-info">
-                <h2 class="tarjeta-titulo">Bosque nublado</h2>
-                <div class="tarjeta-fila">
-                  <span class="insignia insignia-crema">
-                    <img
-                      src="img/punto-oscuro.svg"
-                      alt=""
-                      width="6"
-                      height="6"
-                    />
-                    Naturaleza
-                  </span>
-                  <img
-                    src="img/mundo.svg"
-                    alt="Pública"
-                    width="16"
-                    height="16"
-                  />
-                </div>
-                <div class="tarjeta-fila">
-                  <span class="autor">
-                    <span class="avatar avatar-verde">MC</span>
-                    <span>Mateo Cantos</span>
-                  </span>
-                  <span class="me-gusta">
-                    <img src="img/me-gusta.svg" alt="" width="14" height="14" />
-                    149
-                  </span>
-                </div>
-              </div>
-            </a>
-        </section>
+        <section class="galeria" id="galeria"></section>
+        <p class="mensaje-coleccion" id="mensaje"></p>
       </main>
 
       <nav class="barra-pestanas solo-movil">
@@ -278,11 +133,13 @@
           <img src="img/tab-favoritos.svg" alt="" width="22" height="22" />
           Favoritos
         </a>
-        <a href="../05-gestion-usuarios/index.html" class="tab">
-          <img src="img/tab-usuarios.svg" alt="" width="22" height="22" />
-          Usuarios
+        <a href="../09-guardados/index.html" class="tab">
+          <img src="img/tab-guardados.svg" alt="" width="22" height="22" />
+          Guardados
         </a>
       </nav>
     </div>
+    <script src="../api.js"></script>
+    <script src="../coleccion.js"></script>
   </body>
 </html>

@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Bodoni+Moda:opsz,wght@6..96,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../comun.css">
 </head>
 <body>
     <div class="pagina">
@@ -25,10 +26,6 @@
                     <img src="img/galeria.svg" alt="" width="20" height="20">
                     Galería
                 </a>
-                <a href="../03-registro-imagen/index.html" class="menu-item">
-                    <img src="img/subir.svg" alt="" width="20" height="20">
-                    Subir imagen
-                </a>
                 <a href="../06-mis-imagenes/index.html" class="menu-item">
                     <img src="img/mis-imagenes.svg" alt="" width="20" height="20">
                     Mis imágenes
@@ -36,6 +33,10 @@
                 <a href="../07-favoritos/index.html" class="menu-item">
                     <img src="img/favoritos.svg" alt="" width="20" height="20">
                     Favoritos
+                </a>
+                <a href="../09-guardados/index.html" class="menu-item">
+                    <img src="img/guardados.svg" alt="" width="20" height="20">
+                    Guardados
                 </a>
             </nav>
 
@@ -87,9 +88,9 @@
                                 <a href="#compartir" class="boton-icono">
                                     <img src="img/compartir.svg" alt="Compartir" width="18" height="18">
                                 </a>
-                                <a href="../07-favoritos/index.html" class="boton-icono">
+                                <button type="button" class="boton-icono guardar" title="Guardar">
                                     <img src="img/guardar.svg" alt="Guardar" width="18" height="18">
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -121,13 +122,10 @@
                         <h1 class="titulo" id="titulo">Cargando…</h1>
                         <p class="descripcion" id="descripcion"></p>
                         <div class="estadisticas solo-escritorio">
-                            <span class="estadistica">
-                                <img src="img/me-gusta.svg" alt="" width="16" height="16">
-                                124 me gusta
-                            </span>
+                            <span class="estadistica" id="estadistica-me-gusta"></span>
                             <span class="estadistica">
                                 <img src="img/vistas.svg" alt="" width="16" height="16">
-                                1.240 vistas
+                                <span><span id="dato-vistas">0</span> vistas</span>
                             </span>
                         </div>
                     </div>
@@ -155,7 +153,7 @@
                             </div>
                             <div class="dato">
                                 <dt>Almacenamiento</dt>
-                                <dd>Servidor local</dd>
+                                <dd>Amazon S3</dd>
                             </div>
                         </dl>
                     </div>
@@ -163,7 +161,7 @@
                     <hr class="solo-escritorio">
 
                     <div class="bloque">
-                        <h2 class="bloque-titulo solo-escritorio">Responsable</h2>
+                        <h2 class="bloque-titulo solo-escritorio">Autor</h2>
                         <div class="responsable">
                             <span class="avatar avatar-vino" id="responsable-avatar"></span>
                             <div class="responsable-datos">
@@ -200,7 +198,7 @@
                     <div class="bloque solo-escritorio">
                         <h2 class="bloque-titulo">Acciones disponibles</h2>
                         <div class="fila-botones">
-                            <a href="#" target="_blank" download class="boton boton-verde descargar">
+                            <a href="#" class="boton boton-descargar descargar">
                                 <img src="img/descargar.svg" alt="" width="18" height="18">
                                 Descargar
                             </a>
@@ -208,17 +206,17 @@
                                 <img src="img/compartir.svg" alt="" width="18" height="18">
                                 Compartir
                             </a>
-                            <a href="../07-favoritos/index.html" class="boton boton-blanco">
+                            <button type="button" class="boton boton-blanco guardar">
                                 <img src="img/guardar.svg" alt="" width="18" height="18">
-                                Guardar
-                            </a>
+                                <span class="guardar-texto">Guardar</span>
+                            </button>
                         </div>
                         <div class="fila-botones">
-                            <a href="../03-registro-imagen/index.html" class="boton boton-crema editar">
+                            <a href="../03-registro-imagen/index.html" class="boton boton-crema editar solo-autor">
                                 <img src="img/editar.svg" alt="" width="18" height="18">
                                 Editar información
                             </a>
-                            <a href="#eliminar" class="boton boton-vino">
+                            <a href="#eliminar" class="boton boton-vino solo-autor">
                                 <img src="img/eliminar.svg" alt="" width="18" height="18">
                                 Eliminar
                             </a>
@@ -226,14 +224,14 @@
                     </div>
 
                     <div class="acciones-movil solo-movil">
-                        <a href="#" target="_blank" download class="boton boton-verde descargar">
+                        <a href="#" class="boton boton-descargar descargar">
                             <img src="img/descargar.svg" alt="" width="18" height="18">
                             Descargar
                         </a>
-                        <a href="../03-registro-imagen/index.html" class="boton-icono boton-icono-grande editar">
+                        <a href="../03-registro-imagen/index.html" class="boton-icono boton-icono-grande editar solo-autor">
                             <img src="img/editar.svg" alt="Editar" width="18" height="18">
                         </a>
-                        <a href="#eliminar" class="boton-icono boton-icono-grande boton-icono-vino">
+                        <a href="#eliminar" class="boton-icono boton-icono-grande boton-icono-vino solo-autor">
                             <img src="img/eliminar-vino.svg" alt="Eliminar" width="18" height="18">
                         </a>
                     </div>
@@ -248,7 +246,7 @@
             <h2>Compartir imagen</h2>
             <p>Copia este enlace para compartir la imagen.</p>
             <input class="enlace" type="text" id="enlace-compartir" readonly>
-            <a href="#" class="boton boton-verde">Listo</a>
+            <button type="button" class="boton boton-verde" id="copiar-enlace">Copiar</button>
         </div>
     </section>
 

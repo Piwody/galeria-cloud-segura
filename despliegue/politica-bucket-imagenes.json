@@ -2,11 +2,45 @@
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "LecturaPublicaDeImagenes",
+            "Sid": "LecturaPublicaSoloAprobadas",
             "Effect": "Allow",
             "Principal": "*",
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::muraliacloudimagenes/imagenes/*"
+            "Resource": "arn:aws:s3:::muralia-media-913051689392/approved/*"
+        },
+        {
+            "Sid": "SoloHTTPS",
+            "Effect": "Deny",
+            "Principal": "*",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::muralia-media-913051689392",
+                "arn:aws:s3:::muralia-media-913051689392/*"
+            ],
+            "Condition": {
+                "Bool": {
+                    "aws:SecureTransport": "false"
+                }
+            }
+        },
+        {
+            "Sid": "SoloImagenes",
+            "Effect": "Deny",
+            "Principal": "*",
+            "Action": "s3:PutObject",
+            "NotResource": [
+                "arn:aws:s3:::muralia-media-913051689392/*.jpg",
+                "arn:aws:s3:::muralia-media-913051689392/*.jpeg",
+                "arn:aws:s3:::muralia-media-913051689392/*.png",
+                "arn:aws:s3:::muralia-media-913051689392/*.webp",
+                "arn:aws:s3:::muralia-media-913051689392/*.gif",
+                "arn:aws:s3:::muralia-media-913051689392/*.JPG",
+                "arn:aws:s3:::muralia-media-913051689392/*.JPEG",
+                "arn:aws:s3:::muralia-media-913051689392/*.PNG",
+                "arn:aws:s3:::muralia-media-913051689392/*.WEBP",
+                "arn:aws:s3:::muralia-media-913051689392/*.GIF",
+                "arn:aws:s3:::muralia-media-913051689392/approved/*.svg"
+            ]
         }
     ]
 }

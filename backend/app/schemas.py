@@ -1,14 +1,30 @@
 from datetime import datetime
-from typing import Literal
+from typing import Annotated, Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import AfterValidator, BaseModel, ConfigDict, Field
 
 Rol = Literal["Administrador", "Editor", "Usuario"]
 Estado = Literal["Activo", "Inactivo", "Suspendido"]
 Visibilidad = Literal["Pública", "Privada"]
 Correo = str
 PATRON_CORREO = r"^[^@\s]+@[^@\s]+\.[^@\s]+$"
-PATRON_USUARIO = r"^[a-zA-Z0-9._-]{3,40}$"
+# Usuario: de 3 a 40 caracteres, letras, números y símbolos, sin espacios ni @ (la @ es para el correo)
+PATRON_USUARIO = r"^[^\s@]{3,40}$"
+# Nombre y apellido: una sola palabra, solo letras (incluye tildes y ñ)
+PATRON_LETRAS = r"^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]{2,50}$"
+
+
+def validar_contrasena(valor: str) -> str:
+    if len(valor) < 8:
+        raise ValueError("La contraseña debe tener mínimo 8 caracteres")
+    if not any(c.isupper() for c in valor):
+        raise ValueError("La contraseña debe tener al menos una letra mayúscula")
+    if not any(c.isdigit() for c in valor):
+        raise ValueError("La contraseña debe tener al menos un número")
+    return valor
+
+
+Contrasena = Annotated[str, AfterValidator(validar_contrasena)]
 
 
 class CategoriaCrear(BaseModel):
@@ -34,7 +50,7 @@ class UsuarioCrear(BaseModel):
     nombre: str = Field(min_length=2, max_length=100)
     usuario: str = Field(pattern=PATRON_USUARIO)
     correo: Correo = Field(pattern=PATRON_CORREO)
-    contrasena: str = Field(min_length=6)
+    contrasena: Contrasena
     rol: Rol = "Usuario"
     estado: Estado = "Activo"
 
@@ -43,7 +59,7 @@ class UsuarioActualizar(BaseModel):
     nombre: str | None = Field(default=None, min_length=2, max_length=100)
     usuario: str | None = Field(default=None, pattern=PATRON_USUARIO)
     correo: Correo | None = Field(default=None, pattern=PATRON_CORREO)
-    contrasena: str | None = Field(default=None, min_length=6)
+    contrasena: Contrasena | None = None
     rol: Rol | None = None
     estado: Estado | None = None
 
@@ -61,10 +77,11 @@ class UsuarioRespuesta(BaseModel):
 
 
 class RegistroUsuario(BaseModel):
-    nombre: str = Field(min_length=2, max_length=100)
+    nombre: str = Field(pattern=PATRON_LETRAS)
+    apellido: str = Field(pattern=PATRON_LETRAS)
     usuario: str = Field(pattern=PATRON_USUARIO)
     correo: Correo = Field(pattern=PATRON_CORREO)
-    contrasena: str = Field(min_length=6)
+    contrasena: Contrasena
 
 
 class InicioSesion(BaseModel):
@@ -112,3 +129,11 @@ class ImagenRespuesta(BaseModel):
     fecha_registro: datetime
     categoria: CategoriaRespuesta
     usuario: UsuarioRespuesta
+    vistas: int = 0
+    me_gusta: int = 0
+    le_gusta: bool = False
+    guardada: bool = False
+
+
+class AccionUsuario(BaseModel):
+    usuario_id: int

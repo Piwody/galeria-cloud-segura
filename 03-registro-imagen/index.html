@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../comun.css">
 </head>
 <body>
     <div class="app">
@@ -23,10 +24,6 @@
                     <img class="icono" src="assets/galeria.svg" alt="">
                     Galería
                 </a>
-                <a href="index.html" class="menu-enlace activo" aria-current="page">
-                    <img class="icono" src="assets/subir.svg" alt="">
-                    Subir imagen
-                </a>
                 <a href="../06-mis-imagenes/index.html" class="menu-enlace">
                     <img class="icono" src="assets/mis-imagenes.svg" alt="">
                     Mis imágenes
@@ -34,6 +31,10 @@
                 <a href="../07-favoritos/index.html" class="menu-enlace">
                     <img class="icono" src="assets/favoritos.svg" alt="">
                     Favoritos
+                </a>
+                <a href="../09-guardados/index.html" class="menu-enlace">
+                    <img class="icono" src="assets/guardados.svg" alt="">
+                    Guardados
                 </a>
                 <p class="menu-titulo">Administración</p>
                 <a href="../05-gestion-usuarios/index.html" class="menu-enlace">
@@ -78,7 +79,7 @@
                 <section class="paso paso-archivo">
                     <h2>1. Selecciona tu imagen</h2>
                     <input type="file" id="archivo" name="archivo" class="oculto"
-                            accept="image/jpeg,image/png,image/webp,image/svg+xml">
+                            accept="image/jpeg,image/png,image/webp">
                     <label for="archivo" class="zona-carga">
                         <span class="icono-carga">
                             <img class="icono" src="assets/subir-zona.svg" alt="">

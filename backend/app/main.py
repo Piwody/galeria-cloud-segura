@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import ORIGENES_PERMITIDOS
-from app.database import Base, SesionLocal, motor
+from app.database import Base, SesionLocal, actualizar_esquema, motor
 from app.datos_iniciales import cargar_datos_iniciales
 from app.routers import auth, categorias, imagenes, usuarios
 
@@ -12,6 +12,7 @@ from app.routers import auth, categorias, imagenes, usuarios
 @asynccontextmanager
 async def inicio(_: FastAPI):
     Base.metadata.create_all(motor)
+    actualizar_esquema()
     with SesionLocal() as sesion:
         cargar_datos_iniciales(sesion)
     yield

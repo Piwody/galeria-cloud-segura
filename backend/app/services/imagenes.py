@@ -4,13 +4,14 @@ from sqlalchemy.orm import Session
 
 from app import s3
 from app.config import TAMANO_MAXIMO, TIPOS_PERMITIDOS
-from app.models import Imagen
+from app.models import Favorito, Imagen, MeGusta
 from app.schemas import (FirmaSubida, ImagenActualizar, ImagenCrear, ImagenRespuesta,
                          SolicitudSubida)
 from app.services import categorias, usuarios
 
 
-def a_respuesta(imagen: Imagen) -> ImagenRespuesta:
+def a_respuesta(imagen: Imagen, visitante_id: int | None = None) -> ImagenRespuesta:
+    """visitante_id es el usuario que está mirando: sirve para saber si ya le dio me gusta o la guardó."""
     return ImagenRespuesta(
         id=imagen.id,
         titulo=imagen.titulo,
@@ -23,6 +24,10 @@ def a_respuesta(imagen: Imagen) -> ImagenRespuesta:
         fecha_registro=imagen.fecha_registro,
         categoria=categorias.a_respuesta(imagen.categoria),
         usuario=usuarios.a_respuesta(imagen.usuario),
+        vistas=imagen.vistas or 0,
+        me_gusta=len(imagen.me_gusta),
+        le_gusta=any(m.usuario_id == visitante_id for m in imagen.me_gusta),
+        guardada=any(f.usuario_id == visitante_id for f in imagen.favoritos),
     )
 
 
@@ -42,9 +47,54 @@ def listar(sesion: Session, categoria_id: int | None, usuario_id: int | None) ->
     return list(sesion.scalars(consulta))
 
 
+def listar_guardadas(sesion: Session, usuario_id: int) -> list[Imagen]:
+    usuarios.buscar(sesion, usuario_id)
+    consulta = (select(Imagen).join(Favorito, Favorito.imagen_id == Imagen.id)
+                .where(Favorito.usuario_id == usuario_id).order_by(Favorito.fecha.desc()))
+    return list(sesion.scalars(consulta))
+
+
+def listar_con_me_gusta(sesion: Session, usuario_id: int) -> list[Imagen]:
+    usuarios.buscar(sesion, usuario_id)
+    consulta = (select(Imagen).join(MeGusta, MeGusta.imagen_id == Imagen.id)
+                .where(MeGusta.usuario_id == usuario_id).order_by(MeGusta.fecha.desc()))
+    return list(sesion.scalars(consulta))
+
+
+def sumar_vista(sesion: Session, imagen: Imagen):
+    imagen.vistas = (imagen.vistas or 0) + 1
+    sesion.commit()
+
+
+def _alternar(sesion: Session, modelo, imagen_id: int, usuario_id: int) -> Imagen:
+    imagen = buscar(sesion, imagen_id)
+    usuarios.buscar(sesion, usuario_id)
+    existente = sesion.get(modelo, (usuario_id, imagen_id))
+    if existente is None:
+        sesion.add(modelo(usuario_id=usuario_id, imagen_id=imagen_id))
+    else:
+        sesion.delete(existente)
+    sesion.commit()
+    sesion.refresh(imagen)
+    return imagen
+
+
+def alternar_me_gusta(sesion: Session, imagen_id: int, usuario_id: int) -> Imagen:
+    return _alternar(sesion, MeGusta, imagen_id, usuario_id)
+
+
+def alternar_guardada(sesion: Session, imagen_id: int, usuario_id: int) -> Imagen:
+    return _alternar(sesion, Favorito, imagen_id, usuario_id)
+
+
+def verificar_autor(imagen: Imagen, usuario_id: int):
+    if imagen.usuario_id != usuario_id:
+        raise HTTPException(403, "Solo el autor de la imagen puede editarla o eliminarla")
+
+
 def firmar_subida(datos: SolicitudSubida) -> FirmaSubida:
     if datos.tipo not in TIPOS_PERMITIDOS:
-        raise HTTPException(400, "Formato no permitido. Usa JPG, PNG, WEBP o SVG")
+        raise HTTPException(400, "Formato no permitido. Usa JPG, PNG o WEBP")
     if datos.tamano > TAMANO_MAXIMO:
         raise HTTPException(400, "La imagen pesa más de 10 MB")
     try:
@@ -62,6 +112,16 @@ def crear(sesion: Session, datos: ImagenCrear) -> Imagen:
         raise HTTPException(400, "La URL no pertenece al bucket de imágenes de Muralia")
     if sesion.scalar(select(Imagen).where(Imagen.url == datos.url)) is not None:
         raise HTTPException(409, "Esa imagen ya está registrada")
+
+    try:
+        estado = s3.esperar_moderacion(clave)
+    except s3.ErrorDeS3:
+        raise HTTPException(503, "El backend no pudo conectarse con AWS S3. Revisa las credenciales")
+    if estado == "rechazada":
+        raise HTTPException(400, "La imagen fue rechazada por la moderación automática: "
+                                 "tiene contenido no apropiado o no es una imagen válida")
+    if estado == "pendiente":
+        raise HTTPException(503, "La imagen sigue en revisión. Intenta registrarla de nuevo en unos segundos")
 
     try:
         archivo = s3.datos_del_archivo(clave)
@@ -87,8 +147,9 @@ def crear(sesion: Session, datos: ImagenCrear) -> Imagen:
     return imagen
 
 
-def actualizar(sesion: Session, imagen_id: int, datos: ImagenActualizar) -> Imagen:
+def actualizar(sesion: Session, imagen_id: int, datos: ImagenActualizar, usuario_id: int) -> Imagen:
     imagen = buscar(sesion, imagen_id)
+    verificar_autor(imagen, usuario_id)
     if datos.categoria_id is not None:
         categorias.buscar(sesion, datos.categoria_id)
         imagen.categoria_id = datos.categoria_id
@@ -103,8 +164,9 @@ def actualizar(sesion: Session, imagen_id: int, datos: ImagenActualizar) -> Imag
     return imagen
 
 
-def eliminar(sesion: Session, imagen_id: int):
+def eliminar(sesion: Session, imagen_id: int, usuario_id: int):
     imagen = buscar(sesion, imagen_id)
+    verificar_autor(imagen, usuario_id)
     clave = s3.clave_de(imagen.url)
     sesion.delete(imagen)
     sesion.commit()

@@ -20,6 +20,14 @@ class Base(DeclarativeBase):
     pass
 
 
+def actualizar_esquema():
+    """Agrega columnas nuevas a una galeria.db que ya existía (SQLite no lo hace solo)."""
+    with motor.begin() as conexion:
+        columnas = [fila[1] for fila in conexion.exec_driver_sql("PRAGMA table_info(imagenes)")]
+        if columnas and "vistas" not in columnas:
+            conexion.exec_driver_sql("ALTER TABLE imagenes ADD COLUMN vistas INTEGER NOT NULL DEFAULT 0")
+
+
 def obtener_sesion():
     sesion = SesionLocal()
     try:

@@ -21,10 +21,10 @@ La aplicación tiene tres roles:
 ## Arquitectura
 
 ```
-Navegador ──► Frontend (HTML, CSS y JavaScript) publicado en S3 (muraliacloudintegrador)
+Navegador ──► Frontend (HTML, CSS y JavaScript) publicado en S3 (muralia-app-913051689392)
    │
    │ 1. POST /imagenes/subida  ──► FastAPI firma un permiso de 5 minutos
-   │ 2. POST directo a S3       ──► el archivo se guarda en el bucket muraliacloudimagenes
+   │ 2. POST directo a S3       ──► el archivo se guarda en el bucket muralia-media-913051689392
    │ 3. POST /imagenes (URL de S3 + datos del formulario) ──► FastAPI
    ▼
 Backend FastAPI en el computador (http://localhost:8000)
@@ -135,13 +135,29 @@ Para usar otro bucket sin tocar el código: `MURALIA_S3_BUCKET=otro-bucket MURAL
 
 ## Cómo preparar el bucket de imágenes en AWS
 
-1. **Crear el bucket** `muraliacloudimagenes` en `us-east-2`. En **Bloquear acceso público**, desmarca solo las dos opciones de *políticas de bucket* (las de ACL pueden quedar marcadas).
-2. **Permisos → Política del bucket**: pega [politica-bucket-imagenes.json](despliegue/politica-bucket-imagenes.json). Así cualquiera puede ver las imágenes de `imagenes/`, pero nadie puede subir ni borrar.
+1. **Crear el bucket** `muralia-media-913051689392` en `us-east-1`. En **Bloquear acceso público**, desmarca solo las dos opciones de *políticas de bucket* (las de ACL pueden quedar marcadas).
+2. **Permisos → Política del bucket**: pega [politica-bucket-imagenes.json](despliegue/politica-bucket-imagenes.json). Así cualquiera puede ver solo las imágenes aprobadas de `approved/`, todo el tráfico debe ser HTTPS y solo se pueden subir archivos de imagen (`.jpg`, `.jpeg`, `.png`, `.webp`, `.gif`).
 3. **Permisos → Uso compartido de recursos entre orígenes (CORS)**: pega [cors-bucket-imagenes.json](despliegue/cors-bucket-imagenes.json). Sin esto, el navegador no deja subir a S3.
 4. **IAM → Usuarios → Crear usuario** (por ejemplo `muralia-backend`) con una política en línea que tenga [politica-iam-backend.json](despliegue/politica-iam-backend.json). Luego, en **Credenciales de seguridad**, crea una clave de acceso tipo *Código local*.
-5. En el computador del backend ejecuta `aws configure` y pega la clave, el secreto y la región `us-east-2`. Las credenciales quedan en `~/.aws/credentials` y **nunca se suben a GitHub**.
+5. En el computador del backend ejecuta `aws configure` y pega la clave, el secreto y la región `us-east-1`. Las credenciales quedan en `~/.aws/credentials` y **nunca se suben a GitHub**.
 
 Si usas otro nombre de bucket, cámbialo en los tres archivos JSON y en la variable `MURALIA_S3_BUCKET`.
+
+## Moderación automática de imágenes (Amazon Rekognition)
+
+S3 no filtra contenido por sí solo, así que el bucket de imágenes usa una función Lambda que revisa cada foto antes de publicarla:
+
+```
+Navegador ──► uploads/<id>.jpg ──► Lambda muralia-moderacion ──► Rekognition DetectModerationLabels
+                                         │
+                                         ├── sin etiquetas  ──► approved/<id>.jpg  (pública, se muestra en la galería)
+                                         └── con etiquetas  ──► rejected/<id>.jpg  (privada, se borra a los 7 días)
+```
+
+- Rekognition detecta desnudos, violencia, drogas, símbolos de odio y contenido perturbador con una confianza mínima del 60 % (variable `MIN_CONFIDENCE` de la Lambda).
+- Al registrar la imagen, el backend espera hasta 20 segundos el veredicto. Si la imagen fue rechazada, responde con un error y no la guarda en la base de datos.
+- Cada objeto queda etiquetado como `moderacion=approved` o `moderacion=rejected`.
+- Seguridad del bucket: cifrado AES-256, versionado, solo HTTPS, solo formatos de imagen y lectura pública únicamente en `approved/`.
 
 ## Cómo ver el frontend en el computador
 
@@ -149,19 +165,19 @@ Abre la carpeta del proyecto en VS Code y abre cualquier `index.html` con **Live
 
 ## Sitio publicado en Amazon S3
 
-http://muraliacloudintegrador.s3-website.us-east-2.amazonaws.com
+http://muralia-app-913051689392.s3-website-us-east-1.amazonaws.com
 
-- Bucket: `muraliacloudintegrador`, región `us-east-2` (Ohio).
+- Bucket: `muralia-app-913051689392`, región `us-east-1` (Norte de Virginia).
 - Para que la página cargue datos, el backend tiene que estar encendido en el mismo computador donde se abre el enlace.
 - La primera vez, el navegador puede bloquear la conexión con `localhost`. En Chrome o Brave, haz clic en el ícono de la barra de direcciones, permite el **acceso a la red local** y recarga la página.
 
 ## Cómo publicar el frontend en Amazon S3
 
-1. En la consola de AWS entra a **S3** y crea un bucket, por ejemplo `muraliacloudintegrador`.
+1. En la consola de AWS entra a **S3** y crea un bucket, por ejemplo `muralia-app-913051689392`.
 2. En **Bloquear acceso público**, desmarca la opción y confirma.
 3. Sube el contenido de la carpeta del proyecto **menos la carpeta `backend`**: `index.html`, `api.js` y las carpetas `01-…` a `08-…`. Arrastra las carpetas completas para que se conserven las rutas.
 4. En **Propiedades → Alojamiento de sitios web estáticos**, actívalo con documento de índice `index.html`.
-5. En **Permisos → Política del bucket**, pega [politica-bucket.json](despliegue/politica-bucket.json). Si usas otro bucket, cambia `muraliacloudintegrador` por su nombre.
+5. En **Permisos → Política del bucket**, pega [politica-bucket.json](despliegue/politica-bucket.json). Si usas otro bucket, cambia `muralia-app-913051689392` por su nombre.
 6. Abre el **punto de enlace del sitio web** que aparece en Propiedades (`http://…s3-website-…amazonaws.com`).
 
 El backend ya acepta peticiones (CORS) de cualquier dirección `s3-website` de AWS y de `localhost`, así que no hay que cambiar nada para conectar el sitio de S3 con el backend local. El backend debe estar encendido en el mismo computador donde abres la página.

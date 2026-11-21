@@ -4,8 +4,16 @@
         {
             "Sid": "BackendGestionaImagenes",
             "Effect": "Allow",
-            "Action": ["s3:PutObject", "s3:GetObject", "s3:DeleteObject"],
-            "Resource": "arn:aws:s3:::muraliacloudimagenes/imagenes/*"
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::muralia-media-913051689392/uploads/*",
+                "arn:aws:s3:::muralia-media-913051689392/approved/*",
+                "arn:aws:s3:::muralia-media-913051689392/rejected/*"
+            ]
         }
     ]
 }

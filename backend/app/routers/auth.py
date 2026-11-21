@@ -10,7 +10,10 @@ router = APIRouter(prefix="/auth", tags=["Inicio de sesión"])
 
 @router.post("/registro", response_model=UsuarioRespuesta, status_code=201)
 def registrar_cuenta(datos: RegistroUsuario, sesion: Session = Depends(obtener_sesion)):
-    nuevo = UsuarioCrear(**datos.model_dump(), rol="Usuario", estado="Activo")
+    # Se guarda "Nombre Apellido" para que las iniciales salgan de cada uno (ej. Gabriel Terán -> GT)
+    nombre = f"{datos.nombre.capitalize()} {datos.apellido.capitalize()}"
+    cuenta = datos.model_dump(exclude={"nombre", "apellido"})
+    nuevo = UsuarioCrear(**cuenta, nombre=nombre, rol="Usuario", estado="Activo")
     return servicio.a_respuesta(servicio.crear(sesion, nuevo))
 
 

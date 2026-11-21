@@ -1,3 +1,4 @@
+import time
 import uuid
 from pathlib import Path
 
@@ -5,7 +6,8 @@ import boto3
 from botocore.config import Config
 from botocore.exceptions import BotoCoreError, ClientError
 
-from app.config import (MINUTOS_PARA_SUBIR, S3_BUCKET, S3_CARPETA, S3_REGION,
+from app.config import (MINUTOS_PARA_SUBIR, S3_BUCKET, S3_CARPETA, S3_CARPETA_RECHAZADAS,
+                        S3_CARPETA_SUBIDAS, S3_REGION, SEGUNDOS_MODERACION,
                         TAMANO_MAXIMO, TIPOS_PERMITIDOS, URL_BASE_S3)
 
 ErrorDeS3 = (BotoCoreError, ClientError)
@@ -30,10 +32,10 @@ def clave_de(url: str) -> str | None:
 
 
 def firmar_subida(tipo: str) -> dict:
-    clave = f"{S3_CARPETA}{uuid.uuid4().hex}{TIPOS_PERMITIDOS[tipo]}"
+    nombre = f"{uuid.uuid4().hex}{TIPOS_PERMITIDOS[tipo]}"
     firma = cliente.generate_presigned_post(
         Bucket=S3_BUCKET,
-        Key=clave,
+        Key=f"{S3_CARPETA_SUBIDAS}{nombre}",
         Fields={"Content-Type": tipo},
         Conditions=[
             {"Content-Type": tipo},
@@ -41,7 +43,9 @@ def firmar_subida(tipo: str) -> dict:
         ],
         ExpiresIn=MINUTOS_PARA_SUBIR * 60,
     )
-    return {"url_subida": firma["url"], "campos": firma["fields"], "url_imagen": url_de(clave)}
+    # La URL final apunta a approved/: solo existirá si Rekognition aprueba la imagen
+    return {"url_subida": firma["url"], "campos": firma["fields"],
+            "url_imagen": url_de(f"{S3_CARPETA}{nombre}")}
 
 
 def datos_del_archivo(clave: str) -> dict | None:
@@ -50,6 +54,20 @@ def datos_del_archivo(clave: str) -> dict | None:
     except ClientError:
         return None
     return {"tamano": objeto["ContentLength"], "tipo": objeto.get("ContentType", "")}
+
+
+def esperar_moderacion(clave: str) -> str:
+    """Espera el veredicto de la Lambda: "aprobada", "rechazada" o "pendiente"."""
+    nombre = clave[len(S3_CARPETA):]
+    limite = time.monotonic() + SEGUNDOS_MODERACION
+    while True:
+        if datos_del_archivo(clave) is not None:
+            return "aprobada"
+        if datos_del_archivo(f"{S3_CARPETA_RECHAZADAS}{nombre}") is not None:
+            return "rechazada"
+        if time.monotonic() > limite:
+            return "pendiente"
+        time.sleep(1)
 
 
 def borrar(clave: str):

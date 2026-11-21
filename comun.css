@@ -1,0 +1,371 @@
+/* Componentes compartidos por las pantallas de Muralia (se carga después del style.css de cada pantalla) */
+:root {
+    --m-verde-oscuro: #013E37;
+    --m-verde: #0A5A50;
+    --m-crema: #FFEFB3;
+    --m-vino: #963F38;
+    --m-rojo: #D93B3B;
+    --m-borde: #E6E0CF;
+    --m-fondo: #FBF8EF;
+    --m-gris: #5E6F6B;
+}
+
+/* ---------- Ventanas: X para cerrar ---------- */
+.ventana-caja {
+    position: relative;
+}
+
+.ventana-caja h2 {
+    padding-right: 36px;
+}
+
+.ventana-x {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--m-gris);
+    font-family: inherit;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.ventana-x:hover {
+    background: var(--m-fondo);
+    color: var(--m-verde-oscuro);
+}
+
+/* ---------- Me gusta ---------- */
+.boton-me-gusta {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 8px;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--m-gris);
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.boton-me-gusta:hover {
+    background: #F8ECEA;
+    color: var(--m-rojo);
+}
+
+.boton-me-gusta svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linejoin: round;
+}
+
+.boton-me-gusta.activo {
+    color: var(--m-rojo);
+}
+
+.boton-me-gusta.activo svg {
+    fill: var(--m-rojo);
+}
+
+.boton-me-gusta.latido svg {
+    animation: m-latido 0.35s ease;
+}
+
+.boton-me-gusta.con-texto {
+    padding: 6px 10px;
+    margin-left: -10px;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.boton-me-gusta.boton-icono {
+    padding: 0;
+    margin: 0;
+}
+
+@keyframes m-latido {
+    50% { transform: scale(1.35); }
+}
+
+/* ---------- Detalle: descargar y guardada ---------- */
+.boton-descargar {
+    background: var(--m-verde-oscuro);
+    color: var(--m-crema);
+}
+
+.boton-descargar img {
+    filter: brightness(0) saturate(100%) invert(93%) sepia(25%) saturate(704%) hue-rotate(337deg);
+}
+
+button.boton-icono {
+    cursor: pointer;
+    font: inherit;
+}
+
+.boton-guardada,
+.boton-icono.boton-guardada {
+    background: var(--m-verde) !important;
+    border-color: var(--m-verde) !important;
+    color: white !important;
+}
+
+.boton-guardada img {
+    filter: brightness(0) invert(1);
+}
+
+.solo-autor {
+    display: none !important;
+}
+
+.es-autor .solo-autor {
+    display: flex !important;
+}
+
+/* ---------- Notificaciones ---------- */
+.con-insignia {
+    position: relative;
+}
+
+.insignia-notificaciones {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    border: 2px solid var(--m-fondo);
+    border-radius: 999px;
+    background: var(--m-vino);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 16px;
+    text-align: center;
+}
+
+.lista-notificaciones {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    max-height: 320px;
+    margin: 0 -8px;
+    overflow-y: auto;
+}
+
+.notificacion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border-radius: 12px;
+    color: var(--m-verde-oscuro);
+}
+
+.notificacion:hover {
+    background: var(--m-fondo);
+}
+
+.notificacion .avatar {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    font-size: 11px;
+}
+
+.notificacion-texto {
+    font-size: 13px;
+    line-height: 1.35;
+}
+
+.notificacion-fecha {
+    display: block;
+    font-size: 11px;
+    color: var(--m-gris);
+}
+
+.notificaciones-vacio {
+    padding: 12px 0;
+    color: var(--m-gris);
+}
+
+.boton[disabled] {
+    opacity: 0.5;
+    cursor: default;
+}
+
+/* ---------- Desplegables de filtros y orden ---------- */
+.desplegable {
+    position: relative;
+}
+
+.panel-desplegable {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 15;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 320px;
+    padding: 18px;
+    background: white;
+    border: 1px solid var(--m-borde);
+    border-radius: 16px;
+    box-shadow: 0 14px 34px rgba(1, 62, 55, 0.16);
+}
+
+.panel-desplegable[hidden] {
+    display: none;
+}
+
+.panel-orden {
+    gap: 2px;
+    width: 220px;
+    padding: 8px;
+}
+
+.panel-titulo {
+    margin-bottom: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--m-gris);
+}
+
+.panel-opciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.opcion {
+    padding: 6px 12px;
+    border: 1px solid var(--m-borde);
+    border-radius: 999px;
+    background: white;
+    color: var(--m-verde-oscuro);
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.opcion:hover {
+    border-color: var(--m-verde);
+}
+
+.opcion.activa {
+    background: var(--m-verde-oscuro);
+    border-color: var(--m-verde-oscuro);
+    color: var(--m-crema);
+}
+
+.panel-desplegable select {
+    width: 100%;
+    height: 38px;
+    padding: 0 10px;
+    border: 1px solid var(--m-borde);
+    border-radius: 10px;
+    background: var(--m-fondo);
+    color: var(--m-verde-oscuro);
+    font-family: inherit;
+    font-size: 13px;
+}
+
+.casilla {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.casilla input {
+    accent-color: var(--m-verde);
+}
+
+.panel-pie {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 14px;
+    border-top: 1px solid var(--m-borde);
+}
+
+.enlace-limpiar {
+    border: none;
+    background: none;
+    color: var(--m-vino);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.opcion-orden {
+    padding: 9px 12px;
+    border: none;
+    border-radius: 10px;
+    background: none;
+    color: var(--m-verde-oscuro);
+    font-family: inherit;
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.opcion-orden:hover {
+    background: var(--m-fondo);
+}
+
+.opcion-orden.activa {
+    background: var(--m-crema);
+    font-weight: 700;
+}
+
+.cuenta-filtros {
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: var(--m-verde-oscuro);
+    color: var(--m-crema);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 18px;
+    text-align: center;
+}
+
+.mensaje-coleccion {
+    margin-top: 16px;
+    color: var(--m-gris);
+}
+
+@media (max-width: 768px) {
+    .panel-desplegable {
+        position: fixed;
+        top: auto;
+        right: 16px;
+        bottom: 96px;
+        left: 16px;
+        width: auto;
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+}

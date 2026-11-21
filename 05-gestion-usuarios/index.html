@@ -11,6 +11,7 @@
             rel="stylesheet"
         />
         <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="../comun.css">
     </head>
     <body>
         <div class="pagina">
@@ -27,10 +28,6 @@
                         <img src="img/galeria.svg" alt="" width="20" height="20" />
                         Galería
                     </a>
-                    <a href="../03-registro-imagen/index.html" class="menu-item">
-                        <img src="img/subir.svg" alt="" width="20" height="20" />
-                        Subir imagen
-                    </a>
                     <a href="../06-mis-imagenes/index.html" class="menu-item">
                         <img src="img/mis-imagenes.svg" alt="" width="20" height="20" />
                         Mis imágenes
@@ -38,6 +35,10 @@
                     <a href="../07-favoritos/index.html" class="menu-item">
                         <img src="img/favoritos.svg" alt="" width="20" height="20" />
                         Favoritos
+                    </a>
+                    <a href="../09-guardados/index.html" class="menu-item">
+                        <img src="img/guardados.svg" alt="" width="20" height="20" />
+                        Guardados
                     </a>
                 </nav>
 
@@ -262,9 +263,9 @@
                     <img src="img/tab-favoritos.svg" alt="" width="22" height="22" />
                     Favoritos
                 </a>
-                <a href="index.html" class="tab activa">
-                    <img src="img/tab-usuarios.svg" alt="" width="22" height="22" />
-                    Usuarios
+                <a href="../09-guardados/index.html" class="tab">
+                    <img src="img/tab-guardados.svg" alt="" width="22" height="22" />
+                    Guardados
                 </a>
             </nav>
         </div>
@@ -282,8 +283,8 @@
                         type="text"
                         id="nuevo-usuario"
                         name="usuario"
-                        pattern="[A-Za-z0-9._\-]{3,40}"
-                        title="De 3 a 40 letras, números, puntos, guiones o guiones bajos"
+                        pattern="[^\s@]{3,40}"
+                        title="De 3 a 40 caracteres: letras, números y símbolos, sin espacios ni @"
                         required
                     />
                 </div>
@@ -293,7 +294,7 @@
                 </div>
                 <div class="campo">
                     <label for="nuevo-contrasena">Contraseña *</label>
-                    <input type="password" id="nuevo-contrasena" name="contrasena" minlength="6" required />
+                    <input type="password" id="nuevo-contrasena" name="contrasena" minlength="8" pattern="(?=.*[A-ZÁÉÍÓÚÜÑ])(?=.*[0-9]).{8,}" title="Mínimo 8 caracteres, una mayúscula y un número" placeholder="Mín. 8, una mayúscula y un número" required />
                 </div>
                 <div class="campo">
                     <label for="nuevo-rol">Rol</label>
@@ -324,7 +325,7 @@
                 </div>
                 <div class="campo">
                     <label for="editar-contrasena">Contraseña (déjala vacía para no cambiarla)</label>
-                    <input type="password" id="editar-contrasena" name="contrasena" minlength="6" />
+                    <input type="password" id="editar-contrasena" name="contrasena" minlength="8" pattern="(?=.*[A-ZÁÉÍÓÚÜÑ])(?=.*[0-9]).{8,}" title="Mínimo 8 caracteres, una mayúscula y un número" />
                 </div>
                 <div class="campo">
                     <label for="editar-rol">Rol</label>

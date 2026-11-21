@@ -44,6 +44,27 @@ class Imagen(Base):
     fecha_registro: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
     categoria_id: Mapped[int] = mapped_column(ForeignKey("categorias.id"))
     usuario_id: Mapped[int] = mapped_column(ForeignKey("usuarios.id"))
+    vistas: Mapped[int] = mapped_column(Integer, default=0)
 
     categoria: Mapped[Categoria] = relationship(back_populates="imagenes")
     usuario: Mapped[Usuario] = relationship(back_populates="imagenes")
+    me_gusta: Mapped[list["MeGusta"]] = relationship(cascade="all, delete-orphan")
+    favoritos: Mapped[list["Favorito"]] = relationship(cascade="all, delete-orphan")
+
+
+class MeGusta(Base):
+    """Un usuario le dio me gusta a una imagen."""
+    __tablename__ = "me_gusta"
+
+    usuario_id: Mapped[int] = mapped_column(ForeignKey("usuarios.id", ondelete="CASCADE"), primary_key=True)
+    imagen_id: Mapped[int] = mapped_column(ForeignKey("imagenes.id", ondelete="CASCADE"), primary_key=True)
+    fecha: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+
+
+class Favorito(Base):
+    """Un usuario guardó una imagen en sus favoritos."""
+    __tablename__ = "favoritos"
+
+    usuario_id: Mapped[int] = mapped_column(ForeignKey("usuarios.id", ondelete="CASCADE"), primary_key=True)
+    imagen_id: Mapped[int] = mapped_column(ForeignKey("imagenes.id", ondelete="CASCADE"), primary_key=True)
+    fecha: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
