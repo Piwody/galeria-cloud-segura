@@ -4,10 +4,10 @@ from pathlib import Path
 CARPETA_BACKEND = Path(__file__).resolve().parent.parent
 URL_BASE_DATOS = f"sqlite:///{CARPETA_BACKEND / 'galeria.db'}"
 
-# Base de datos compartida: Amazon RDS PostgreSQL. Los tres integrantes (y el profesor) ven los mismos datos.
-# No hay contraseña: cada uno entra con su propia clave IAM (aws configure) y un token de 15 minutos.
-# Para volver al archivo local de antes: MURALIA_DB=sqlite
-DB_MODO = os.getenv("MURALIA_DB", "rds")
+# Base de datos: por defecto el archivo local galeria.db (SQLite).
+# Opción preparada para más adelante: MURALIA_DB=rds usa una base compartida en Amazon RDS PostgreSQL,
+# con autenticación IAM (sin contraseña). Requiere crearla con despliegue/crear-rds.sh e instalar psycopg.
+DB_MODO = os.getenv("MURALIA_DB", "sqlite")
 RDS_INSTANCIA = os.getenv("MURALIA_RDS_INSTANCIA", "muralia-db")
 RDS_HOST = os.getenv("MURALIA_RDS_HOST", "")  # vacío: se busca solo por el nombre de la instancia
 RDS_PUERTO = int(os.getenv("MURALIA_RDS_PUERTO", "5432"))
