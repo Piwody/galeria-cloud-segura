@@ -10,8 +10,8 @@ router = APIRouter(prefix="/imagenes", tags=["Imágenes"])
 
 
 @router.post("/subida", response_model=FirmaSubida)
-def pedir_permiso_de_subida(datos: SolicitudSubida):
-    return servicio.firmar_subida(datos)
+def pedir_permiso_de_subida(datos: SolicitudSubida, sesion: Session = Depends(obtener_sesion)):
+    return servicio.firmar_subida(sesion, datos)
 
 
 @router.post("", response_model=ImagenRespuesta, status_code=201)

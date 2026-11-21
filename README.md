@@ -28,15 +28,17 @@ Navegador ──► Frontend (HTML, CSS y JavaScript) publicado en S3 (muralia-a
    │ 3. POST /imagenes (URL de S3 + datos del formulario) ──► FastAPI
    ▼
 Backend FastAPI en el computador (http://localhost:8000)
-   │  SQLAlchemy
+   │  SQLAlchemy + token IAM (sin contraseña)
    ▼
-Base de datos SQLite (backend/galeria.db): usuarios, categorías y datos de las imágenes (con su URL de S3)
+Amazon RDS PostgreSQL (muralia-db), compartida por todo el equipo: usuarios, categorías,
+me gusta, guardados y datos de las imágenes (con su URL de S3)
 ```
 
 - Los **archivos de imagen** se guardan en Amazon S3. El navegador los sube **directo a S3** al hacer clic en "Registrar imagen".
 - El backend **no recibe el archivo**: solo firma el permiso de subida, comprueba que el archivo esté en S3 y guarda su URL en la base.
 - Las **credenciales de AWS** solo las tiene el backend (`aws configure`). Nunca llegan al frontend.
-- **Usuarios y categorías** se guardan en la base SQLite. El inicio de sesión y el registro se validan contra esa base.
+- **Los datos** (usuarios, categorías, me gusta, guardados, imágenes) están en **una sola base en Amazon RDS**, así que todos los que corren la API ven la misma información. La API sigue siendo local.
+- La base **no usa contraseña**: cada integrante se conecta con su propia clave IAM, que genera un token de 15 minutos. Para usar el archivo local de antes: `MURALIA_DB=sqlite`.
 
 ## Estructura del proyecto
 
@@ -55,7 +57,7 @@ galeria-cloud-segura/
     └── app/
         ├── main.py            Crea la API, CORS y carpeta de imágenes
         ├── config.py          Rutas, orígenes permitidos y límites
-        ├── database.py        Conexión a SQLite
+        ├── database.py        Conexión a RDS PostgreSQL (token IAM) o SQLite
         ├── models.py          Tablas: usuarios, categorías, imágenes
         ├── schemas.py         Datos que entran y salen de la API
         ├── seguridad.py       Cifrado de contraseñas
@@ -65,7 +67,7 @@ galeria-cloud-segura/
         └── services/          Lógica de negocio de cada recurso
 ```
 
-## Modelo de datos (SQLite)
+## Modelo de datos (PostgreSQL en Amazon RDS)
 
 | Tabla | Campos |
 |---|---|
@@ -129,7 +131,7 @@ pip install -r requirements.txt
 python -m uvicorn app.main:app --reload
 ```
 
-La primera vez se crea `galeria.db` con 7 categorías, 6 usuarios y 12 imágenes de ejemplo (que se suben a S3). La contraseña de los usuarios de ejemplo es `muralia2026`. Para empezar de cero, borra `backend/galeria.db`.
+La primera vez que alguien enciende el backend con la base vacía, se cargan 7 categorías, 6 usuarios y 12 imágenes de ejemplo (que se suben a S3). La contraseña de los usuarios de ejemplo es `muralia2026`. Antes hay que hacer `aws configure` con una clave del proyecto (ver *Cómo correr Muralia en tu computador*).
 
 Para usar otro bucket sin tocar el código: `MURALIA_S3_BUCKET=otro-bucket MURALIA_S3_REGION=us-east-1 python -m uvicorn app.main:app --reload`.
 
@@ -182,12 +184,41 @@ http://muralia-app-913051689392.s3-website-us-east-1.amazonaws.com
 
 El backend ya acepta peticiones (CORS) de cualquier dirección `s3-website` de AWS y de `localhost`, así que no hay que cambiar nada para conectar el sitio de S3 con el backend local. El backend debe estar encendido en el mismo computador donde abres la página.
 
+## Base de datos compartida (Amazon RDS)
+
+Se crea una sola vez desde AWS CloudShell con [crear-rds.sh](despliegue/crear-rds.sh): `bash despliegue/crear-rds.sh`.
+
+- Instancia `muralia-db`, PostgreSQL, `db.t4g.micro`, 20 GB cifrados, región `us-east-1`.
+- Autenticación IAM: el usuario de base `muralia_app` no tiene contraseña. Entra quien tenga el permiso `rds-db:connect` (el usuario `muralia-backend` y el grupo `muralia-equipo`).
+- La contraseña del administrador la guarda AWS Secrets Manager; nadie la escribe ni la comparte.
+- Conexión obligatoria con SSL.
+- Para no gastar cuando no se usa: `aws rds stop-db-instance --db-instance-identifier muralia-db` (AWS la vuelve a encender sola a los 7 días). Al terminar el semestre, eliminarla.
+
+## Cómo correr Muralia en tu computador
+
+1. Pide a quien administra la cuenta que te cree un usuario IAM en el grupo `muralia-equipo`.
+2. En la consola de AWS: tu nombre → **Credenciales de seguridad** → **Crear clave de acceso** → **Código local**.
+3. En tu computador:
+
+```powershell
+aws configure            # tu clave, tu clave secreta, región us-east-1, formato json
+git clone https://github.com/Piwody/galeria-cloud-segura.git
+cd galeria-cloud-segura
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r backend\requirements.txt
+cd backend
+python -m uvicorn app.main:app --reload
+```
+
+4. Abre http://muralia-app-913051689392.s3-website-us-east-1.amazonaws.com, permite el **acceso a la red local** y entra con `mateo.cantos@muralia.com` / `muralia2026`.
+
 ## Tecnologías
 
 - **HTML5 y CSS3**: estructura y estilos, con Flexbox, Grid y media queries.
 - **JavaScript**: `fetch()` para comunicarse con la API.
 - **Python, FastAPI y Uvicorn**: la API.
-- **SQLAlchemy y SQLite**: la base de datos local.
+- **SQLAlchemy y Amazon RDS PostgreSQL**: la base de datos compartida (con SQLite como opción local).
 - **Amazon S3**: publicación del frontend y almacenamiento de las imágenes.
 - **boto3**: conexión del backend con S3.
 - **Google Fonts**: Bodoni Moda para los títulos y Arimo para el texto.

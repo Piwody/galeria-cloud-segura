@@ -3,7 +3,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app import s3
-from app.config import TAMANO_MAXIMO, TIPOS_PERMITIDOS
+from app.config import S3_CARPETA, TAMANO_MAXIMO, TIPOS_PERMITIDOS
 from app.models import Favorito, Imagen, MeGusta
 from app.schemas import (FirmaSubida, ImagenActualizar, ImagenCrear, ImagenRespuesta,
                          SolicitudSubida)
@@ -92,13 +92,14 @@ def verificar_autor(imagen: Imagen, usuario_id: int):
         raise HTTPException(403, "Solo el autor de la imagen puede editarla o eliminarla")
 
 
-def firmar_subida(datos: SolicitudSubida) -> FirmaSubida:
+def firmar_subida(sesion: Session, datos: SolicitudSubida) -> FirmaSubida:
     if datos.tipo not in TIPOS_PERMITIDOS:
         raise HTTPException(400, "Formato no permitido. Usa JPG, PNG o WEBP")
     if datos.tamano > TAMANO_MAXIMO:
         raise HTTPException(400, "La imagen pesa más de 10 MB")
+    categoria = categorias.buscar(sesion, datos.categoria_id)
     try:
-        return FirmaSubida(**s3.firmar_subida(datos.tipo))
+        return FirmaSubida(**s3.firmar_subida(datos.tipo, categoria.nombre))
     except s3.ErrorDeS3:
         raise HTTPException(503, "El backend no pudo conectarse con AWS S3. Revisa las credenciales")
 
@@ -150,8 +151,17 @@ def crear(sesion: Session, datos: ImagenCrear) -> Imagen:
 def actualizar(sesion: Session, imagen_id: int, datos: ImagenActualizar, usuario_id: int) -> Imagen:
     imagen = buscar(sesion, imagen_id)
     verificar_autor(imagen, usuario_id)
-    if datos.categoria_id is not None:
-        categorias.buscar(sesion, datos.categoria_id)
+    if datos.categoria_id is not None and datos.categoria_id != imagen.categoria_id:
+        nueva = categorias.buscar(sesion, datos.categoria_id)
+        # Si cambia la categoría, el archivo también cambia de carpeta en S3
+        clave = s3.clave_de(imagen.url)
+        if clave is not None:
+            destino = f"{S3_CARPETA}{s3.carpeta_de(nueva.nombre)}/{clave.rsplit('/', 1)[-1]}"
+            try:
+                s3.mover(clave, destino)
+            except s3.ErrorDeS3:
+                raise HTTPException(503, "No se pudo mover la imagen a la carpeta de la nueva categoría en S3")
+            imagen.url = s3.url_de(destino)
         imagen.categoria_id = datos.categoria_id
     if datos.titulo is not None:
         imagen.titulo = datos.titulo

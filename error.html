@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página no encontrada · Muralia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Bodoni+Moda:wght@500&display=swap" rel="stylesheet">
+    <style>
+        /* Documento de error del sitio web estático en S3 (se muestra cuando una ruta no existe) */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px;
+            background: #FBF8EF;
+            color: #013E37;
+            font-family: "Arimo", sans-serif;
+            line-height: 1.5;
+            text-align: center;
+        }
+        .caja {
+            max-width: 440px;
+            padding: 40px 32px;
+            background: #FFFFFF;
+            border: 1px solid #E6E0CF;
+            border-radius: 20px;
+        }
+        .codigo {
+            font-family: "Bodoni Moda", serif;
+            font-size: 72px;
+            line-height: 1;
+            color: #0A5A50;
+        }
+        h1 {
+            margin: 12px 0 8px;
+            font-family: "Bodoni Moda", serif;
+            font-size: 28px;
+            font-weight: 500;
+        }
+        p { color: #5E6F6B; }
+        .botones {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 24px;
+        }
+        a {
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .principal { background: #0A5A50; color: #FFFFFF; }
+        .secundario { border: 1px solid #E6E0CF; color: #013E37; }
+    </style>
+</head>
+<body>
+    <main class="caja">
+        <p class="codigo">404</p>
+        <h1>No encontramos esta página</h1>
+        <p>La dirección que abriste no existe en Muralia o fue movida.</p>
+        <div class="botones">
+            <a class="principal" href="/02-galeria-principal/index.html">Ir a la galería</a>
+            <a class="secundario" href="/01-inicio-sesion/index.html">Iniciar sesión</a>
+        </div>
+    </main>
+</body>
+</html>

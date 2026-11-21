@@ -66,7 +66,7 @@ def cargar_datos_iniciales(sesion: Session):
         origen = CARPETA_EJEMPLOS / archivo
         if not origen.exists():
             continue
-        clave = f"{S3_CARPETA}ejemplo-{archivo}"
+        clave = f"{S3_CARPETA}{s3.carpeta_de(categoria)}/ejemplo-{archivo}"
         try:
             s3.subir_desde_disco(origen, clave, "image/svg+xml")
         except s3.ErrorDeS3 as error:

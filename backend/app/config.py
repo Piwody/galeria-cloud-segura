@@ -4,6 +4,17 @@ from pathlib import Path
 CARPETA_BACKEND = Path(__file__).resolve().parent.parent
 URL_BASE_DATOS = f"sqlite:///{CARPETA_BACKEND / 'galeria.db'}"
 
+# Base de datos compartida: Amazon RDS PostgreSQL. Los tres integrantes (y el profesor) ven los mismos datos.
+# No hay contraseña: cada uno entra con su propia clave IAM (aws configure) y un token de 15 minutos.
+# Para volver al archivo local de antes: MURALIA_DB=sqlite
+DB_MODO = os.getenv("MURALIA_DB", "rds")
+RDS_INSTANCIA = os.getenv("MURALIA_RDS_INSTANCIA", "muralia-db")
+RDS_HOST = os.getenv("MURALIA_RDS_HOST", "")  # vacío: se busca solo por el nombre de la instancia
+RDS_PUERTO = int(os.getenv("MURALIA_RDS_PUERTO", "5432"))
+RDS_USUARIO = os.getenv("MURALIA_RDS_USUARIO", "muralia_app")
+RDS_BASE = os.getenv("MURALIA_RDS_BASE", "muralia")
+RDS_REGION = os.getenv("MURALIA_RDS_REGION", "us-east-1")
+
 # Orígenes que pueden llamar a la API: el sitio de S3 y Live Server en el computador
 ORIGENES_PERMITIDOS = r"https?://(([a-z0-9.-]+\.)?s3-website[.-][a-z0-9-]+\.amazonaws\.com|localhost(:\d+)?|127\.0\.0\.1(:\d+)?)"
 

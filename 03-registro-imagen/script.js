@@ -148,7 +148,7 @@ formulario.addEventListener("submit", function (evento) {
 
 function subirImagen(archivo) {
     estadoArchivo("Preparando la subida a AWS S3", "20%");
-    const solicitud = { tipo: archivo.type, tamano: archivo.size };
+    const solicitud = { tipo: archivo.type, tamano: archivo.size, categoria_id: Number(selectCategoria.value) };
     llamarApi(
         "POST",
         "/imagenes/subida",

@@ -92,6 +92,7 @@ class InicioSesion(BaseModel):
 class SolicitudSubida(BaseModel):
     tipo: str
     tamano: int = Field(gt=0)
+    categoria_id: int
 
 
 class FirmaSubida(BaseModel):

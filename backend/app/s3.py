@@ -1,4 +1,6 @@
+import re
 import time
+import unicodedata
 import uuid
 from pathlib import Path
 
@@ -24,15 +26,32 @@ def url_de(clave: str) -> str:
     return URL_BASE_S3 + clave
 
 
+def carpeta_de(nombre_categoria: str) -> str:
+    """Prefijo de S3 para una categoría: "Fotografía" -> "fotografia", "Paisajes urbanos" -> "paisajes-urbanos"."""
+    sin_tildes = unicodedata.normalize("NFKD", nombre_categoria).encode("ascii", "ignore").decode()
+    return re.sub(r"[^a-z0-9]+", "-", sin_tildes.lower()).strip("-") or "sin-categoria"
+
+
 def clave_de(url: str) -> str | None:
+    """Devuelve la clave approved/<categoria>/<archivo> si la URL es de nuestro bucket; si no, None."""
     inicio = URL_BASE_S3 + S3_CARPETA
-    if not url.startswith(inicio) or "/" in url[len(inicio):]:
+    if not url.startswith(inicio):
+        return None
+    resto = url[len(inicio):]
+    if resto == "" or resto.count("/") > 1 or resto.startswith("/") or resto.endswith("/"):
         return None
     return url[len(URL_BASE_S3):]
 
 
-def firmar_subida(tipo: str) -> dict:
-    nombre = f"{uuid.uuid4().hex}{TIPOS_PERMITIDOS[tipo]}"
+def mover(origen: str, destino: str):
+    """Mueve un archivo dentro del bucket (S3 no tiene "mover": se copia y se borra el original)."""
+    cliente.copy_object(Bucket=S3_BUCKET, Key=destino, CopySource={"Bucket": S3_BUCKET, "Key": origen})
+    cliente.delete_object(Bucket=S3_BUCKET, Key=origen)
+
+
+def firmar_subida(tipo: str, nombre_categoria: str) -> dict:
+    # Las imágenes se organizan por categoría: uploads/naturaleza/<id>.jpg -> approved/naturaleza/<id>.jpg
+    nombre = f"{carpeta_de(nombre_categoria)}/{uuid.uuid4().hex}{TIPOS_PERMITIDOS[tipo]}"
     firma = cliente.generate_presigned_post(
         Bucket=S3_BUCKET,
         Key=f"{S3_CARPETA_SUBIDAS}{nombre}",
