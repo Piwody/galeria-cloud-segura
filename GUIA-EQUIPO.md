@@ -96,6 +96,14 @@ python -m uvicorn app.main:app --reload
 
 Cuando salga `Application startup complete`, está listo. **No cierres esa ventana** mientras uses la app.
 
+**Atajo:** desde la carpeta principal del proyecto también puedes encenderlo con:
+
+```powershell
+.\iniciar.ps1
+```
+
+> Si sale `ModuleNotFoundError: No module named 'app'`, es porque corriste `uvicorn` desde la carpeta principal en vez de `backend`. Usa `.\iniciar.ps1` o entra primero con `cd backend`.
+
 La primera vez se crea tu `galeria.db` con 7 categorías, 6 usuarios y 12 imágenes de ejemplo.
 
 ## 6. Abrir la app
@@ -192,6 +200,7 @@ python -m uvicorn app.main:app --reload
 | "El backend no pudo conectarse con AWS S3" | Falta tu clave o está mal | Repite `aws configure` y revisa con `aws sts get-caller-identity` |
 | La galería sale vacía | La primera vez el backend arrancó sin clave y no pudo subir los ejemplos | Configura la clave y haz el paso 10 |
 | La página se recarga sola a cada rato | Live Server está vigilando la base de datos | Usa la carpeta completa del repo (trae `.vscode/settings.json`) y reinicia Live Server |
+| `No module named 'app'` | Corriste `uvicorn` fuera de la carpeta `backend` | Usa `.\iniciar.ps1` desde la carpeta principal, o `cd backend` antes |
 | `[Errno 10048]` o puerto 8000 en uso | Ya hay un backend encendido | Cierra la otra ventana del backend o reinicia el computador |
 | No puedo iniciar sesión con Sofía o Andrés | Están inactiva y suspendido a propósito | Usa otro usuario de la tabla |
 
