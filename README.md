@@ -197,6 +197,8 @@ Para activarla: crearla una vez desde AWS CloudShell con [crear-rds.sh](desplieg
 
 ## Cómo correr Muralia en tu computador
 
+> Guía completa paso a paso para el equipo (instalar, correr, editar en vivo, publicar y problemas comunes): [GUIA-EQUIPO.md](GUIA-EQUIPO.md).
+
 1. Pide a quien administra la cuenta que te cree un usuario IAM en el grupo `muralia-equipo`.
 2. En la consola de AWS: tu nombre → **Credenciales de seguridad** → **Crear clave de acceso** → **Código local**.
 3. En tu computador:
